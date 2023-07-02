@@ -10,14 +10,16 @@ import {
 
 import { Error, Home, Login } from './pages'
 import HandleAuthRedirect from './auth/HandleAuthRedirect'
-import Dashboard from './components/Dashboard'
+import { Navbar } from './components'
 
 function App () {
   const router = createBrowserRouter(
     createRoutesFromElements(
-      <Route path='/' element={<Dashboard />}>
+      <Route path='/'>
         <Route element={<HandleAuthRedirect />}>
-          <Route index element={<Home />} />
+          <Route element={<Navbar />}>
+            <Route index element={<Home />} errorElement={<Error />} />
+          </Route>
         </Route>
         <Route path='/login' element={<Login />} />
       </Route>
