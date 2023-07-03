@@ -10,7 +10,7 @@ const CommonBtn = ({
     <Button
       type={type}
       htmlType={htmlType}
-      className={`font-raleway shadow-none ${classNames}`}
+      className={`font-monts shadow-none  ${classNames}`}
     >
       {children}
     </Button>

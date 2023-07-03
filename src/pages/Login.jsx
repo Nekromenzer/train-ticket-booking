@@ -12,7 +12,7 @@ const Login = () => {
       <div className='flex flex-row items-center justify-center h-full'>
         <div className='w-full md:w-1/3'>
           <div className='bg-white rounded-lg shadow-lg p-5 md:p-20 mx-2'>
-            <Title level={2} className='text-center'>
+            <Title level={1} className='text-center'>
               {isLoginForm ? data.signInText : data.signUpText}
             </Title>
             <CommonForm {...data} type={isLoginForm ? 'signIn' : 'signUp'} />

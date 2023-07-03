@@ -5,7 +5,7 @@ const data = {
   signUpText: 'Sign Up',
   name: 'login',
   layout: 'vertical',
-  className: 'mt-[1rem] md:mt-[2rem]',
+  className: 'mt-[1rem] md:mt-[3rem]',
   fields: [
     {
       label: 'Email',

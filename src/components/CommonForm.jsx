@@ -15,9 +15,9 @@ const CommonForm = props => {
 
   const renderInput = (fieldType, placeholder) => {
     return fieldType === 'password' ? (
-      <Input.Password placeholder={placeholder} className='font-raleway' />
+      <Input.Password placeholder={placeholder} />
     ) : (
-      <Input placeholder={placeholder} className='font-raleway' />
+      <Input placeholder={placeholder} />
     )
   }
 
@@ -32,7 +32,7 @@ const CommonForm = props => {
       name={item.name}
       rules={item.rules}
       hasFeedback={item.hasFeedback}
-      className='font-raleway my-8'
+      className='my-8'
     >
       {renderInput(item.type, item.placeholder)}
     </Form.Item>
