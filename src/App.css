@@ -16,4 +16,10 @@
         font-family: theme('fontFamily.monts') !important;
     }
 
+    .login-title {
+        color: theme('colors.white') !important;
+        letter-spacing: theme('letterSpacing.wider') !important;
+        font-size: 7rem !important;
+    }
+
 }

@@ -2,6 +2,7 @@ import { FcGoogle } from 'react-icons/fc'
 import { BsFacebook } from 'react-icons/bs'
 
 const data = {
+  title: 'TrackTicket',
   signInText: 'Sign In',
   signUpText: 'Sign Up',
   name: 'login',
