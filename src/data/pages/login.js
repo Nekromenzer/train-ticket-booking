@@ -1,3 +1,5 @@
+import { FcGoogle } from 'react-icons/fc'
+
 const data = {
   signInText: 'Sign In',
   signUpText: 'Sign Up',
@@ -39,7 +41,7 @@ const data = {
       dependencies: ['password'],
       rules: [
         {
-          required: false,
+          required: true,
           message: "Passwords don't match"
         },
         ({ getFieldValue }) => ({
@@ -55,6 +57,16 @@ const data = {
       ],
       hasFeedback: true,
       placeholder: '********'
+    }
+  ],
+  socialLogins: [
+    {
+      name: 'facebook',
+      icon: 'facebook'
+    },
+    {
+      name: 'google',
+      icon: FcGoogle
     }
   ]
 }
