@@ -30,6 +30,28 @@ const data = {
       ],
       type: 'password',
       hasFeedback: true
+    },
+    {
+      label: 'Confirm Password',
+      name: 'confirm-password',
+      type: 'password',
+      dependencies: ['password'],
+      rules: [
+        {
+          required: false,
+          message: "Passwords don't match"
+        },
+        ({ getFieldValue }) => ({
+          validator (_, value) {
+            if (!value || getFieldValue('password') === value) {
+              return Promise.resolve()
+            }
+            return Promise.reject(
+              new Error('The two passwords that you entered do not match!')
+            )
+          }
+        })
+      ]
     }
   ]
 }
