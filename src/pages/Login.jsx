@@ -15,31 +15,7 @@ const Login = () => {
             <Title level={2} className='text-center'>
               {isLoginForm ? data.signInText : data.signUpText}
             </Title>
-            <CommonForm {...data} />
-            {/* <Form
-              name='login'
-              layout='vertical'
-              className='mt-[1rem] md:mt-[2rem]'
-            >
-              <Form.Item
-                label='Email'
-                name='email'
-                rules={[
-                  { required: true, message: 'Please type your username!' }
-                ]}
-              >
-                <Input />
-              </Form.Item>
-              <Form.Item
-                label='Password'
-                name='password'
-                rules={[
-                  { required: true, message: 'Please type your password!' }
-                ]}
-              >
-                <Input.Password />
-              </Form.Item>
-            </Form> */}
+            <CommonForm {...data} type={isLoginForm ? 'signIn' : 'signUp'} />
             <div className='flex items-center justify-between gap-3'></div>
           </div>
         </div>
