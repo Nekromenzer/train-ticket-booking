@@ -33,6 +33,7 @@ const data = {
       ],
       type: 'password',
       hasFeedback: true,
+      autoComplete: 'on',
       placeholder: '********'
     },
     {
@@ -56,6 +57,7 @@ const data = {
           }
         })
       ],
+      autoComplete: 'on',
       hasFeedback: true,
       placeholder: '********'
     }
@@ -64,12 +66,12 @@ const data = {
   socialLogins: [
     {
       name: 'facebook',
-      icon: <BsFacebook className='fill-[#3b5998]'/>,
+      icon: <BsFacebook className='fill-[#3b5998] text-3xl' />,
       onclick: () => console.log('facebook login')
     },
     {
       name: 'google',
-      icon: <FcGoogle />,
+      icon: <FcGoogle className='text-3xl' />,
       onclick: () => console.log('google login')
     }
   ]

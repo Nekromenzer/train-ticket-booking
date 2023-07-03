@@ -1,25 +1,59 @@
 import { useState } from 'react'
-import { Typography } from 'antd'
+import { Typography, Switch } from 'antd'
 import { loginBg } from '../assets/img'
 import data from '../data/pages/login'
 import { CommonForm } from '../components'
 
 const Login = () => {
-  const [isLoginForm, setIsLoginForm] = useState(false)
-  const { Title } = Typography
+  const [isLoginForm, setIsLoginForm] = useState(true)
+  const { Title, Paragraph } = Typography
   return (
     <div className='h-screen'>
-      <div className='flex flex-row items-center justify-center h-full'>
-        <div className='w-full md:w-1/3'>
-          <div className='bg-white rounded-lg shadow-lg p-5 md:p-20 mx-2'>
+      <div className='flex flex-row items-start justify-center h-full'>
+        <div className='w-full lg:w-1/3 md:w-1/2 pt-[5rem]'>
+          <div className='p-5 md:p-20 mx-2'>
             <Title level={1} className='text-center'>
               {isLoginForm ? data.signInText : data.signUpText}
             </Title>
+            <div className='w-fit mx-auto'>
+              <Switch
+                defaultChecked
+                checkedChildren={data.signInText}
+                unCheckedChildren={data.signUpText}
+                checked={isLoginForm}
+                onChange={() => setIsLoginForm(!isLoginForm)}
+                loading={false}
+                className='bg-blue-600 hover:bg-blue-600'
+              />
+            </div>
+
+            {/* form */}
             <CommonForm {...data} type={isLoginForm ? 'signIn' : 'signUp'} />
-            <div className='flex items-center justify-between gap-3'></div>
+
+            {/* social login */}
+            <Title
+              level={4}
+              className='text-center text-slate-800 font-bold mt-[3rem]'
+            >
+              or
+            </Title>
+            <Paragraph className='text-center text-slate-500 mt-[2rem]'>
+              {data.loginWithSocialText}
+            </Paragraph>
+            <div className='flex items-center justify-center gap-5'>
+              {data.socialLogins.map((item, idx) => (
+                <div
+                  key={`social_login_${idx}`}
+                  onClick={item.onclick}
+                  className='cursor-pointer'
+                >
+                  {item.icon}
+                </div>
+              ))}
+            </div>
           </div>
         </div>
-        <div className='w-full md:w-2/3 hidden md:block'>
+        <div className='w-full md:w-1/2 lg:w-2/3 hidden md:block'>
           <img
             src={loginBg}
             alt='login background'
