@@ -4,6 +4,16 @@
 
 @layer components {
     h1, h2, h3, h4, h5, h6 {
-        font-family: theme('fontFamily.archivo')
+        font-family: theme('fontFamily.roboto') !important
     }
+
+    label, input {
+        font-family: theme('fontFamily.monts') !important;
+        font-weight: 500;
+    }
+
+    p, span {
+        font-family: theme('fontFamily.monts') !important;
+    }
+
 }
