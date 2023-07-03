@@ -8,7 +8,7 @@ export default {
         roboto: 'Roboto Slab, sans-serif'
       },
       backgroundImage: {
-        login: 'url(./public/img/login-bg-effect.png)'
+        login: 'url(/img/login-bg-effect.png)'
       }
     }
   },
