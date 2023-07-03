@@ -12,4 +12,8 @@
         font-weight: 500;
     }
 
+    p, span {
+        font-family: theme('fontFamily.monts') !important;
+    }
+
 }
