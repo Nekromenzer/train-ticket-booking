@@ -13,9 +13,9 @@ const CommonForm = props => {
     formBtnText
   } = props
 
-  const renderInput = (fieldType, placeholder) => {
+  const renderInput = (fieldType, placeholder, autoComplete) => {
     return fieldType === 'password' ? (
-      <Input.Password placeholder={placeholder} />
+      <Input.Password placeholder={placeholder} autoComplete={autoComplete} />
     ) : (
       <Input placeholder={placeholder} />
     )
@@ -34,7 +34,7 @@ const CommonForm = props => {
       hasFeedback={item.hasFeedback}
       className='my-8'
     >
-      {renderInput(item.type, item.placeholder)}
+      {renderInput(item.type, item.placeholder, item.autoComplete)}
     </Form.Item>
   ))
 
