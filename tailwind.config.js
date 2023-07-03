@@ -4,8 +4,8 @@ export default {
   theme: {
     extend: {
       fontFamily: {
-        archivo: 'Archivo Narrow,sans-serif',
-        raleway: 'Raleway, sans-serif'
+        monts: 'Montserrat,sans-serif',
+        roboto: 'Roboto Slab, sans-serif'
       }
     }
   },
