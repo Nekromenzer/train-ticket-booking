@@ -29,7 +29,8 @@ const data = {
         { max: 20, message: 'Password must be maximum 20 characters.' }
       ],
       type: 'password',
-      hasFeedback: true
+      hasFeedback: true,
+      placeholder: '********'
     },
     {
       label: 'Confirm Password',
@@ -51,7 +52,9 @@ const data = {
             )
           }
         })
-      ]
+      ],
+      hasFeedback: true,
+      placeholder: '********'
     }
   ]
 }
