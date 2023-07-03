@@ -1,6 +1,5 @@
 import { useState, useRef } from 'react'
 import { Typography, Switch } from 'antd'
-import { loginBg } from '../assets/img'
 import data from '../data/pages/login'
 import { CommonForm } from '../components'
 
@@ -15,7 +14,6 @@ const Login = () => {
       <div className='flex flex-row items-start justify-center h-full'>
         <div className='w-full lg:w-1/3 md:w-1/2 pt-[5rem]'>
           <div className='p-5 md:p-20 mx-2'>
-
             <Title level={1} className='text-center'>
               {isLoginForm ? data.signInText : data.signUpText}
             </Title>
@@ -66,16 +64,9 @@ const Login = () => {
                 </div>
               ))}
             </div>
-
           </div>
         </div>
-        <div className='w-full md:w-1/2 lg:w-2/3 hidden md:block'>
-          <img
-            src={loginBg}
-            alt='login background'
-            className='object-cover w-full h-screen blur-[2px]'
-          />
-        </div>
+        <div className='w-full md:w-1/2 lg:w-2/3 hidden md:block bg-login h-screen blur-[1px]'/>
       </div>
     </div>
   )

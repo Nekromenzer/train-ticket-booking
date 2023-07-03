@@ -1,3 +1,3 @@
-import loginBg from './login-bg.jpg'
+import loginBg from './login-bg-effect.png'
 
 export { loginBg }
