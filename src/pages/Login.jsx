@@ -66,7 +66,11 @@ const Login = () => {
             </div>
           </div>
         </div>
-        <div className='w-full md:w-1/2 lg:w-2/3 hidden md:block bg-login h-screen blur-[1px]'/>
+        <div className='w-full md:w-1/2 lg:w-2/3 hidden md:block bg-login h-screen'>
+          <Title className='text-center pt-[8rem] login-title'>
+            {data.title}
+          </Title>
+        </div>
       </div>
     </div>
   )
