@@ -1,11 +1,11 @@
 import { useState } from 'react'
-import { Typography, Form, Input } from 'antd'
+import { Typography } from 'antd'
 import { loginBg } from '../assets/img'
 import data from '../data/pages/login'
-import CommonForm from '../components/CommonForm'
+import { CommonForm } from '../components'
 
 const Login = () => {
-  const [isLoginForm, setIsLoginForm] = useState(true)
+  const [isLoginForm, setIsLoginForm] = useState(false)
   const { Title } = Typography
   return (
     <div className='h-screen'>
