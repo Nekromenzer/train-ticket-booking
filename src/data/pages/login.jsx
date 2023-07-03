@@ -1,4 +1,5 @@
 import { FcGoogle } from 'react-icons/fc'
+import { BsFacebook } from 'react-icons/bs'
 
 const data = {
   signInText: 'Sign In',
@@ -59,14 +60,17 @@ const data = {
       placeholder: '********'
     }
   ],
+  loginWithSocialText: 'login with social account',
   socialLogins: [
     {
       name: 'facebook',
-      icon: 'facebook'
+      icon: <BsFacebook className='fill-[#3b5998]'/>,
+      onclick: () => console.log('facebook login')
     },
     {
       name: 'google',
-      icon: FcGoogle
+      icon: <FcGoogle />,
+      onclick: () => console.log('google login')
     }
   ]
 }
