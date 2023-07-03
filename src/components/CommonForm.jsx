@@ -1,29 +1,30 @@
-import React from 'react'
 import { Form, Input } from 'antd'
 
 const CommonForm = props => {
-  const { fields, name, layout, className } = props
+  const { fields, name, layout = 'vertical', className, type } = props
 
-  const renderInput = type => {
-    if (type === 'password') {
-      return <Input.Password />
-    }
-    return <Input />
+  const renderInput = fieldType => {
+    return fieldType === 'password' ? <Input.Password /> : <Input />
   }
 
-  console.log(props)
+  const renderItemsInArray = () => {
+    return type === 'signIn' ? 2 : fields.length
+  }
+
+  const formItems = fields.slice(0, renderItemsInArray()).map((item, idx) => (
+    <Form.Item
+      key={`form_${name}_${idx}`}
+      label={item.label}
+      name={item.name}
+      rules={item.rules}
+    >
+      {renderInput(item.type)}
+    </Form.Item>
+  ))
+
   return (
     <Form name={name} layout={layout} className={className}>
-      {fields.map((item, idx) => (
-        <Form.Item
-          key={`form_${name}_${idx}`}
-          label={item.label}
-          name={item.name}
-          rules={item.rules}
-        >
-          {renderInput(item.type)}
-        </Form.Item>
-      ))}
+      {formItems}
     </Form>
   )
 }
