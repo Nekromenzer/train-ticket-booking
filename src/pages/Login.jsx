@@ -23,8 +23,8 @@ const Login = () => {
             <div className='w-fit mx-auto'>
               <Switch
                 defaultChecked
-                checkedChildren={data.signInText}
-                unCheckedChildren={data.signUpText}
+                checkedChildren={data.signUpText}
+                unCheckedChildren={data.signInText}
                 checked={isLoginForm}
                 onChange={() => {
                   setIsLoginForm(!isLoginForm)
