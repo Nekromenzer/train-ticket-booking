@@ -1,7 +1,8 @@
+import { forwardRef, useImperativeHandle } from 'react'
 import { Form, Input } from 'antd'
 import CommonBtn from './CommonBtn'
 
-const CommonForm = props => {
+const CommonForm = forwardRef((props, ref) => {
   const {
     fields,
     name,
@@ -10,8 +11,15 @@ const CommonForm = props => {
     type,
     signInText,
     signUpText,
-    formBtnText
+    formBtnText,
+    onSubmit = val => {
+      console.log(val)
+    },
+    preserve = false,
+    requiredMark
   } = props
+
+  const [form] = Form.useForm()
 
   const renderInput = (fieldType, placeholder, autoComplete) => {
     return fieldType === 'password' ? (
@@ -38,8 +46,28 @@ const CommonForm = props => {
     </Form.Item>
   ))
 
+  const onFinish = values => {
+    onSubmit(values)
+  }
+
+  const resetFields = () => {
+    form.resetFields()
+  }
+
+  useImperativeHandle(ref, () => ({
+    resetFields
+  }))
+
   return (
-    <Form name={name} layout={layout} className={className}>
+    <Form
+      name={name}
+      layout={layout}
+      className={className}
+      form={form}
+      onFinish={onFinish}
+      preserve={preserve}
+      requiredMark={requiredMark}
+    >
       {formItems}
       <Form.Item>
         <CommonBtn
@@ -56,6 +84,6 @@ const CommonForm = props => {
       </Form.Item>
     </Form>
   )
-}
+})
 
 export default CommonForm

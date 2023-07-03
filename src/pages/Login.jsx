@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useRef } from 'react'
 import { Typography, Switch } from 'antd'
 import { loginBg } from '../assets/img'
 import data from '../data/pages/login'
@@ -7,6 +7,9 @@ import { CommonForm } from '../components'
 const Login = () => {
   const [isLoginForm, setIsLoginForm] = useState(true)
   const { Title, Paragraph } = Typography
+
+  const formRef = useRef(null)
+
   return (
     <div className='h-screen'>
       <div className='flex flex-row items-start justify-center h-full'>
@@ -21,14 +24,22 @@ const Login = () => {
                 checkedChildren={data.signInText}
                 unCheckedChildren={data.signUpText}
                 checked={isLoginForm}
-                onChange={() => setIsLoginForm(!isLoginForm)}
+                onChange={() => {
+                  setIsLoginForm(!isLoginForm)
+                  formRef?.current?.resetFields()
+                }}
                 loading={false}
                 className='bg-blue-600 hover:bg-blue-600'
               />
             </div>
 
             {/* form */}
-            <CommonForm {...data} type={isLoginForm ? 'signIn' : 'signUp'} />
+            <CommonForm
+              {...data}
+              type={isLoginForm ? 'signIn' : 'signUp'}
+              requiredMark={false}
+              ref={formRef}
+            />
 
             {/* social login */}
             <Title
