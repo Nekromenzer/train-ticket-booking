@@ -1,3 +1,6 @@
-export { default as Navbar } from './Navbar'
+export { default as Navbar } from './elements/Navbar'
 export { default as CommonForm } from './CommonForm'
-export { default as CommonBtn} from './CommonBtn'
+export { default as CommonBtn } from './CommonBtn'
+export { default as TwoColSideBar } from './layout/TwoColSideBar'
+export { default as SideBar } from './elements/SideBar'
+export { default as FloatingBar } from './elements/FloatingBar'
