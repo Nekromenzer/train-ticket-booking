@@ -27,9 +27,11 @@ const SideBar = ({ isCollapse, setIsCollapse }) => {
           )}
         </div>
 
-        <div className='flex w-full justify-center items-center h-20  mb-12 '>
-          <AnalogClock />
-        </div>
+        {!isCollapse && (
+          <div className='flex w-full justify-center items-center h-20  mb-12 '>
+            <AnalogClock />
+          </div>
+        )}
 
         {data?.menu?.map((item, idx) => (
           <div
