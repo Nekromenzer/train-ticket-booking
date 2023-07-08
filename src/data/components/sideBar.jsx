@@ -12,8 +12,7 @@ const data = {
             active ? 'text-yellow-400' : ' text-white'
           }`}
         />
-      ),
-      onClick: () => console.log('Home')
+      )
     },
     {
       type: '',
@@ -24,8 +23,7 @@ const data = {
             active ? 'text-yellow-400' : ' text-white'
           }`}
         />
-      ),
-      onClick: () => console.log('my bookings')
+      )
     },
     {
       type: 'logout',
@@ -36,8 +34,7 @@ const data = {
             active ? 'text-yellow-400' : ' text-white'
           }`}
         />
-      ),
-      onClick: () => console.log('sign out')
+      )
     }
   ]
 }

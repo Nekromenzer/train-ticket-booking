@@ -1,9 +1,11 @@
+import { useContext } from 'react'
 import { PiTrainFill } from 'react-icons/pi'
 import { BiRightArrow, BiLeftArrow } from 'react-icons/bi'
 import data from '../../data/components/sideBar'
+import appDataContext from '../../context/AppDataContext'
 
-const SideBar = ({ isCollapse, setIsCollapse, activeIndex }) => {
-
+const SideBar = ({ isCollapse, setIsCollapse }) => {
+  const [activeTabIndex, setActiveTabIndex] = useContext(appDataContext)
   return (
     <div
       className={`flex flex-col lg:flex-row lg:items-center ${
@@ -32,15 +34,17 @@ const SideBar = ({ isCollapse, setIsCollapse, activeIndex }) => {
               item?.type === 'logout'
                 ? 'mt-auto hover:bg-red-500'
                 : 'hover:bg-sky-600'
-            } ${activeIndex === idx + 1 && 'bg-sky-950'}`}
+            } ${activeTabIndex === idx + 1 && 'bg-sky-950'}`}
             key={idx}
-            onClick={item.onClick}
+            onClick={() =>
+              item?.type !== 'logout' && setActiveTabIndex(idx + 1)
+            }
           >
-            {item.icon(activeIndex === idx + 1)}
+            {item.icon(activeTabIndex === idx + 1)}
             {!isCollapse && (
               <span
                 className={`subpixel-antialiased text-[0.8rem] font-normal tracking-wider text-white text-left ${
-                  activeIndex === idx + 1 && 'text-yellow-200'
+                  activeTabIndex === idx + 1 && 'text-yellow-200'
                 }`}
               >
                 {item.title}

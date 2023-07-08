@@ -11,11 +11,10 @@ const TwoColSideBar = ({ sideBar, content }) => {
           <SideBar
             isCollapse={isCollapse}
             setIsCollapse={setIsCollapse}
-            activeIndex={1}
           />
         </div>
       )}
-      <FloatingBar className='lg:hidden' activeIndex={1} />
+      <FloatingBar className='lg:hidden' />
       <div
         className={`w-full h-screen p-5 ml-0 ${
           !isCollapse ? 'lg:ml-[13.5rem]' : 'lg:ml-[3.5rem]'
