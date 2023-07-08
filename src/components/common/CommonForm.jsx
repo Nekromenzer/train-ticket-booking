@@ -1,5 +1,5 @@
 import { forwardRef, useImperativeHandle } from 'react'
-import { Form, Input, AutoComplete, DatePicker } from 'antd'
+import { Form, Input, AutoComplete, DatePicker, TimePicker } from 'antd'
 import CommonBtn from './CommonBtn'
 
 const CommonForm = forwardRef((props, ref) => {
@@ -26,8 +26,16 @@ const CommonForm = forwardRef((props, ref) => {
   const [form] = Form.useForm()
 
   const renderInput = (item, className) => {
-    const { type, placeholder, autoComplete, options, allowClear, autoFocus } =
-      item
+    const {
+      type,
+      placeholder,
+      autoComplete,
+      options,
+      allowClear,
+      autoFocus,
+      format,
+      showToday
+    } = item
     if (type === 'password') {
       return (
         <Input.Password placeholder={placeholder} autoComplete={autoComplete} />
@@ -48,9 +56,35 @@ const CommonForm = forwardRef((props, ref) => {
       )
     }
     if (type === 'date') {
-      return <DatePicker placeholder={placeholder} className={className} />
+      return (
+        <DatePicker
+          placeholder={placeholder}
+          className={className}
+          allowClear={allowClear}
+          autoFocus={autoFocus}
+          format={format}
+          showToday={showToday}
+        />
+      )
     }
-    return <Input placeholder={placeholder} className={className} />
+    if (type === 'time') {
+      return (
+        <TimePicker
+          placeholder={placeholder}
+          className={className}
+          allowClear={allowClear}
+          autoFocus={autoFocus}
+          format={format}
+        />
+      )
+    }
+    return (
+      <Input
+        placeholder={placeholder}
+        className={className}
+        autoFocus={autoFocus}
+      />
+    )
   }
 
   const renderItemsInArray = () => {
