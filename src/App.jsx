@@ -1,4 +1,5 @@
 import './App.css'
+import 'react-clock/dist/Clock.css';
 import { ConfigProvider } from 'antd'
 import { antThemeConfig } from '../antThemeConfig'
 import {

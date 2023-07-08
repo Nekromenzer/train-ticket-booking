@@ -2,7 +2,6 @@ import { FiLogOut } from 'react-icons/fi'
 import {
   BsFillClipboard2CheckFill,
   BsFillHouseFill,
-  BsExclamationCircleFill
 } from 'react-icons/bs'
 import { Modal } from 'antd'
 
