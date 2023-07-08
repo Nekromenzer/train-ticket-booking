@@ -17,9 +17,9 @@ function App () {
     createRoutesFromElements(
       <Route path='/'>
         <Route element={<HandleAuthRedirect />}>
-          <Route element={<Navbar />}>
+          {/* <Route element={<Navbar />}> */}
             <Route index element={<Home />} errorElement={<Error />} />
-          </Route>
+          {/* </Route> */}
         </Route>
         <Route path='/login' element={<Login />} />
       </Route>
