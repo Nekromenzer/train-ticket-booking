@@ -9,19 +9,37 @@ const data = {
     {
       type: '',
       title: 'Home',
-      icon: <BsFillHouseFill className='text-[1.2rem] text-white' />,
+      icon: active => (
+        <BsFillHouseFill
+          className={`text-[1.2rem] ${
+            active ? 'text-yellow-400' : ' text-white'
+          }`}
+        />
+      ),
       onClick: () => console.log('Home')
     },
     {
       type: '',
       title: 'My bookings',
-      icon: <BsFillClipboard2CheckFill className='text-[1.2rem] text-white' />,
+      icon: active => (
+        <BsFillClipboard2CheckFill
+          className={`text-[1.2rem] ${
+            active ? 'text-yellow-400' : ' text-white'
+          }`}
+        />
+      ),
       onClick: () => console.log('my bookings')
     },
     {
       type: 'logout',
       title: 'Sign out',
-      icon: <FiLogOut className='text-[1.2rem] text-white' />,
+      icon: active => (
+        <FiLogOut
+          className={`text-[1.2rem] ${
+            active ? 'text-yellow-400' : ' text-white'
+          }`}
+        />
+      ),
       onClick: () => console.log('sign out')
     }
   ]

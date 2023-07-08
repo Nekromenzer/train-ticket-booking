@@ -28,15 +28,21 @@ const SideBar = ({ isCollapse, setIsCollapse, activeIndex }) => {
           <div
             className={`w-full h-10 flex items-center ${
               isCollapse ? 'justify-center' : 'justify-start pl-6'
-            } gap-5 hover:bg-sky-600 hover:shadow-md ease-in duration-200 p-2 ${
-              item?.type === 'logout' && 'mt-auto'
-            }`}
+            } gap-5  shadow-sm hover:shadow-md ease-in duration-200 p-2 ${
+              item?.type === 'logout'
+                ? 'mt-auto hover:bg-red-500'
+                : 'hover:bg-sky-600'
+            } ${activeIndex === idx + 1 && 'bg-sky-950'}`}
             key={idx}
             onClick={item.onClick}
           >
-            {item.icon}
+            {item.icon(activeIndex === idx + 1)}
             {!isCollapse && (
-              <span className='subpixel-antialiased text-[0.8rem] font-normal tracking-wider text-white text-left'>
+              <span
+                className={`subpixel-antialiased text-[0.8rem] font-normal tracking-wider text-white text-left ${
+                  activeIndex === idx + 1 && 'text-yellow-200'
+                }`}
+              >
                 {item.title}
               </span>
             )}
