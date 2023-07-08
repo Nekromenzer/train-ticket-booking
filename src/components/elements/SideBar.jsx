@@ -16,7 +16,7 @@ const SideBar = ({ isCollapse, setIsCollapse }) => {
         <div
           className={`w-full h-10 flex items-center ${
             isCollapse ? 'justify-center' : 'justify-center'
-          } gap-2 p-2 pt-6 pb-12`}
+          } gap-2 p-2 pt-8 pb-12`}
         >
           <PiTrainFill className='fill-white text-[2.2rem]' />
           {!isCollapse && (
