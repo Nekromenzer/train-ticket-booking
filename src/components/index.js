@@ -1,6 +1,8 @@
-export { default as Navbar } from './elements/Navbar'
-export { default as CommonForm } from './common/CommonForm'
-export { default as CommonBtn } from './common/CommonBtn'
-export { default as TwoColSideBar } from './layout/TwoColSideBar'
-export { default as SideBar } from './elements/SideBar'
-export { default as FloatingBar } from './elements/FloatingBar'
+import Navbar from './elements/Navbar'
+import CommonForm from './common/CommonForm'
+import CommonBtn from './common/CommonBtn'
+import TwoColSideBar from './layout/TwoColSideBar'
+import SideBar from './elements/SideBar'
+import FloatingBar from './elements/FloatingBar'
+
+export { Navbar, CommonForm, CommonBtn, TwoColSideBar, SideBar, FloatingBar }
