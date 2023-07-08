@@ -8,7 +8,7 @@ const SideBar = ({ isCollapse, setIsCollapse, activeIndex }) => {
     <div
       className={`flex flex-col lg:flex-row lg:items-center ${
         isCollapse ? 'w-[5rem]' : 'w-[15rem]'
-      }`}
+      } ease-in-out duration-200`}
     >
       <div className='bg-sky-900 w-full h-screen flex lg:flex-col gap-3 shadow-lg'>
         <div

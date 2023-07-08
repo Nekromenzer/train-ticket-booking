@@ -1,8 +1,5 @@
 import { FiLogOut } from 'react-icons/fi'
 import { BsFillClipboard2CheckFill, BsFillHouseFill } from 'react-icons/bs'
-import { BiSolidHomeHeart } from 'react-icons/bi'
-
-const isAdmin = false
 
 const data = {
   menu: [
