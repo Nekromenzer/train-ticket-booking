@@ -26,6 +26,7 @@ const stations = [
 
 const todayDate = new Date()
 const formattedDate = dayjs(todayDate).format('YYYY-MM-DD')
+const formattedTime = dayjs(todayDate).format('HH:mm')
 
 const data = {
   formBtnText: 'Search',
@@ -56,19 +57,39 @@ const data = {
       placeholder: 'Colombo Fort',
       options: stations,
       allowClear: true,
-      autoFocus: true
+      autoFocus: false
     },
     {
       label: 'Date',
       name: 'date',
-      rules: [{ required: true, message: 'Please enter valid date!' }],
+      rules: [
+        { required: true, message: 'Please enter valid date!' },
+        { type: 'date', message: 'Please enter valid date!' }
+      ],
       type: 'date',
       autoComplete: 'on',
       hasFeedback: true,
       placeholder: formattedDate,
       options: stations,
       allowClear: true,
-      autoFocus: true
+      autoFocus: false,
+      showToday: true
+    },
+    {
+      label: 'Time',
+      name: 'time',
+      rules: [
+        { required: true, message: 'Please enter valid Time!' },
+        { type: 'date', message: 'Please enter valid Time!' }
+      ],
+      type: 'time',
+      autoComplete: 'on',
+      hasFeedback: true,
+      placeholder: formattedTime,
+      options: stations,
+      allowClear: true,
+      autoFocus: false,
+      format: 'HH:mm'
     }
   ]
 }
