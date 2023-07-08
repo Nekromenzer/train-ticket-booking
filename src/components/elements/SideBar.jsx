@@ -3,7 +3,7 @@ import { BiRightArrow, BiLeftArrow } from 'react-icons/bi'
 import data from '../../data/components/sideBar'
 
 const SideBar = ({ isCollapse, setIsCollapse, activeIndex }) => {
-  console.log(data.menu)
+
   return (
     <div
       className={`flex flex-col lg:flex-row lg:items-center ${
