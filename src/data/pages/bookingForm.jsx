@@ -1,3 +1,5 @@
+import dayjs from 'dayjs'
+
 const stations = [
   { value: 'Colombo Fort' },
   { value: 'Gampaha' },
@@ -21,6 +23,9 @@ const stations = [
   { value: 'Veyangoda' },
   { value: 'Polgahawela' }
 ]
+
+const todayDate = new Date()
+const formattedDate = dayjs(todayDate).format('YYYY-MM-DD')
 
 const data = {
   formBtnText: 'Search',
@@ -56,13 +61,11 @@ const data = {
     {
       label: 'Date',
       name: 'date',
-      rules: [
-        { required: true, message: 'Please enter your Arrival station!' }
-      ],
+      rules: [{ required: true, message: 'Please enter valid date!' }],
       type: 'date',
       autoComplete: 'on',
       hasFeedback: true,
-      placeholder: 'Kandy',
+      placeholder: formattedDate,
       options: stations,
       allowClear: true,
       autoFocus: true
