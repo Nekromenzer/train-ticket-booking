@@ -65,4 +65,8 @@
     ::-webkit-scrollbar-thumb:hover {
         background: #555;
     }
+
+    .booking-form-item {
+        margin-bottom: 0px !important;
+    }
 }

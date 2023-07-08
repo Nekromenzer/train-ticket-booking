@@ -1,5 +1,5 @@
 import { forwardRef, useImperativeHandle } from 'react'
-import { Form, Input } from 'antd'
+import { Form, Input, AutoComplete, DatePicker, TimePicker } from 'antd'
 import CommonBtn from './CommonBtn'
 
 const CommonForm = forwardRef((props, ref) => {
@@ -8,7 +8,7 @@ const CommonForm = forwardRef((props, ref) => {
     name,
     layout = 'vertical',
     className,
-    type,
+    type = 'other',
     signInText,
     signUpText,
     formBtnText,
@@ -16,16 +16,74 @@ const CommonForm = forwardRef((props, ref) => {
       console.log(val)
     },
     preserve = false,
-    requiredMark
+    requiredMark,
+    formItemClassName = 'my-8',
+    inputClassName = 'w-full',
+    btnClassName,
+    btnWrapperClassName
   } = props
 
   const [form] = Form.useForm()
 
-  const renderInput = (fieldType, placeholder, autoComplete) => {
-    return fieldType === 'password' ? (
-      <Input.Password placeholder={placeholder} autoComplete={autoComplete} />
-    ) : (
-      <Input placeholder={placeholder} />
+  const renderInput = (item, className) => {
+    const {
+      type,
+      placeholder,
+      autoComplete,
+      options,
+      allowClear,
+      autoFocus,
+      format,
+      showToday
+    } = item
+    if (type === 'password') {
+      return (
+        <Input.Password placeholder={placeholder} autoComplete={autoComplete} />
+      )
+    }
+    if (type === 'autocomplete') {
+      return (
+        <AutoComplete
+          options={options}
+          placeholder={placeholder}
+          filterOption={(inputValue, option) =>
+            option.value.toUpperCase().indexOf(inputValue.toUpperCase()) !== -1
+          }
+          allowClear={allowClear}
+          autoFocus={autoFocus}
+          className={className}
+        />
+      )
+    }
+    if (type === 'date') {
+      return (
+        <DatePicker
+          placeholder={placeholder}
+          className={className}
+          allowClear={allowClear}
+          autoFocus={autoFocus}
+          format={format}
+          showToday={showToday}
+        />
+      )
+    }
+    if (type === 'time') {
+      return (
+        <TimePicker
+          placeholder={placeholder}
+          className={className}
+          allowClear={allowClear}
+          autoFocus={autoFocus}
+          format={format}
+        />
+      )
+    }
+    return (
+      <Input
+        placeholder={placeholder}
+        className={className}
+        autoFocus={autoFocus}
+      />
     )
   }
 
@@ -33,16 +91,16 @@ const CommonForm = forwardRef((props, ref) => {
     return type === 'signIn' ? 2 : fields.length
   }
 
-  const formItems = fields.slice(0, renderItemsInArray()).map((item, idx) => (
+  const formItems = fields?.slice(0, renderItemsInArray()).map((item, idx) => (
     <Form.Item
       key={`form_${name}_${idx}`}
       label={item.label}
       name={item.name}
       rules={item.rules}
       hasFeedback={item.hasFeedback}
-      className='my-8'
+      className={formItemClassName}
     >
-      {renderInput(item.type, item.placeholder, item.autoComplete)}
+      {renderInput(item, inputClassName)}
     </Form.Item>
   ))
 
@@ -69,11 +127,11 @@ const CommonForm = forwardRef((props, ref) => {
       requiredMark={requiredMark}
     >
       {formItems}
-      <Form.Item>
+      <Form.Item className={btnWrapperClassName}>
         <CommonBtn
           type='primary'
           htmlType='submit'
-          classNames='w-full mt-4 bg-blue-400 font-bold'
+          classNames={`w-full mt-4 bg-blue-400 font-bold ${btnClassName}`}
         >
           {name === 'login'
             ? type === 'signIn'
