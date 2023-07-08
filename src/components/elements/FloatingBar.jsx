@@ -1,13 +1,11 @@
+import { useContext } from 'react'
 import { FloatButton } from 'antd'
 import { PiTrainFill } from 'react-icons/pi'
 import data from '../../data/components/sideBar'
+import appDataContext from '../../context/AppDataContext'
 
-const FloatingBar = ({
-  trigger = 'click',
-  type = 'primary',
-  className,
-  activeIndex
-}) => {
+const FloatingBar = ({ trigger = 'click', type = 'primary', className }) => {
+  const [activeTabIndex, setActiveTabIndex] = useContext(appDataContext)
   return (
     <div className={className}>
       <FloatButton.Group
@@ -20,10 +18,14 @@ const FloatingBar = ({
       >
         {data?.menu?.map((item, idx) => (
           <FloatButton
-            icon={item.icon(activeIndex === idx + 1)}
+            icon={item.icon(activeTabIndex === idx + 1)}
             key={idx}
             type={type}
-            onClick={item.onClick}
+            onClick={() =>
+              item?.type !== 'logout'
+                ? setActiveTabIndex(idx + 1)
+                : item.onClick()
+            }
             tooltip={item.title}
           />
         ))}

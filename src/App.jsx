@@ -7,19 +7,17 @@ import {
   RouterProvider,
   Route
 } from 'react-router-dom'
-
 import { Error, Home, Login } from './pages'
 import HandleAuthRedirect from './auth/HandleAuthRedirect'
-import { Navbar } from './components'
+//context provider
+import AppDataProvider from './context/provider/AppDataProvider'
 
 function App () {
   const router = createBrowserRouter(
     createRoutesFromElements(
       <Route path='/'>
         <Route element={<HandleAuthRedirect />}>
-          {/* <Route element={<Navbar />}> */}
-            <Route index element={<Home />} errorElement={<Error />} />
-          {/* </Route> */}
+          <Route index element={<Home />} errorElement={<Error />} />
         </Route>
         <Route path='/login' element={<Login />} />
       </Route>
@@ -27,7 +25,9 @@ function App () {
   )
   return (
     <ConfigProvider theme={antThemeConfig}>
-      <RouterProvider router={router} />
+      <AppDataProvider>
+        <RouterProvider router={router} />
+      </AppDataProvider>
     </ConfigProvider>
   )
 }
