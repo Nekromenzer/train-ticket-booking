@@ -3,6 +3,7 @@ import { PiTrainFill } from 'react-icons/pi'
 import { BiRightArrow, BiLeftArrow } from 'react-icons/bi'
 import data from '../../data/components/sideBar'
 import appDataContext from '../../context/AppDataContext'
+import AnalogClock from './AnalogClock'
 
 const SideBar = ({ isCollapse, setIsCollapse }) => {
   const [activeTabIndex, setActiveTabIndex] = useContext(appDataContext)
@@ -24,6 +25,10 @@ const SideBar = ({ isCollapse, setIsCollapse }) => {
               TrackTrain
             </span>
           )}
+        </div>
+
+        <div className='flex w-full justify-center items-center h-20  mb-12 '>
+          <AnalogClock />
         </div>
 
         {data?.menu?.map((item, idx) => (
