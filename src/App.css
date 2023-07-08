@@ -40,5 +40,9 @@
         font-size: 5rem !important;
     }
 
+    .btn-delete:hover {
+        background-color: theme('colors.red.600') !important;
+    }
+
 
 }

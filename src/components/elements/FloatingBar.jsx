@@ -22,7 +22,9 @@ const FloatingBar = ({ trigger = 'click', type = 'primary', className }) => {
             key={idx}
             type={type}
             onClick={() =>
-              item?.type !== 'logout' && setActiveTabIndex(idx + 1)
+              item?.type !== 'logout'
+                ? setActiveTabIndex(idx + 1)
+                : item.onClick()
             }
             tooltip={item.title}
           />

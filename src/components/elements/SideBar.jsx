@@ -37,7 +37,9 @@ const SideBar = ({ isCollapse, setIsCollapse }) => {
             } ${activeTabIndex === idx + 1 && 'bg-sky-950'}`}
             key={idx}
             onClick={() =>
-              item?.type !== 'logout' && setActiveTabIndex(idx + 1)
+              item?.type !== 'logout'
+                ? setActiveTabIndex(idx + 1)
+                : item.onClick()
             }
           >
             {item.icon(activeTabIndex === idx + 1)}
