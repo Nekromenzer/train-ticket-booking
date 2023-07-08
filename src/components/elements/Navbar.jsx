@@ -1,6 +1,6 @@
 import { Outlet } from 'react-router'
 import { Avatar, Popconfirm, message } from 'antd'
-import data from '../data/components/navigation'
+import data from '../../data/components/navigation'
 
 const Navbar = () => {
   const confirm = e => {
