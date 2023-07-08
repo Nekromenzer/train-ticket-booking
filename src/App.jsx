@@ -7,9 +7,10 @@ import {
   RouterProvider,
   Route
 } from 'react-router-dom'
-
 import { Error, Home, Login } from './pages'
 import HandleAuthRedirect from './auth/HandleAuthRedirect'
+//context provider
+import AppDataProvider from './context/provider/AppDataProvider'
 
 function App () {
   const router = createBrowserRouter(
@@ -24,7 +25,9 @@ function App () {
   )
   return (
     <ConfigProvider theme={antThemeConfig}>
-      <RouterProvider router={router} />
+      <AppDataProvider>
+        <RouterProvider router={router} />
+      </AppDataProvider>
     </ConfigProvider>
   )
 }
