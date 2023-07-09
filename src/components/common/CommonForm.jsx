@@ -1,5 +1,12 @@
 import { forwardRef, useImperativeHandle } from 'react'
-import { Form, Input, AutoComplete, DatePicker, TimePicker } from 'antd'
+import {
+  Form,
+  Input,
+  AutoComplete,
+  DatePicker,
+  TimePicker,
+  InputNumber
+} from 'antd'
 import CommonBtn from './CommonBtn'
 
 const CommonForm = forwardRef((props, ref) => {
@@ -35,7 +42,11 @@ const CommonForm = forwardRef((props, ref) => {
       autoFocus,
       format,
       showToday,
-      minuteStep
+      minuteStep,
+      min,
+      max,
+      disabledDate,
+      defaultValue
     } = item
     if (type === 'password') {
       return (
@@ -65,6 +76,7 @@ const CommonForm = forwardRef((props, ref) => {
           autoFocus={autoFocus}
           format={format}
           showToday={showToday}
+          disabledDate={disabledDate}
         />
       )
     }
@@ -90,8 +102,20 @@ const CommonForm = forwardRef((props, ref) => {
           autoFocus={autoFocus}
           format={format}
           minuteStep={minuteStep}
-          popupClassName="time-range-picker-popup"
+          popupClassName='time-range-picker-popup'
           use12Hours
+        />
+      )
+    }
+    if (type === 'number') {
+      return (
+        <InputNumber
+          placeholder={placeholder}
+          autoComplete={autoComplete}
+          min={min}
+          max={max}
+          className='w-full'
+          defaultValue={defaultValue}
         />
       )
     }
@@ -100,6 +124,8 @@ const CommonForm = forwardRef((props, ref) => {
         placeholder={placeholder}
         className={className}
         autoFocus={autoFocus}
+        min={min}
+        max={max}
       />
     )
   }

@@ -98,14 +98,15 @@ const data = {
       options: stations,
       allowClear: true,
       autoFocus: false,
-      showToday: true
+      showToday: true,
+      disabledDate:(current) => {
+        let customDate = dayjs().format("YYYY-MM-DD");
+        return current && current < dayjs(customDate, "YYYY-MM-DD");
+      }
     },
     {
       label: 'Start & End Time',
       name: 'time',
-      rules: [
-        // { type: 'array', required: true, message: 'Please select time!' }
-      ],
       type: 'timeRange',
       autoComplete: 'on',
       hasFeedback: true,
@@ -115,6 +116,23 @@ const data = {
       autoFocus: false,
       format: 'HH:mm',
       minuteStep: 30
+    },
+    {
+      label: 'No of Passengers',
+      name: 'passengers',
+      rules: [
+        { required: true, message: 'Please enter number of Passengers' },
+      ],
+      type: 'number',
+      autoComplete: 'on',
+      hasFeedback: true,
+      placeholder: '1',
+      allowClear: true,
+      autoFocus: false,
+      showToday: true,
+      defaultValue: 1,
+      min: 1,
+      max: 5
     }
   ],
   tableColumns: [
