@@ -34,7 +34,8 @@ const CommonForm = forwardRef((props, ref) => {
       allowClear,
       autoFocus,
       format,
-      showToday
+      showToday,
+      minuteStep
     } = item
     if (type === 'password') {
       return (
@@ -75,6 +76,22 @@ const CommonForm = forwardRef((props, ref) => {
           allowClear={allowClear}
           autoFocus={autoFocus}
           format={format}
+          minuteStep={minuteStep}
+          use12Hours
+        />
+      )
+    }
+    if (type === 'timeRange') {
+      return (
+        <TimePicker.RangePicker
+          placeholder={placeholder}
+          className={className}
+          allowClear={allowClear}
+          autoFocus={autoFocus}
+          format={format}
+          minuteStep={minuteStep}
+          popupClassName="time-range-picker-popup"
+          use12Hours
         />
       )
     }
