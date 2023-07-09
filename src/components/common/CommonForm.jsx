@@ -45,7 +45,8 @@ const CommonForm = forwardRef((props, ref) => {
       minuteStep,
       min,
       max,
-      disabledDate
+      disabledDate,
+      defaultValue
     } = item
     if (type === 'password') {
       return (
@@ -114,6 +115,7 @@ const CommonForm = forwardRef((props, ref) => {
           min={min}
           max={max}
           className='w-full'
+          defaultValue={defaultValue}
         />
       )
     }

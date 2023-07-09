@@ -107,10 +107,6 @@ const data = {
     {
       label: 'Start & End Time',
       name: 'time',
-      // rules: [
-      //   { type: 'array', required: true, message: 'Please select time!' },
-
-      // ],
       type: 'timeRange',
       autoComplete: 'on',
       hasFeedback: true,
@@ -126,30 +122,15 @@ const data = {
       name: 'passengers',
       rules: [
         { required: true, message: 'Please enter number of Passengers' },
-        {
-          pattern: /^(?:\d*)$/,
-          message: 'Please enter a valid number!'
-        },
-        ({ getFieldValue }) => ({
-          validator (_, value) {
-            if (!value || getFieldValue('from') !== value) {
-              return Promise.resolve()
-            }
-            return Promise.reject(
-              new Error('Please select a different station!')
-            )
-          }
-        }),
-        { min: 1, message: 'At least 1 passenger needed!' },
-        { max: 5, message: 'Maximum passengers should not exceed 5!' }
       ],
-      type: '',
+      type: 'number',
       autoComplete: 'on',
       hasFeedback: true,
       placeholder: '1',
       allowClear: true,
       autoFocus: false,
       showToday: true,
+      defaultValue: 1,
       min: 1,
       max: 5
     }
