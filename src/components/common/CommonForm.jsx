@@ -90,7 +90,6 @@ const CommonForm = forwardRef((props, ref) => {
           autoFocus={autoFocus}
           format={format}
           minuteStep={minuteStep}
-          popupStyle={{ backgroundColor: 'red' }}
           popupClassName="time-range-picker-popup"
           use12Hours
         />
