@@ -1,8 +1,13 @@
 import { Spin } from 'antd'
 
-const LoadingAnimation = ({ children, tip = 'Loading...', size = 'large' }) => {
+const LoadingAnimation = ({
+  children,
+  tip = 'Loading...',
+  size = 'large',
+  loading
+}) => {
   return (
-    <Spin tip={tip} size={size}>
+    <Spin tip={tip} size={size} spinning={loading}>
       {children}
     </Spin>
   )
