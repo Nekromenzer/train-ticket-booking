@@ -3,7 +3,6 @@ import dayjs from 'dayjs'
 const stations = [
   { value: 'Colombo Fort' },
   { value: 'Gampaha' },
-  { value: 'Veyangoda' },
   { value: 'Kurunegala' },
   { value: 'Maho Junction' },
   { value: 'Anuradhapura' },
@@ -29,6 +28,7 @@ const formattedDate = dayjs(todayDate).format('YYYY-MM-DD')
 const formattedTime = dayjs(todayDate).format('HH:mm')
 
 const data = {
+  formHeader: 'Search Train',
   formBtnText: 'Search',
   fields: [
     {
@@ -76,20 +76,20 @@ const data = {
       showToday: true
     },
     {
-      label: 'Time',
+      label: 'Start & End Time',
       name: 'time',
       rules: [
-        { required: true, message: 'Please enter valid Time!' },
-        { type: 'date', message: 'Please enter valid Time!' }
+        // { type: 'array', required: true, message: 'Please select time!' }
       ],
-      type: 'time',
+      type: 'timeRange',
       autoComplete: 'on',
       hasFeedback: true,
       placeholder: formattedTime,
       options: stations,
       allowClear: true,
       autoFocus: false,
-      format: 'HH:mm'
+      format: 'HH:mm',
+      minuteStep: 30
     }
   ]
 }

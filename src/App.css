@@ -69,4 +69,10 @@
     .booking-form-item {
         margin-bottom: 0px !important;
     }
+
+    .time-range-picker-popup .ant-picker-range-wrapper .ant-picker-panel-container .ant-picker-panel-layout div .ant-picker-footer ul li button {
+        background-color: theme('colors.sky.700') !important;
+        color: white !important;
+        box-shadow: none !important;
+    }
 }
