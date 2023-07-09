@@ -9,7 +9,7 @@ import Steps from '../../components/elements/Steps'
 const UserHome = () => {
   const { Title } = Typography
   const [isLoading, setIsLoading] = useState(false)
-  const [bookingState, setBookingState] = useState(1)
+  const [bookingState, setBookingState] = useState(0)
   // temp data
   const dataSource = [
     {
