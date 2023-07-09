@@ -1,4 +1,5 @@
 import dayjs from 'dayjs'
+import { BiSolidSelectMultiple } from 'react-icons/bi'
 
 const stations = [
   { value: 'Colombo Fort' },
@@ -30,6 +31,20 @@ const formattedTime = dayjs(todayDate).format('HH:mm')
 const data = {
   formHeader: 'Search Train',
   formBtnText: 'Search',
+  steps: [
+    {
+      title: 'Back to Search'
+    },
+    {
+      title: 'Select Train'
+    },
+    {
+      title: 'Select Seat'
+    },
+    {
+      title: 'Payment'
+    }
+  ],
   fields: [
     {
       label: 'From',
@@ -90,6 +105,38 @@ const data = {
       autoFocus: false,
       format: 'HH:mm',
       minuteStep: 30
+    }
+  ],
+  tableColumns: [
+    {
+      title: 'Name',
+      dataIndex: 'name',
+      sorter: true,
+      key: 'name'
+    },
+    {
+      title: 'Age',
+      dataIndex: 'age',
+      sorter: true,
+      key: 'age'
+    },
+    {
+      title: 'Address',
+      dataIndex: 'address',
+      key: 'address'
+    },
+    {
+      title: 'Action',
+      key: 'action',
+      render: row => (
+        <div
+          className='flex items-center justify-start gap-4'
+          onClick={() => console.log(row, 'table row ')}
+        >
+          <span className='text-sky-500'>Select</span>
+          <BiSolidSelectMultiple className='text-sky-600' />
+        </div>
+      )
     }
   ]
 }
