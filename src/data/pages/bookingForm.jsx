@@ -64,7 +64,17 @@ const data = {
       label: 'To',
       name: 'to',
       rules: [
-        { required: true, message: 'Please enter your departure station!' }
+        { required: true, message: 'Please enter your departure station!' },
+        ({ getFieldValue }) => ({
+          validator (_, value) {
+            if (!value || getFieldValue('from') !== value) {
+              return Promise.resolve()
+            }
+            return Promise.reject(
+              new Error('Please select a different station!')
+            )
+          }
+        })
       ],
       type: 'autocomplete',
       autoComplete: 'on',
