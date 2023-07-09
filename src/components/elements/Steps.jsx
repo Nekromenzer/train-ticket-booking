@@ -1,30 +1,16 @@
-import React from 'react'
 import { Steps as AntdSteps } from 'antd'
 
-const Steps = ({ current, setCurrent }) => {
+const Steps = ({ current, setCurrent, items }) => {
   const onChange = value => {
-    console.log('onChange:', value)
     setCurrent(value)
   }
   return (
     <AntdSteps
+      size='small'
       current={current}
-      items={[
-        {
-          title: 'Finished',
-          description: 'This is a description.'
-        },
-        {
-          title: 'In Progress',
-          description: 'This is a description.',
-          subTitle: 'Left 00:00:08'
-        },
-        {
-          title: 'Waiting',
-          description: 'This is a description.'
-        }
-      ]}
+      items={items}
       onChange={onChange}
+      rootClassName='mb-4'
     />
   )
 }
