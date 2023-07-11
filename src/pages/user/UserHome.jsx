@@ -128,7 +128,7 @@ const UserHome = () => {
           className='flex lg:flex-row flex-wrap items-center justify-between'
           name='booking-form'
           formBtnText={data.formBtnText}
-          btnWrapperClassName='w-full lg:w-1/2 item-end lg:ml-auto lg:h-22 lg:h-[5.5rem] booking-form-item lg:pt-[2.3rem] px-2'
+          btnWrapperClassName='w-full lg:w-1/2 item-end lg:ml-auto lg:h-22 lg:h-[5.5rem] booking-form-item lg:pt-[1.93rem] px-2'
           btnClassName='lg:mt-auto'
         />
       )
