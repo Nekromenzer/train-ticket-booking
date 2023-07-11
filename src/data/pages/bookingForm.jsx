@@ -38,13 +38,13 @@ const formattedTime = dayjs(todayDate).format('HH:mm')
 const getTrainClassStyleProps = (type, id) => {
   if (type === 'color') {
     if (id === 1) {
-      return 'bg-red-700'
+      return 'red-700'
     }
     if (id === 2) {
-      return 'bg-green-700'
+      return 'green-700'
     }
     if (id === 3) {
-      return 'bg-slate-700'
+      return 'slate-700'
     }
   }
 
@@ -239,7 +239,7 @@ const data = {
               return (
                 <Tag
                   key={item.id}
-                  className={`${getTrainClassStyleProps(
+                  className={`bg-${getTrainClassStyleProps(
                     'color',
                     item.id
                   )} text-white w-[7rem] border-none flex items-center justify-between py-[0.8rem] px-2 gap-2 h-5`}
