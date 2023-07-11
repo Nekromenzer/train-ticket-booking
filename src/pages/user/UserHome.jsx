@@ -122,7 +122,6 @@ const UserHome = () => {
             setTimeout(() => {
               setBookingState(1)
               setIsLoading(false)
-              setBookingState(2)
             }, 2000)
           }}
           formItemClassName='w-full lg:w-1/2 p-2 booking-form-item lg:h-[5.5rem]'

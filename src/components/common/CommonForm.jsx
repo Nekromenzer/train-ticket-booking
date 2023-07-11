@@ -5,7 +5,8 @@ import {
   AutoComplete,
   DatePicker,
   TimePicker,
-  InputNumber
+  InputNumber,
+  Switch
 } from 'antd'
 import CommonBtn from './CommonBtn'
 
@@ -46,7 +47,10 @@ const CommonForm = forwardRef((props, ref) => {
       min,
       max,
       disabledDate,
-      defaultValue
+      checked,
+      defaultChecked,
+      unCheckedChildren,
+      checkedChildren
     } = item
     if (type === 'password') {
       return (
@@ -115,7 +119,18 @@ const CommonForm = forwardRef((props, ref) => {
           min={min}
           max={max}
           className='w-full'
-          defaultValue={defaultValue}
+          // defaultValue={defaultValue}
+        />
+      )
+    }
+    if (type === 'switch') {
+      return (
+        <Switch
+          checkedChildren={checkedChildren}
+          unCheckedChildren={unCheckedChildren}
+          defaultChecked={defaultChecked}
+          className='bg-sky-500'
+          checked={checked}
         />
       )
     }
@@ -142,6 +157,7 @@ const CommonForm = forwardRef((props, ref) => {
       rules={item.rules}
       hasFeedback={item.hasFeedback}
       className={formItemClassName}
+      valuePropName={item.valuePropName}
     >
       {renderInput(item, inputClassName)}
     </Form.Item>
