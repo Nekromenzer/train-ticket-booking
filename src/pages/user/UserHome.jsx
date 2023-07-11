@@ -9,104 +9,92 @@ import Steps from '../../components/elements/Steps'
 const UserHome = () => {
   const { Title } = Typography
   const [isLoading, setIsLoading] = useState(false)
-  const [bookingState, setBookingState] = useState(0)
+  const [bookingState, setBookingState] = useState(1)
   // temp data
-  const dataSource = [
+  const trainSchedule = [
     {
       key: '1',
-      name: 'Mike',
-      age: 32,
-      address: '10 Downing Street'
+      trainName: '1030 Intercity Express - Kandy to Colombo',
+      departs: '6.16 AM',
+      arrives: '9.30 AM',
+      trainClass: [
+        { id: 1, seats: 18 }, // first class
+        { id: 2, seats: 24 }, // second class
+        { id: 3, seats: 36 } // third class
+      ],
+      availableSeats: [
+        { id: 1, seats: 2 },
+        { id: 2, seats: 20 },
+        { id: 3, seats: 6 }
+      ],
+      price: [
+        { id: 1, price: 3000 },
+        { id: 2, price: 2000 },
+        { id: 3, price: 1000 }
+      ]
     },
     {
       key: '2',
-      name: 'John',
-      age: 42,
-      address: '10 Downing Street'
+      trainName: 'John',
+      departs: 'Kandy',
+      arrives: 'Badulla',
+      trainClass: [
+        { id: 1, seats: 12 }, // first class
+        { id: 2, seats: 120 }, // second class
+        { id: 3, seats: 50 } // third class
+      ],
+      availableSeats: [
+        { id: 1, seats: 12 },
+        { id: 2, seats: 70 },
+        { id: 3, seats: 20 }
+      ],
+      price: [
+        { id: 1, price: 3000 },
+        { id: 2, price: 2000 },
+        { id: 3, price: 1000 }
+      ]
     },
     {
-      key: '1',
-      name: 'Mike',
-      age: 32,
-      address: '10 Downing Street'
+      key: '3',
+      trainName: 'Sarah',
+      departs: 'Colombo',
+      arrives: 'Galle',
+      trainClass: [
+        { id: 1, seats: 30 }, // first class
+        { id: 2, seats: 80 }, // second class
+        { id: 3, seats: 130 } // third class
+      ],
+      availableSeats: [
+        { id: 1, seats: 2 },
+        { id: 2, seats: 70 },
+        { id: 3, seats: 60 }
+      ],
+      price: [
+        { id: 1, price: 5000 },
+        { id: 2, price: 2500 },
+        { id: 3, price: 800 }
+      ]
     },
     {
-      key: '2',
-      name: 'John',
-      age: 42,
-      address: '10 Downing Street'
-    },
-    {
-      key: '1',
-      name: 'Mike',
-      age: 32,
-      address: '10 Downing Street'
-    },
-    {
-      key: '2',
-      name: 'John',
-      age: 42,
-      address: '10 Downing Street'
-    },
-    {
-      key: '1',
-      name: 'Mike',
-      age: 32,
-      address: '10 Downing Street'
-    },
-    {
-      key: '2',
-      name: 'John',
-      age: 42,
-      address: '10 Downing Street'
-    },
-    {
-      key: '1',
-      name: 'Mike',
-      age: 32,
-      address: '10 Downing Street'
-    },
-    {
-      key: '2',
-      name: 'John',
-      age: 42,
-      address: '10 Downing Street'
-    },
-    {
-      key: '1',
-      name: 'Mike',
-      age: 32,
-      address: '10 Downing Street'
-    },
-    {
-      key: '2',
-      name: 'John',
-      age: 42,
-      address: '10 Downing Street'
-    },
-    {
-      key: '1',
-      name: 'Mike',
-      age: 32,
-      address: '10 Downing Street'
-    },
-    {
-      key: '2',
-      name: 'John',
-      age: 42,
-      address: '10 Downing Street'
-    },
-    {
-      key: '1',
-      name: 'Mike',
-      age: 32,
-      address: '10 Downing Street'
-    },
-    {
-      key: '2',
-      name: 'John',
-      age: 42,
-      address: '10 Downing Street'
+      key: '4',
+      trainName: 'David',
+      departs: 'Jaffna',
+      arrives: 'Colombo',
+      trainClass: [
+        { id: 1, seats: 18 }, // first class
+        { id: 2, seats: 24 }, // second class
+        { id: 3, seats: 36 } // third class
+      ],
+      availableSeats: [
+        { id: 1, seats: 2 },
+        { id: 2, seats: 20 },
+        { id: 3, seats: 6 }
+      ],
+      price: [
+        { id: 1, price: 3000 },
+        { id: 2, price: 2000 },
+        { id: 3, price: 1000 }
+      ]
     }
   ]
 
@@ -135,7 +123,7 @@ const UserHome = () => {
     else if (bookingState === 1) {
       return (
         <CommonTable
-          dataSource={dataSource}
+          dataSource={trainSchedule}
           columns={data.tableColumns}
           loading={false}
           onChange={(pagination, filters, sorter, extra) => {

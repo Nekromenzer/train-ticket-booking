@@ -1,5 +1,6 @@
 import dayjs from 'dayjs'
 import { BiSolidSelectMultiple } from 'react-icons/bi'
+import { Tag, Space } from 'antd'
 
 const stations = [
   { value: 'Colombo Fort' },
@@ -33,6 +34,32 @@ const formatDateForValidate = date => {
   return Number(dayjs(date).format('YYYYMMDD'))
 }
 const formattedTime = dayjs(todayDate).format('HH:mm')
+
+const getTrainClassStyleProps = (type, id) => {
+  if (type === 'color') {
+    if (id === 1) {
+      return '#001F30'
+    }
+    if (id === 2) {
+      return '#005078'
+    }
+    if (id === 3) {
+      return '#008EB5'
+    }
+  }
+
+  if (type === 'name') {
+    if (id === 1) {
+      return 'Air conditioned saloon'
+    }
+    if (id === 2) {
+      return '2nd Class reserved seats'
+    }
+    if (id === 3) {
+      return '3rd Class reserved seats'
+    }
+  }
+}
 
 const data = {
   formHeader: 'Search Train',
@@ -187,21 +214,99 @@ const data = {
   ],
   tableColumns: [
     {
-      title: 'Name',
-      dataIndex: 'name',
-      sorter: true,
-      key: 'name'
+      title: 'Train name',
+      dataIndex: 'trainName',
+      key: 'trainName'
     },
     {
-      title: 'Age',
-      dataIndex: 'age',
-      sorter: true,
-      key: 'age'
+      title: 'Departs',
+      dataIndex: 'departs',
+      key: 'departs'
     },
     {
-      title: 'Address',
-      dataIndex: 'address',
-      key: 'address'
+      title: 'Arrives',
+      dataIndex: 'arrives',
+      key: 'arrives'
+    },
+    {
+      title: 'Class',
+      dataIndex: 'trainClass',
+      key: 'class',
+      render: (_, { trainClass }) => {
+        return (
+          <Space direction='vertical'>
+            {trainClass?.map(item => {
+              return (
+                <Tag
+                  key={item.id}
+                  color={getTrainClassStyleProps('color', item.id)}
+                  className={`bg-${getTrainClassStyleProps(
+                    'color',
+                    item.id
+                  )} text-white w-auto min-w-[7rem] border-none flex items-center justify-between py-[0.8rem] px-2 gap-2 h-5 antialiased tracking-wide font-[400]  `}
+                >
+                  {getTrainClassStyleProps('name', item.id)}
+                  <div className='bg-white text-black h-5 w-6 flex items-center justify-center rounded-md antialiased '>
+                    {item.seats}
+                  </div>
+                </Tag>
+              )
+            })}
+          </Space>
+        )
+      }
+    },
+    {
+      title: 'Available seats',
+      dataIndex: 'availableSeats',
+      key: 'available',
+      render: (_, { availableSeats }) => {
+        return (
+          <Space direction='vertical'>
+            {availableSeats?.map(item => {
+              return (
+                <Tag
+                  key={item.id}
+                  color={getTrainClassStyleProps('color', item.id)}
+                  className={`bg-${getTrainClassStyleProps(
+                    'color',
+                    item.id
+                  )} text-white w-auto border-none flex items-center justify-between py-[0.8rem] px-2 gap-2 rounded-md h-5 antialiased tracking-wide font-[400]  `}
+                >
+                  <div className='bg-white text-black h-5 w-6 flex items-center justify-center rounded-md antialiased '>
+                    {item.seats}
+                  </div>
+                </Tag>
+              )
+            })}
+          </Space>
+        )
+      }
+    },
+    {
+      title: 'Price',
+      dataIndex: 'price',
+      key: 'price',
+      render: (_, { price }) => {
+        return (
+          <Space direction='vertical'>
+            {price?.map(item => {
+              return (
+                <Tag
+                  key={item.id}
+                  color={getTrainClassStyleProps('color', item.id)}
+                  className={`bg-${getTrainClassStyleProps(
+                    'color',
+                    item.id
+                  )} text-white w-auto border-none flex items-center justify-between py-[0.8rem] px-2 gap-2 rounded-md h-5 antialiased tracking-wide font-[400]  `}
+                >
+                  Rs. {item.price}.00
+                </Tag>
+              )
+            })}
+          </Space>
+        )
+      }
     },
     {
       title: 'Action',
