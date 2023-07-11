@@ -1,11 +1,13 @@
-import { forwardRef, useImperativeHandle } from 'react'
+import { forwardRef, useImperativeHandle, useState } from 'react'
 import {
   Form,
   Input,
   AutoComplete,
   DatePicker,
   TimePicker,
-  InputNumber
+  InputNumber,
+  Switch,
+  Tooltip
 } from 'antd'
 import CommonBtn from './CommonBtn'
 
@@ -31,6 +33,7 @@ const CommonForm = forwardRef((props, ref) => {
   } = props
 
   const [form] = Form.useForm()
+  const [checked, setChecked] = useState(false)
 
   const renderInput = (item, className) => {
     const {
@@ -46,7 +49,9 @@ const CommonForm = forwardRef((props, ref) => {
       min,
       max,
       disabledDate,
-      defaultValue
+      defaultChecked,
+      unCheckedChildren,
+      checkedChildren,
     } = item
     if (type === 'password') {
       return (
@@ -115,7 +120,19 @@ const CommonForm = forwardRef((props, ref) => {
           min={min}
           max={max}
           className='w-full'
-          defaultValue={defaultValue}
+          // defaultValue={defaultValue}
+        />
+      )
+    }
+    if (type === 'switch') {
+      return (
+        <Switch
+          checkedChildren={checkedChildren}
+          unCheckedChildren={unCheckedChildren}
+          defaultChecked={defaultChecked}
+          className='bg-sky-500'
+          checked={checked}
+          onClick={() => setChecked(!checked)}
         />
       )
     }
@@ -135,16 +152,26 @@ const CommonForm = forwardRef((props, ref) => {
   }
 
   const formItems = fields?.slice(0, renderItemsInArray()).map((item, idx) => (
-    <Form.Item
-      key={`form_${name}_${idx}`}
-      label={item.label}
-      name={item.name}
-      rules={item.rules}
-      hasFeedback={item.hasFeedback}
-      className={formItemClassName}
-    >
-      {renderInput(item, inputClassName)}
-    </Form.Item>
+    <div key={idx} className={`flex items-center gap-1 ${formItemClassName}`}>
+      {!checked && item.name === 'returnDate' ? null : (
+        <>
+          <Form.Item
+            key={`form_${name}_${idx}`}
+            label={item.label}
+            name={item.name}
+            rules={item.rules}
+            hasFeedback={item.hasFeedback}
+            valuePropName={item.valuePropName}
+            className='w-full'
+          >
+            {renderInput(item, inputClassName)}
+          </Form.Item>
+          {item.tooltip && (
+            <Tooltip title={item.tooltipTitle}>{item.tooltipText}</Tooltip>
+          )}
+        </>
+      )}
+    </div>
   ))
 
   const onFinish = values => {

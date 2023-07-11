@@ -25,7 +25,13 @@ const stations = [
 ]
 
 const todayDate = new Date()
-const formattedDate = dayjs(todayDate).format('YYYY-MM-DD')
+const formattedDate = date => dayjs(date).format('YYYY-MM-DD')
+const formatDateForValidate = date => {
+  if (date === undefined) {
+    return -1
+  }
+  return Number(dayjs(date).format('YYYYMMDD'))
+}
 const formattedTime = dayjs(todayDate).format('HH:mm')
 
 const data = {
@@ -86,7 +92,7 @@ const data = {
     },
     {
       label: 'Date',
-      name: 'date',
+      name: 'departureDate',
       rules: [
         { required: true, message: 'Please enter valid date!' },
         { type: 'date', message: 'Please enter valid date!' }
@@ -94,14 +100,13 @@ const data = {
       type: 'date',
       autoComplete: 'on',
       hasFeedback: true,
-      placeholder: formattedDate,
-      options: stations,
+      placeholder: formattedDate(todayDate),
       allowClear: true,
       autoFocus: false,
       showToday: true,
-      disabledDate:(current) => {
-        let customDate = dayjs().format("YYYY-MM-DD");
-        return current && current < dayjs(customDate, "YYYY-MM-DD");
+      disabledDate: current => {
+        let customDate = dayjs().format('YYYY-MM-DD')
+        return current && current < dayjs(customDate, 'YYYY-MM-DD')
       }
     },
     {
@@ -111,18 +116,23 @@ const data = {
       autoComplete: 'on',
       hasFeedback: true,
       placeholder: formattedTime,
-      options: stations,
       allowClear: true,
       autoFocus: false,
       format: 'HH:mm',
       minuteStep: 30
     },
     {
+      label: 'Return',
+      name: 'return',
+      type: 'switch',
+      checkedChildren: 'Return train',
+      unCheckedChildren: 'One way train',
+      valuePropName: 'checked'
+    },
+    {
       label: 'No of Passengers',
       name: 'passengers',
-      rules: [
-        { required: true, message: 'Please enter number of Passengers' },
-      ],
+      rules: [{ required: true, message: 'Please enter number of Passengers' }],
       type: 'number',
       autoComplete: 'on',
       hasFeedback: true,
@@ -130,9 +140,49 @@ const data = {
       allowClear: true,
       autoFocus: false,
       showToday: true,
-      defaultValue: 1,
       min: 1,
-      max: 5
+      max: 5,
+      tooltip: true,
+      tooltipText: (
+        <span className='break-keep text-[0.8rem] w-20 text-blue-500 cursor-help '>
+          more info
+        </span>
+      ),
+      tooltipTitle: 'Only allowed passengers  in between 1 to 5 per booking'
+    },
+    {
+      label: 'Return Date',
+      name: 'returnDate',
+      rules: [
+        { required: false, message: 'Please enter valid date!' },
+        { type: 'date', message: 'Please enter valid date!' },
+        ({ getFieldValue }) => ({
+          validator (_, value) {
+            if (
+              formatDateForValidate(getFieldValue('departureDate')) <
+              formatDateForValidate(value)
+            ) {
+              return Promise.resolve()
+            }
+            return Promise.reject(
+              new Error(
+                'Return date should be higher date than departure date!'
+              )
+            )
+          }
+        })
+      ],
+      type: 'date',
+      autoComplete: 'on',
+      hasFeedback: true,
+      placeholder: formattedDate(todayDate),
+      allowClear: false,
+      autoFocus: false,
+      showToday: true,
+      disabledDate: current => {
+        let customDate = dayjs().format('YYYY-MM-DD')
+        return current && current < dayjs(customDate, 'YYYY-MM-DD')
+      }
     }
   ],
   tableColumns: [
