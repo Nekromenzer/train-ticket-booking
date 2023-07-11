@@ -145,7 +145,6 @@ const data = {
         { type: 'date', message: 'Please enter valid date!' },
         ({ getFieldValue }) => ({
           validator (_, value) {
-            console.log(value)
             if (
               formattedDate(getFieldValue('departureDate')) !==
               formattedDate(value)
