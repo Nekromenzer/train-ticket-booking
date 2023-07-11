@@ -1,4 +1,4 @@
-import { forwardRef, useImperativeHandle } from 'react'
+import { forwardRef, useImperativeHandle, useState } from 'react'
 import {
   Form,
   Input,
@@ -7,8 +7,7 @@ import {
   TimePicker,
   InputNumber,
   Switch,
-  Tooltip,
-  Typography
+  Tooltip
 } from 'antd'
 import CommonBtn from './CommonBtn'
 
@@ -34,6 +33,7 @@ const CommonForm = forwardRef((props, ref) => {
   } = props
 
   const [form] = Form.useForm()
+  const [checked, setChecked] = useState(false)
 
   const renderInput = (item, className) => {
     const {
@@ -49,10 +49,9 @@ const CommonForm = forwardRef((props, ref) => {
       min,
       max,
       disabledDate,
-      checked,
       defaultChecked,
       unCheckedChildren,
-      checkedChildren
+      checkedChildren,
     } = item
     if (type === 'password') {
       return (
@@ -133,6 +132,7 @@ const CommonForm = forwardRef((props, ref) => {
           defaultChecked={defaultChecked}
           className='bg-sky-500'
           checked={checked}
+          onClick={() => setChecked(!checked)}
         />
       )
     }
@@ -153,21 +153,23 @@ const CommonForm = forwardRef((props, ref) => {
 
   const formItems = fields?.slice(0, renderItemsInArray()).map((item, idx) => (
     <div key={idx} className={`flex items-center gap-1 ${formItemClassName}`}>
-      <Form.Item
-        key={`form_${name}_${idx}`}
-        label={item.label}
-        name={item.name}
-        rules={item.rules}
-        hasFeedback={item.hasFeedback}
-        valuePropName={item.valuePropName}
-        className='w-full'
-      >
-        {renderInput(item, inputClassName)}
-      </Form.Item>
-      {item.tooltip && (
-        <Tooltip title={item.tooltipTitle}>
-          {item.tooltipText}
-        </Tooltip>
+      {!checked && item.name === 'returnDate' ? null : (
+        <>
+          <Form.Item
+            key={`form_${name}_${idx}`}
+            label={item.label}
+            name={item.name}
+            rules={item.rules}
+            hasFeedback={item.hasFeedback}
+            valuePropName={item.valuePropName}
+            className='w-full'
+          >
+            {renderInput(item, inputClassName)}
+          </Form.Item>
+          {item.tooltip && (
+            <Tooltip title={item.tooltipTitle}>{item.tooltipText}</Tooltip>
+          )}
+        </>
       )}
     </div>
   ))
