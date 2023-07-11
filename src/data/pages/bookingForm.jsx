@@ -50,13 +50,13 @@ const getTrainClassStyleProps = (type, id) => {
 
   if (type === 'name') {
     if (id === 1) {
-      return <span className='text-white'>1st Class</span>
+      return 'Air conditioned saloon'
     }
     if (id === 2) {
-      return '2nd Class'
+      return '2nd Class reserved seats'
     }
     if (id === 3) {
-      return '3rd Class'
+      return '3rd Class reserved seats'
     }
   }
 }
@@ -242,7 +242,7 @@ const data = {
                   className={`bg-${getTrainClassStyleProps(
                     'color',
                     item.id
-                  )} text-white w-[7rem] border-none flex items-center justify-between py-[0.8rem] px-2 gap-2 h-5`}
+                  )} text-white w-auto min-w-[7rem] border-none flex items-center justify-between py-[0.8rem] px-2 gap-2 h-5 antialiased tracking-wide font-[400]  `}
                 >
                   {getTrainClassStyleProps('name', item.id)}
                   <div className='bg-white text-black h-5 w-6 flex items-center justify-center rounded-md antialiased '>
