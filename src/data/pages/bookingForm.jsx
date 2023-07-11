@@ -109,7 +109,7 @@ const data = {
       type: 'timeRange',
       autoComplete: 'on',
       hasFeedback: true,
-      placeholder: formattedDate(todayDate),
+      placeholder: formattedTime,
       allowClear: true,
       autoFocus: false,
       format: 'HH:mm',
