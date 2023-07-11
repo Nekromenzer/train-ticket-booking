@@ -14,9 +14,9 @@ const UserHome = () => {
   const trainSchedule = [
     {
       key: '1',
-      trainName: 'Mike',
-      departs: 'Bandarawela',
-      arrives: 'Colombo',
+      trainName: '1030 Intercity Express - Kandy to Colombo',
+      departs: '6.16 AM',
+      arrives: '9.30 AM',
       trainClass: [
         { id: 1, seats: 18 }, // first class
         { id: 2, seats: 24 }, // second class

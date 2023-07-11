@@ -38,13 +38,13 @@ const formattedTime = dayjs(todayDate).format('HH:mm')
 const getTrainClassStyleProps = (type, id) => {
   if (type === 'color') {
     if (id === 1) {
-      return 'red-700'
+      return '#001F30'
     }
     if (id === 2) {
-      return 'green-700'
+      return '#005078'
     }
     if (id === 3) {
-      return 'slate-700'
+      return '#008EB5'
     }
   }
 
@@ -239,6 +239,7 @@ const data = {
               return (
                 <Tag
                   key={item.id}
+                  color={getTrainClassStyleProps('color', item.id)}
                   className={`bg-${getTrainClassStyleProps(
                     'color',
                     item.id
@@ -255,16 +256,58 @@ const data = {
         )
       }
     },
-    // {
-    //   title: 'Available seats',
-    //   dataIndex: 'availableSeats',
-    //   key: 'available'
-    // },
-    // {
-    //   title: 'Price',
-    //   dataIndex: 'price',
-    //   key: 'price'
-    // },
+    {
+      title: 'Available seats',
+      dataIndex: 'availableSeats',
+      key: 'available',
+      render: (_, { availableSeats }) => {
+        return (
+          <Space direction='vertical'>
+            {availableSeats?.map(item => {
+              return (
+                <Tag
+                  key={item.id}
+                  color={getTrainClassStyleProps('color', item.id)}
+                  className={`bg-${getTrainClassStyleProps(
+                    'color',
+                    item.id
+                  )} text-white w-auto border-none flex items-center justify-between py-[0.8rem] px-2 gap-2 rounded-md h-5 antialiased tracking-wide font-[400]  `}
+                >
+                  <div className='bg-white text-black h-5 w-6 flex items-center justify-center rounded-md antialiased '>
+                    {item.seats}
+                  </div>
+                </Tag>
+              )
+            })}
+          </Space>
+        )
+      }
+    },
+    {
+      title: 'Price',
+      dataIndex: 'price',
+      key: 'price',
+      render: (_, { price }) => {
+        return (
+          <Space direction='vertical'>
+            {price?.map(item => {
+              return (
+                <Tag
+                  key={item.id}
+                  color={getTrainClassStyleProps('color', item.id)}
+                  className={`bg-${getTrainClassStyleProps(
+                    'color',
+                    item.id
+                  )} text-white w-auto border-none flex items-center justify-between py-[0.8rem] px-2 gap-2 rounded-md h-5 antialiased tracking-wide font-[400]  `}
+                >
+                  Rs. {item.price}.00
+                </Tag>
+              )
+            })}
+          </Space>
+        )
+      }
+    },
     {
       title: 'Action',
       key: 'action',
