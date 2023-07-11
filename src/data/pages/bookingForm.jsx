@@ -135,7 +135,14 @@ const data = {
       autoFocus: false,
       showToday: true,
       min: 1,
-      max: 5
+      max: 5,
+      tooltip: true,
+      tooltipText: (
+        <span className='break-keep text-[0.8rem] w-20 text-blue-500 cursor-help '>
+          more info
+        </span>
+      ),
+      tooltipTitle: 'Only allowed passengers  in between 1 to 5 per booking'
     },
     {
       label: 'Return Date',

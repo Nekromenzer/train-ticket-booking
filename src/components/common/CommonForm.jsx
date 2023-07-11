@@ -6,7 +6,9 @@ import {
   DatePicker,
   TimePicker,
   InputNumber,
-  Switch
+  Switch,
+  Tooltip,
+  Typography
 } from 'antd'
 import CommonBtn from './CommonBtn'
 
@@ -150,17 +152,24 @@ const CommonForm = forwardRef((props, ref) => {
   }
 
   const formItems = fields?.slice(0, renderItemsInArray()).map((item, idx) => (
-    <Form.Item
-      key={`form_${name}_${idx}`}
-      label={item.label}
-      name={item.name}
-      rules={item.rules}
-      hasFeedback={item.hasFeedback}
-      className={formItemClassName}
-      valuePropName={item.valuePropName}
-    >
-      {renderInput(item, inputClassName)}
-    </Form.Item>
+    <div key={idx} className={`flex items-center gap-1 ${formItemClassName}`}>
+      <Form.Item
+        key={`form_${name}_${idx}`}
+        label={item.label}
+        name={item.name}
+        rules={item.rules}
+        hasFeedback={item.hasFeedback}
+        valuePropName={item.valuePropName}
+        className='w-full'
+      >
+        {renderInput(item, inputClassName)}
+      </Form.Item>
+      {item.tooltip && (
+        <Tooltip title={item.tooltipTitle}>
+          {item.tooltipText}
+        </Tooltip>
+      )}
+    </div>
   ))
 
   const onFinish = values => {
