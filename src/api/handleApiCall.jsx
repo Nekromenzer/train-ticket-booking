@@ -16,24 +16,25 @@ const handleApiCall = ({
   }
 }) => {
   const url = `${baseUrl}${urlDoc[variant][urlType].url}`
-  const type = urlDoc[variant][urlType].type
+  const method = urlDoc[variant][urlType].type
 
   async function handelCall () {
     setLoading(true)
     try {
       const response = await axios({
-        method: 'get',
-        url: 'https://fakestoreapi.com/products',
-        data: data,
-        params: params,
+        method,
+        url,
+        data,
+        params,
         headers: {
           'Content-Type': 'application/json'
         }
       })
       setLoading(false)
-      return cb(response)
+      return cb(response.data, response.status)
     } catch (error) {
       setLoading(false)
+      cb(error, error.message)
       throw error
     }
   }
