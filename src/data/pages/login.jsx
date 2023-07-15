@@ -8,6 +8,8 @@ const data = {
   name: 'login',
   layout: 'vertical',
   className: 'mt-[1rem] md:mt-[3rem]',
+  signInLoadingText: 'Logging user...',
+  signUpLoadingText: 'Signing user...',
   fields: [
     {
       label: 'Email',
