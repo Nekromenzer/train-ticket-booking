@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react'
 import authContext from '../AuthContext'
 
 const AuthProvider = ({ children }) => {
-  const [isAuthenticated, setIsAuthenticated] = useState(true)
+  const [isAuthenticated, setIsAuthenticated] = useState(false)
   const [isAdmin, setIsAdmin] = useState(false)
 
   // admin mail
