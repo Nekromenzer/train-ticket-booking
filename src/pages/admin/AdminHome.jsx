@@ -10,14 +10,14 @@ const AdminHome = () => {
   const navigate = useNavigate()
   const loggedUserEmail = localStorage.getItem('train_user_email')
 
-  useEffect(() => {
-    const handleNavigate = () => {
-      if (!isAdmin) {
-        return navigate('/', { replace: true })
-      }
-    }
-    return handleNavigate()
-  }, [loggedUserEmail, navigate, loggedUserEmail])
+  // useEffect(() => {
+  //   const handleNavigate = () => {
+  //     if (!isAdmin) {
+  //       return navigate('/', { replace: true })
+  //     }
+  //   }
+  //   return handleNavigate()
+  // }, [loggedUserEmail, navigate, loggedUserEmail])
   return <div>Admin Home</div>
 }
 

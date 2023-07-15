@@ -37,10 +37,13 @@ const Login = () => {
           setIsAuthenticated(true)
           const userTkn = 'dsabuydgbuays-213213213-123123bhisdubfibsdfbis'
           localStorage.setItem('userToken', userTkn)
-          if (formVal.email === adminEmail) {
+          console.log(formVal.email === adminEmail, 'admin up')
+          if (formVal.email !== adminEmail) {
             setIsSystemAdmin(true)
-            return navigate('/admin', { replace: true })
-          } else return navigate('/', { replace: true })
+            console.log(formVal.email === adminEmail, 'admin')
+            return navigate('/', { replace: true })
+          } 
+          return navigate('/admin', { replace: true })
         }
       }
     })
