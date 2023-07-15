@@ -9,11 +9,11 @@ import { useNavigate } from 'react-router-dom'
 import authContext from '../context/AuthContext'
 
 const loggedUserEmail = localStorage.getItem('train_user_email')
-const adminUrl = import.meta.env.VITE_ADMIN_EMAIL
-const isAdmin = adminUrl === loggedUserEmail
+const adminEmail = import.meta.env.VITE_ADMIN_EMAIL
+const isAdmin = adminEmail === loggedUserEmail
 
 const Login = () => {
-  const [isAuthenticated, setIsAuthenticated, setUserToken] =
+  const [isAuthenticated, setIsAuthenticated, setIsSystemAdmin] =
     useContext(authContext)
   const navigate = useNavigate()
   const [isLoginForm, setIsLoginForm] = useState(true)
@@ -22,6 +22,7 @@ const Login = () => {
 
   const formRef = useRef(null)
   const handleLogin = formVal => {
+    localStorage.setItem('train_user_email', formVal.email)
     handleApiCall({
       urlType: 'login',
       data: formVal,
@@ -34,10 +35,12 @@ const Login = () => {
         // for test
         if (status == 'Network Error') {
           setIsAuthenticated(true)
-          if (isAdmin) {
-            return navigate('/admin')
-          }
-          return navigate('/')
+          const userTkn = 'dsabuydgbuays-213213213-123123bhisdubfibsdfbis'
+          localStorage.setItem('userToken', userTkn)
+          if (formVal.email === adminEmail) {
+            setIsSystemAdmin(true)
+            return navigate('/admin', { replace: true })
+          } else return navigate('/', { replace: true })
         }
       }
     })

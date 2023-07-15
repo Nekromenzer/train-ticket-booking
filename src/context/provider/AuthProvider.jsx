@@ -1,8 +1,9 @@
 import { useState, useEffect } from 'react'
 import authContext from '../AuthContext'
+import { ellipse } from '@antv/x6/lib/registry/port-layout/ellipse'
 
 const AuthProvider = ({ children }) => {
-  const [isAuthenticated, setIsAuthenticated] = useState(true)
+  const [isAuthenticated, setIsAuthenticated] = useState(false)
   const [userToken, setUserToken] = useState(null)
   const [isSystemAdmin, setIsSystemAdmin] = useState(false)
   // admin mail
@@ -10,15 +11,19 @@ const AuthProvider = ({ children }) => {
   const getStoredUserToken = localStorage.getItem('userToken')
 
   useEffect(() => {
-    localStorage.setItem('userToken', userToken)
-  }, [getStoredUserToken, isAuthenticated, userToken])
-
-  useEffect(() => {
-    if (getStoredUserToken === null) {
+    if (
+      getStoredUserToken &&
+      getStoredUserToken !== 'null' &&
+      getStoredUserToken !== 'undefined'
+    ) {
+      setUserToken(getStoredUserToken)
+      setIsAuthenticated(true)
+    } else {
+      setUserToken(null)
       setIsAuthenticated(false)
     }
-  }, [getStoredUserToken, userToken])
-
+    return
+  }, [getStoredUserToken, isAuthenticated])
   return (
     <authContext.Provider
       value={[
@@ -27,7 +32,9 @@ const AuthProvider = ({ children }) => {
         isSystemAdmin,
         setIsSystemAdmin,
         setUserToken,
-        adminEmail
+        userToken,
+        adminEmail,
+        getStoredUserToken
       ]}
     >
       {children}
