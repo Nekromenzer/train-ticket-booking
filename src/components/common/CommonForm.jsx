@@ -26,7 +26,7 @@ const CommonForm = forwardRef((props, ref) => {
     },
     preserve = false,
     requiredMark,
-    formItemClassName = 'my-8',
+    formItemClassName = 'my-4',
     inputClassName = 'w-full',
     btnClassName,
     btnWrapperClassName
