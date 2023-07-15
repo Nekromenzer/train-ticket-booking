@@ -1,5 +1,5 @@
 import './App.css'
-import 'react-clock/dist/Clock.css';
+import 'react-clock/dist/Clock.css'
 import { ConfigProvider } from 'antd'
 import { antThemeConfig } from '../antThemeConfig'
 import {
@@ -12,6 +12,8 @@ import { Error, Home, Login } from './pages'
 import HandleAuthRedirect from './auth/HandleAuthRedirect'
 //context provider
 import AppDataProvider from './context/provider/AppDataProvider'
+import AdminHome from './pages/admin/AdminHome'
+import HandleAdminRedirect from './auth/HandleAdminRedirect'
 
 function App () {
   const router = createBrowserRouter(
@@ -19,6 +21,13 @@ function App () {
       <Route path='/'>
         <Route element={<HandleAuthRedirect />}>
           <Route index element={<Home />} errorElement={<Error />} />
+          <Route element={<HandleAdminRedirect />}>
+            <Route
+              path='/admin'
+              element={<AdminHome />}
+              errorElement={<Error />}
+            />
+          </Route>
         </Route>
         <Route path='/login' element={<Login />} />
       </Route>
