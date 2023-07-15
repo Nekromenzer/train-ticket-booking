@@ -1,11 +1,15 @@
-import { useState, useRef } from 'react'
+import { useState, useRef, useContext, useEffect } from 'react'
 import { Typography, Switch } from 'antd'
 import data from '../data/pages/login'
 import { CommonForm } from '../components'
 import handleApiCall from '../api/handleApiCall'
 import LoadingAnimation from '../components/elements/LoadingAnimation'
+import { useNavigate } from 'react-router-dom'
+import authContext from '../context/AuthContext'
 
 const Login = () => {
+  const [isAuthenticated, setIsAuthenticated, isAdmin] = useContext(authContext)
+  const navigate = useNavigate()
   const [isLoginForm, setIsLoginForm] = useState(true)
   const [loading, setLoading] = useState(false)
   const { Title } = Typography
@@ -21,9 +25,25 @@ const Login = () => {
           // redirection
           console.log(res, 'success')
         }
+        // for test
+        if (status == 'Network Error') {
+          setIsAuthenticated(true)
+          return navigate('/')
+        }
       }
     })
   }
+
+  useEffect(() => {
+    if (isAuthenticated) {
+      if (isAdmin) {
+        navigate('/admin')
+      } else {
+        navigate('/')
+      }
+    }
+  }, [isAdmin, isAuthenticated, navigate])
+
   return (
     <div className='h-screen'>
       <div className='flex flex-row items-start justify-center h-full'>
