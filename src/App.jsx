@@ -14,6 +14,7 @@ import HandleAuthRedirect from './auth/HandleAuthRedirect'
 //context provider
 import AppDataProvider from './context/provider/AppDataProvider'
 import AuthProvider from './context/provider/AuthProvider'
+import NotFound from './pages/NotFound'
 
 function App () {
   const router = createBrowserRouter(
@@ -30,6 +31,7 @@ function App () {
           />
         </Route>
         <Route path='/login' element={<Login />} />
+        <Route path='*' element={<NotFound />} />
       </Route>
     )
   )
