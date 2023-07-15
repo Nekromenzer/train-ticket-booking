@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { useState, useRef, useContext, useEffect } from 'react'
 import { Typography, Switch } from 'antd'
 import data from '../data/pages/login'
@@ -7,8 +8,12 @@ import LoadingAnimation from '../components/elements/LoadingAnimation'
 import { useNavigate } from 'react-router-dom'
 import authContext from '../context/AuthContext'
 
+const loggedUserEmail = localStorage.getItem('train_user_email')
+const adminUrl = import.meta.env.VITE_ADMIN_EMAIL
+const isAdmin = adminUrl === loggedUserEmail
+
 const Login = () => {
-  const [isAuthenticated, setIsAuthenticated, isAdmin] = useContext(authContext)
+  const [isAuthenticated, setIsAuthenticated] = useContext(authContext)
   const navigate = useNavigate()
   const [isLoginForm, setIsLoginForm] = useState(true)
   const [loading, setLoading] = useState(false)
