@@ -13,7 +13,8 @@ const adminUrl = import.meta.env.VITE_ADMIN_EMAIL
 const isAdmin = adminUrl === loggedUserEmail
 
 const Login = () => {
-  const [isAuthenticated, setIsAuthenticated] = useContext(authContext)
+  const [isAuthenticated, setIsAuthenticated, setUserToken] =
+    useContext(authContext)
   const navigate = useNavigate()
   const [isLoginForm, setIsLoginForm] = useState(true)
   const [loading, setLoading] = useState(false)
@@ -33,6 +34,9 @@ const Login = () => {
         // for test
         if (status == 'Network Error') {
           setIsAuthenticated(true)
+          if (isAdmin) {
+            return navigate('/admin')
+          }
           return navigate('/')
         }
       }
@@ -42,11 +46,12 @@ const Login = () => {
   useEffect(() => {
     if (isAuthenticated) {
       if (isAdmin) {
-        navigate('/admin')
+        navigate('/admin', { replace: true })
       } else {
-        navigate('/')
+        navigate('/', { replace: true })
       }
     }
+    return
   }, [isAdmin, isAuthenticated, navigate])
 
   return (

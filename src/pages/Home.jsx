@@ -25,9 +25,9 @@ const Home = () => {
 
   useEffect(() => {
     if (adminUrl === loggedUserEmail) {
-      navigate('/admin')
+      navigate('/admin', { replace: true })
     } else {
-      navigate('/')
+      navigate('/', { replace: true })
     }
   }, [adminUrl, isAdmin, loggedUserEmail, navigate])
   

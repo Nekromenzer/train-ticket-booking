@@ -6,7 +6,8 @@ import {
   createBrowserRouter,
   createRoutesFromElements,
   RouterProvider,
-  Route
+  Route,
+  Routes
 } from 'react-router-dom'
 import { Error, Home, Login, AdminHome } from './pages'
 // redirect components
@@ -19,16 +20,16 @@ import AuthProvider from './context/provider/AuthProvider'
 function App () {
   const router = createBrowserRouter(
     createRoutesFromElements(
-      <Route path='/'>
+      <Route>
         <Route element={<HandleAuthRedirect />}>
-          <Route index element={<Home />} errorElement={<Error />} />
-          <Route element={<HandleAdminRedirect />}>
-            <Route
-              path='/admin'
-              element={<AdminHome />}
-              errorElement={<Error />}
-            />
-          </Route>
+          <Route path='/' element={<Home />} errorElement={<Error />} />
+        </Route>
+        <Route element={<HandleAuthRedirect />}>
+          <Route
+            path='/admin'
+            element={<AdminHome />}
+            errorElement={<Error />}
+          />
         </Route>
         <Route path='/login' element={<Login />} />
       </Route>

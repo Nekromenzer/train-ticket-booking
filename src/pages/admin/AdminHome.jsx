@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/rules-of-hooks */
 import { useEffect } from 'react'
-import { Navigate, useNavigate } from 'react-router'
+import { useNavigate } from 'react-router'
 
 const loggedUserEmail = localStorage.getItem('train_user_email')
 const adminUrl = import.meta.env.VITE_ADMIN_EMAIL
@@ -13,11 +13,10 @@ const AdminHome = () => {
   useEffect(() => {
     const handleNavigate = () => {
       if (!isAdmin) {
-        return navigate('/')
+        return navigate('/', { replace: true })
       }
     }
-    handleNavigate()
-    return null
+    return handleNavigate()
   }, [loggedUserEmail, navigate, loggedUserEmail])
   return <div>Admin Home</div>
 }
