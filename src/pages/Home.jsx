@@ -1,12 +1,15 @@
-import { useContext } from 'react'
+/* eslint-disable react-hooks/exhaustive-deps */
+import { useContext, useEffect } from 'react'
 import { TwoColSideBar } from '../components'
 import appDataContext from '../context/AppDataContext'
 import UserHome from './user/UserHome'
-import handleApiCall from '../api/handleApiCall'
+import { Navigate} from 'react-router-dom'
+
+const loggedUserEmail = localStorage.getItem('train_user_email')
+const adminUrl = import.meta.env.VITE_ADMIN_EMAIL
 
 const Home = () => {
   const [activeTabIndex] = useContext(appDataContext)
-  handleApiCall({ variant: 'user', urlType: 'info' })
   const GetContentForActiveTab = () => {
     if (activeTabIndex === 1) {
       return <UserHome />
@@ -16,6 +19,16 @@ const Home = () => {
     }
     return null
   }
+
+  const handleRedirection = () => {
+    return <Navigate to='/admin' replace />
+  }
+
+  useEffect(() => {
+    if (adminUrl === loggedUserEmail) {
+      handleRedirection()
+    }
+  }, [])
 
   return <TwoColSideBar sideBar content={<GetContentForActiveTab />} />
 }
