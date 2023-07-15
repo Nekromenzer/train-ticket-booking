@@ -4,10 +4,11 @@ const LoadingAnimation = ({
   children,
   tip = 'Loading...',
   size = 'large',
-  loading
+  loading,
+  className
 }) => {
   return (
-    <Spin tip={tip} size={size} spinning={loading}>
+    <Spin tip={tip} size={size} spinning={loading} wrapperClassName={className}>
       {children}
     </Spin>
   )
