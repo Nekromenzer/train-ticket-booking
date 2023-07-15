@@ -6,13 +6,11 @@ import {
   createBrowserRouter,
   createRoutesFromElements,
   RouterProvider,
-  Route,
-  Routes
+  Route
 } from 'react-router-dom'
 import { Error, Home, Login, AdminHome } from './pages'
 // redirect components
 import HandleAuthRedirect from './auth/HandleAuthRedirect'
-import HandleAdminRedirect from './auth/HandleAdminRedirect'
 //context provider
 import AppDataProvider from './context/provider/AppDataProvider'
 import AuthProvider from './context/provider/AuthProvider'
