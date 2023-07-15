@@ -8,12 +8,13 @@ import {
   RouterProvider,
   Route
 } from 'react-router-dom'
-import { Error, Home, Login } from './pages'
+import { Error, Home, Login, AdminHome } from './pages'
+// redirect components
 import HandleAuthRedirect from './auth/HandleAuthRedirect'
+import HandleAdminRedirect from './auth/HandleAdminRedirect'
 //context provider
 import AppDataProvider from './context/provider/AppDataProvider'
-import AdminHome from './pages/admin/AdminHome'
-import HandleAdminRedirect from './auth/HandleAdminRedirect'
+import AuthProvider from './context/provider/AuthProvider'
 
 function App () {
   const router = createBrowserRouter(
@@ -36,7 +37,9 @@ function App () {
   return (
     <ConfigProvider theme={antThemeConfig}>
       <AppDataProvider>
-        <RouterProvider router={router} />
+        <AuthProvider>
+          <RouterProvider router={router} />
+        </AuthProvider>
       </AppDataProvider>
     </ConfigProvider>
   )
