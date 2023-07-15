@@ -131,7 +131,12 @@ const UserHome = () => {
           }}
           yScroll='42vh'
         />
-        
+      )
+    } else if (bookingState === 2) {
+      return (
+        <div className='h-[52vh] max-h-[52vh] bg-red-200 overflow-y-auto '>
+          seat booking
+        </div>
       )
     }
   }
