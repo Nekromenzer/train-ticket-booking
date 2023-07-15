@@ -3,27 +3,30 @@ import authContext from '../AuthContext'
 
 const AuthProvider = ({ children }) => {
   const [isAuthenticated, setIsAuthenticated] = useState(true)
-  const adminEmail = import.meta.env.VITE_ADMIN_EMAIL
-  const [authenticatedAdmin, setAuthenticatedAdmin] = useState(false)
+  const [isAdmin, setIsAdmin] = useState(false)
 
+  // admin mail
+  const adminEmail = import.meta.env.VITE_ADMIN_EMAIL
   //logged user email
   const loggedUserEmail = localStorage.getItem('train_user_email')
-  useEffect(() => {
-    if (loggedUserEmail === adminEmail) {
-      setAuthenticatedAdmin(true)
-    } else {
-      setAuthenticatedAdmin(false)
-    }
-  }, [adminEmail, loggedUserEmail])
 
-  console.log(authenticatedAdmin, 'authenticatedAdmin provider')
+  // useEffect(() => {
+  //   if (loggedUserEmail === adminEmail) {
+  //     setIsAdmin(true)
+  //   } else {
+  //     setIsAdmin(false)
+  //   }
+  // }, [adminEmail, loggedUserEmail])
+
+  console.log(isAuthenticated, 'isAuthenticated provider')
   return (
     <authContext.Provider
       value={[
         isAuthenticated,
         setIsAuthenticated,
         adminEmail,
-        authenticatedAdmin
+        isAdmin,
+        setIsAdmin
       ]}
     >
       {children}
