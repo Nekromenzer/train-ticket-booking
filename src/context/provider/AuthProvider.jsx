@@ -1,6 +1,5 @@
 import { useState, useEffect } from 'react'
 import authContext from '../AuthContext'
-import { ellipse } from '@antv/x6/lib/registry/port-layout/ellipse'
 
 const AuthProvider = ({ children }) => {
   const [isAuthenticated, setIsAuthenticated] = useState(false)

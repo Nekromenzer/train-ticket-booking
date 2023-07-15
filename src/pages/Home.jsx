@@ -3,17 +3,16 @@ import { useContext, useEffect } from 'react'
 import { TwoColSideBar } from '../components'
 import appDataContext from '../context/AppDataContext'
 import UserHome from './user/UserHome'
-import { Navigate, useNavigate } from 'react-router-dom'
+import { Navigate } from 'react-router-dom'
 import authContext from '../context/AuthContext'
 
 const loggedUserEmail = localStorage.getItem('train_user_email')
 const adminUrl = import.meta.env.VITE_ADMIN_EMAIL
-const isAdmin = adminUrl === loggedUserEmail
 
 const Home = () => {
   const [activeTabIndex] = useContext(appDataContext)
   const [isSystemAdmin] = useContext(authContext)
-  const navigate = useNavigate()
+
   const GetContentForActiveTab = () => {
     if (activeTabIndex === 1) {
       return <UserHome />
@@ -32,7 +31,6 @@ const Home = () => {
     return <Navigate to='/' replace={true} />
   }
 
-  console.log(isAdmin, 'isAdmin')
   useEffect(() => {
     return handleRedirection()
   }, [])
