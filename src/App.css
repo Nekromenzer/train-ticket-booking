@@ -83,6 +83,7 @@
 
     .btn-delete {
         box-shadow: none !important;
+        border: none !important;
     }
 
     .login-title {
