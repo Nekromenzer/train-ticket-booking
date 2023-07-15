@@ -1,9 +1,7 @@
 import { FiLogOut } from 'react-icons/fi'
-import {
-  BsFillClipboard2CheckFill,
-  BsFillHouseFill,
-} from 'react-icons/bs'
+import { BsFillClipboard2CheckFill, BsFillHouseFill } from 'react-icons/bs'
 import { Modal } from 'antd'
+import { Navigate } from 'react-router'
 
 const { confirm } = Modal
 
@@ -55,9 +53,8 @@ const data = {
             backgroundColor: 'rgba(0, 0, 0, 0.5)'
           },
           onOk () {
-            return new Promise((resolve, reject) => {
-              setTimeout(Math.random() > 0.5 ? resolve : reject, 1000)
-            }).catch(() => console.log('Oops errors!'))
+            localStorage.removeItem('userToken')
+            return window.location.reload()
           },
           onCancel () {
             console.log('Cancel')

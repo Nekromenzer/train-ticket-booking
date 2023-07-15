@@ -1,17 +1,28 @@
-import { useState, useRef } from 'react'
+/* eslint-disable react-hooks/exhaustive-deps */
+import { useState, useRef, useContext, useEffect } from 'react'
 import { Typography, Switch } from 'antd'
 import data from '../data/pages/login'
 import { CommonForm } from '../components'
 import handleApiCall from '../api/handleApiCall'
 import LoadingAnimation from '../components/elements/LoadingAnimation'
+import { useNavigate } from 'react-router-dom'
+import authContext from '../context/AuthContext'
+
+const loggedUserEmail = localStorage.getItem('train_user_email')
+const adminEmail = import.meta.env.VITE_ADMIN_EMAIL
+const isAdmin = adminEmail === loggedUserEmail
 
 const Login = () => {
+  const [isAuthenticated, setIsAuthenticated, setIsSystemAdmin] =
+    useContext(authContext)
+  const navigate = useNavigate()
   const [isLoginForm, setIsLoginForm] = useState(true)
   const [loading, setLoading] = useState(false)
   const { Title } = Typography
 
   const formRef = useRef(null)
   const handleLogin = formVal => {
+    localStorage.setItem('train_user_email', formVal.email)
     handleApiCall({
       urlType: 'login',
       data: formVal,
@@ -21,14 +32,42 @@ const Login = () => {
           // redirection
           console.log(res, 'success')
         }
+        // for test
+        if (status == 'Network Error') {
+          setIsAuthenticated(true)
+          const userTkn = 'dsabuydgbuays-213213213-123123bhisdubfibsdfbis'
+          localStorage.setItem('userToken', userTkn)
+          console.log(formVal.email === adminEmail, 'admin up')
+          if (formVal.email !== adminEmail) {
+            setIsSystemAdmin(true)
+            console.log(formVal.email === adminEmail, 'admin')
+            return navigate('/', { replace: true })
+          } 
+          return navigate('/admin', { replace: true })
+        }
       }
     })
   }
+
+  useEffect(() => {
+    if (isAuthenticated) {
+      if (isAdmin) {
+        navigate('/admin', { replace: true })
+      } else {
+        navigate('/', { replace: true })
+      }
+    }
+    return
+  }, [isAdmin, isAuthenticated, navigate])
+
   return (
     <div className='h-screen'>
       <div className='flex flex-row items-start justify-center h-full'>
         <div className='w-full lg:w-1/3 xl:w-1/3 pt-[3rem] md:pt-[1rem] lg:pt-[8rem] bg-loginMobile lg:bg-none h-screen bg-contain bg-no-repeat bg-bottom '>
-          <LoadingAnimation loading={loading} tip={isLoginForm? 'login user....':'Creating user...'}>
+          <LoadingAnimation
+            loading={loading}
+            tip={isLoginForm ? data.signInLoadingText : data.signUpLoadingText}
+          >
             <Title className='text-center lg:hidden py-[2rem] md:pt-[1rem] md:pb-0 track-wider login-title-mobile decoration-sky-500 underline whitespace-nowrap'>
               {data.title}
             </Title>
