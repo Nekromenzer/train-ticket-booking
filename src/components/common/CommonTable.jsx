@@ -8,7 +8,8 @@ const CommonTable = memo(
     loading,
     size = 'small',
     bordered = false,
-    onChange
+    onChange,
+    yScroll = 0
   }) => {
     return (
       <Table
@@ -19,6 +20,9 @@ const CommonTable = memo(
         bordered={bordered}
         onChange={onChange}
         rowClassName='cursor-pointer hover:bg-sky-200'
+        scroll={{ y: yScroll }}
+        sticky
+        tableLayout='auto'
       />
     )
   }
