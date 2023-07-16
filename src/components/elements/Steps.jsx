@@ -2,7 +2,9 @@ import { Steps as AntdSteps } from 'antd'
 
 const Steps = ({ current, setCurrent, items }) => {
   const onChange = value => {
-    setCurrent(value)
+    if (value <= current) {
+      setCurrent(value)
+    }
   }
   return (
     <AntdSteps
