@@ -3,7 +3,6 @@ import { Badge } from 'antd'
 
 const UserLevel = ({ level }) => {
   const getUserLevelData = data?.levels[level - 1]
-  console.log(getUserLevelData)
   return (
     <div className='flex flex-col pt-6 px-3'>
       <div className='flex flex-col items-center justify-center gap-5'>
