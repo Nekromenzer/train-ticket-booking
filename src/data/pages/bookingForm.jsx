@@ -261,7 +261,6 @@ const data = {
       dataIndex: 'availableSeats',
       key: 'available',
       render: (_, { availableSeats }) => {
-        console.log(availableSeats)
         return (
           <Space direction='vertical'>
             {availableSeats?.map(item => {
