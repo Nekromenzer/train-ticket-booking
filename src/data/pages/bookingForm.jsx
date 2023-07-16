@@ -1,6 +1,7 @@
 import dayjs from 'dayjs'
 import { BiSolidSelectMultiple } from 'react-icons/bi'
 import { Tag, Space } from 'antd'
+import { MdEventSeat, MdPayment, MdSearch, MdRule } from 'react-icons/md'
 
 const stations = [
   { value: 'Colombo Fort' },
@@ -66,16 +67,20 @@ const data = {
   formBtnText: 'Search',
   steps: [
     {
-      title: 'Back to Search'
+      title: 'Back to Search',
+      icon: <MdSearch />
     },
     {
-      title: 'Select Train'
+      title: 'Select Train',
+      icon: <MdRule />
     },
     {
-      title: 'Select Seat'
+      title: 'Select Seat',
+      icon: <MdEventSeat />
     },
     {
-      title: 'Payment'
+      title: 'Payment',
+      icon: <MdPayment />
     }
   ],
   fields: [
