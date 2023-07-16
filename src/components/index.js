@@ -5,6 +5,7 @@ import TwoColSideBar from './layout/TwoColSideBar'
 import SideBar from './elements/SideBar'
 import FloatingBar from './elements/FloatingBar'
 import AnalogClock from './elements/AnalogClock'
+import CommonCalender from './common/CommonCalender'
 
 export {
   Navbar,
@@ -13,5 +14,6 @@ export {
   TwoColSideBar,
   SideBar,
   FloatingBar,
-  AnalogClock
+  AnalogClock,
+  CommonCalender
 }
