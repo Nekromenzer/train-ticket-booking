@@ -1,4 +1,4 @@
-import { Calendar, Badge, Select, Space } from 'antd'
+import { Calendar, Badge } from 'antd'
 
 const CommonCalender = ({ getListData, headerText }) => {
   const dateCellRender = value => {
