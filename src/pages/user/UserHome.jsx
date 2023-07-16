@@ -5,6 +5,7 @@ import data from '../../data/pages/bookingForm'
 import CommonTable from '../../components/common/CommonTable'
 import LoadingAnimation from '../../components/elements/LoadingAnimation'
 import Steps from '../../components/elements/Steps'
+import UserLevel from './UserLevel'
 
 const UserHome = () => {
   const { Title } = Typography
@@ -161,8 +162,8 @@ const UserHome = () => {
       </div>
 
       <div className='w-full lg:w-1/4 lg:p-4 p-2'>
-        <div className='rounded-xl p-2 lg:p-4 bg-red w-full bg-red-500 h-screen lg:h-auto backdrop-blur-lg backdrop-opacity-50 shadow drop-shadow-md'>
-          test
+        <div className='rounded-xl p-2 lg:p-4 bg-slate-50 w-full h-screen lg:h-[60vh] backdrop-blur-lg backdrop-opacity-50 shadow drop-shadow-md'>
+          <UserLevel level={1} />
         </div>
       </div>
 
