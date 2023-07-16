@@ -145,7 +145,7 @@ const UserHome = () => {
   return (
     <div className='flex flex-col flex-wrap lg:flex-row items-center justify-center'>
       <div className='w-full lg:w-3/4 lg:p-4 p-2'>
-        <div className='rounded-xl p-2 lg:p-4 bg-red w-full bg-slate-50 h-screen lg:h-[60vh] backdrop-blur-lg backdrop-opacity-50 shadow drop-shadow-md overflow-auto'>
+        <div className='rounded-xl p-2 lg:p-4 bg-red w-full bg-slate-50 border border-slate-300 h-screen lg:h-[60vh] backdrop-blur-lg backdrop-opacity-50 shadow drop-shadow-md overflow-auto'>
           {bookingState === 0 ? (
             <Title level={3}>{data.formHeader}</Title>
           ) : (
@@ -162,7 +162,7 @@ const UserHome = () => {
       </div>
 
       <div className='w-full lg:w-1/4 lg:p-4 p-2'>
-        <div className='rounded-xl p-2 lg:p-4 bg-slate-50 w-full h-screen lg:h-[60vh] backdrop-blur-lg backdrop-opacity-50 shadow drop-shadow-md'>
+        <div className='rounded-xl p-2 lg:p-4 bg-slate-50 border border-slate-300 w-full h-screen lg:h-[60vh] backdrop-blur-lg backdrop-opacity-50 shadow drop-shadow-md'>
           <UserLevel level={1} />
         </div>
       </div>
