@@ -6,6 +6,7 @@ import CommonTable from '../../components/common/CommonTable'
 import LoadingAnimation from '../../components/elements/LoadingAnimation'
 import Steps from '../../components/elements/Steps'
 import UserLevel from './UserLevel'
+import SeatBooking from './SeatBooking'
 
 const UserHome = () => {
   const { Title } = Typography
@@ -125,7 +126,7 @@ const UserHome = () => {
       return (
         <CommonTable
           dataSource={trainSchedule}
-          columns={data.tableColumns}
+          columns={data.tableColumns(setBookingState)}
           loading={false}
           onChange={(pagination, filters, sorter, extra) => {
             console.log('params', pagination, filters, sorter, extra)
@@ -136,7 +137,7 @@ const UserHome = () => {
     } else if (bookingState === 2) {
       return (
         <div className='h-[52vh] max-h-[52vh] bg-red-200 overflow-y-auto '>
-          seat booking
+          <SeatBooking />
         </div>
       )
     }
@@ -155,7 +156,10 @@ const UserHome = () => {
               items={data.steps}
             />
           )}
-          <LoadingAnimation loading={isLoading}>
+          <LoadingAnimation
+            loading={isLoading}
+            tip={bookingState === 0 ? 'Searching train....' : 'Loading'}
+          >
             <RenderComponent />
           </LoadingAnimation>
         </div>

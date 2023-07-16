@@ -217,7 +217,7 @@ const data = {
       }
     }
   ],
-  tableColumns: [
+  tableColumns: setBookingState => [
     {
       title: 'Train name',
       dataIndex: 'trainName',
@@ -319,7 +319,10 @@ const data = {
       render: row => (
         <div
           className='flex items-center justify-start gap-4'
-          onClick={() => console.log(row, 'table row ')}
+          onClick={() => {
+            setBookingState(2)
+            console.log(row, 'table row ')
+          }}
         >
           <span className='text-sky-500'>Select</span>
           <BiSolidSelectMultiple className='text-sky-600' />
