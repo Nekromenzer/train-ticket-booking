@@ -4,66 +4,24 @@
 
 /* updated color palette */
 /* Color Theme Swatches in Hex */
-.Blue-Sky-1-hex {
+.blue-Sky-1 {
     color: #001F30;
 }
 
-.Blue-Sky-2-hex {
+.blue-Sky-2 {
     color: #005078;
 }
 
-.Blue-Sky-3-hex {
+.blue-Sky-3 {
     color: #008EB5;
 }
 
-.Blue-Sky-4-hex {
+.blue-Sky-4 {
     color: #22CDD6;
 }
 
-.Blue-Sky-5-hex {
+.blue-Sky-5 {
     color: #F7FFFE;
-}
-
-/* Color Theme Swatches in RGBA */
-.Blue-Sky-1-rgba {
-    color: rgba(0, 30, 48, 1);
-}
-
-.Blue-Sky-2-rgba {
-    color: rgba(0, 79, 119, 1);
-}
-
-.Blue-Sky-3-rgba {
-    color: rgba(0, 141, 181, 1);
-}
-
-.Blue-Sky-4-rgba {
-    color: rgba(34, 205, 214, 1);
-}
-
-.Blue-Sky-5-rgba {
-    color: rgba(247, 255, 253, 1);
-}
-
-/* Color Theme Swatches in HSLA */
-.Blue-Sky-1-hsla {
-    color: hsla(0, 100, 9, 1);
-}
-
-.Blue-Sky-2-hsla {
-    color: hsla(0, 100, 23, 1);
-}
-
-.Blue-Sky-3-hsla {
-    color: hsla(0, 100, 35, 1);
-}
-
-.Blue-Sky-4-hsla {
-    color: hsla(0, 72, 48, 1);
-}
-
-.Blue-Sky-5-hsla {
-    color: hsla(0, 100, 98, 1);
 }
 
 
