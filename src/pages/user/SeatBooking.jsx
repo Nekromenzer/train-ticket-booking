@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { Checkbox } from 'antd'
 
-const SeatBooking = ({  }) => {
+const SeatBooking = ({}) => {
   const seats = [
     { id: 1, name: '', available: true },
     { id: 2, name: '', available: false },
@@ -38,6 +38,7 @@ const SeatBooking = ({  }) => {
       )
     }
   }
+
   return (
     <div>
       <div className='px-2 py-4 flex flex-wrap w-[10.2rem] gap-3 gap-y-8 bg-white shadow-sm border border-blue-950'>
@@ -48,7 +49,7 @@ const SeatBooking = ({  }) => {
             key={idx}
             className={`seat-checkbox ${
               [1, 5, 9, 13, 17].includes(idx) ? 'mr-[2rem] ' : 'mr-1'
-            }`}
+            } ${!checkedList.includes(seat.id) && checkedList.length >= noOfPassengers && 'pointer-events-none disabled-user-check'}`}
             id={seat.id}
             disabled={!seat.available}
           />

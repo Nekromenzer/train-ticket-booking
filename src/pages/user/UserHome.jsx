@@ -11,7 +11,7 @@ import SeatBooking from './SeatBooking'
 const UserHome = () => {
   const { Title } = Typography
   const [isLoading, setIsLoading] = useState(false)
-  const [bookingState, setBookingState] = useState(1)
+  const [bookingState, setBookingState] = useState(2)
   // temp data
   const trainSchedule = [
     {
@@ -136,7 +136,7 @@ const UserHome = () => {
       )
     } else if (bookingState === 2) {
       return (
-        <div className='h-[52vh] max-h-[52vh] bg-red-200 overflow-y-auto '>
+        <div className='h-[52vh] max-h-[52vh] overflow-y-auto '>
           <SeatBooking />
         </div>
       )
@@ -167,7 +167,7 @@ const UserHome = () => {
 
       <div className='w-full lg:w-1/4 lg:p-4 p-2'>
         <div className='rounded-xl p-2 lg:p-4 bg-slate-50 border border-slate-300 w-full h-screen lg:h-[60vh] backdrop-blur-lg backdrop-opacity-50 shadow drop-shadow-md'>
-          <UserLevel level={1} />
+          <UserLevel level={2} />
         </div>
       </div>
 

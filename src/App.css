@@ -122,4 +122,9 @@
         border-color: theme('colors.red.500') !important;
         background-color: theme('colors.red.200') !important;
     }
+
+    .disabled-user-check .ant-checkbox span {
+        border-color: theme('colors.gray.500');
+        background-color: theme('colors.gray.200');
+    }
 }
