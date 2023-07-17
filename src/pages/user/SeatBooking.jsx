@@ -1,5 +1,6 @@
 import { Checkbox } from 'antd'
 import { useState } from 'react'
+import { CommonTag } from '../../components'
 
 const SeatBooking = ({ noOfPassengers = 5, selectedTrain }) => {
   // selected class
@@ -41,6 +42,7 @@ const SeatBooking = ({ noOfPassengers = 5, selectedTrain }) => {
     }
   }
 
+  console.log(selectedTrain)
   const RenderTrainClasses = () => {
     return (
       <>
@@ -52,11 +54,16 @@ const SeatBooking = ({ noOfPassengers = 5, selectedTrain }) => {
               onClick={() => setSelectedClass(item?.id)}
             >
               <div
-                className={`h-32 bg-white w-full min-w-full rounded-lg shadow-sm  cursor-pointer p-1 px-2 hover:border hover:border-sky-400 hover:shadow-md ${
+                className={`h-32 bg-white w-full min-w-full rounded-lg shadow-sm  cursor-pointer p-2 hover:border hover:border-sky-400 hover:shadow-md ${
                   item?.id === selectedClass && 'border-2 border-sky-500'
                 }`}
               >
-                train calssees
+                <CommonTag
+                  item={item}
+                  type='class'
+                  customClassnames='mr-0'
+                  seatCount={selectedTrain.availableSeats[idx].seats}
+                />
               </div>
             </div>
           )
@@ -71,7 +78,7 @@ const SeatBooking = ({ noOfPassengers = 5, selectedTrain }) => {
         <div className='px-2 py-4 flex flex-wrap w-[10.2rem] gap-3 gap-y-8 bg-white shadow-sm border border-blue-950 rounded-lg'>
           {seats.map((seat, idx) => (
             <Checkbox
-              value={seat.id}
+              checked={seatCheckedList.includes(seat.id)}
               onChange={onChange}
               key={idx}
               className={`seat-checkbox ${

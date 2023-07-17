@@ -1,6 +1,6 @@
 import { Tag } from 'antd'
 
-const CommonTag = ({ item, type }) => {
+const CommonTag = ({ item, type, customClassnames, seatCount }) => {
   const getTrainClassStyleProps = (type, id) => {
     if (type === 'color') {
       if (id === 1) {
@@ -32,7 +32,7 @@ const CommonTag = ({ item, type }) => {
       color={getTrainClassStyleProps('color', item.id)}
       className={`bg-${getTrainClassStyleProps('color', item.id)} ${
         type === 'class' && 'min-w-[7rem]'
-      } text-white w-auto border-none flex items-center justify-between py-[0.8rem] px-2 gap-2 h-5 antialiased tracking-wide font-[400]  `}
+      } text-white w-auto border-none flex items-center justify-between py-[0.8rem] px-2 gap-2 h-5 antialiased tracking-wide font-[400] ${customClassnames}`}
     >
       {type === 'class' && getTrainClassStyleProps('name', item.id)}
       <div
@@ -40,7 +40,7 @@ const CommonTag = ({ item, type }) => {
           type === 'class' && 'bg-white text-black'
         } ${type === 'price' ? 'w-[5rem]' : 'w-6'}`}
       >
-        {type === 'price' ? ` Rs.${item.price}.00` : item.seats}
+        {type === 'price' ? ` Rs.${item.price}.00` : seatCount || item.seats}
       </div>
     </Tag>
   )

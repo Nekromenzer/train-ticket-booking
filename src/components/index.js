@@ -6,6 +6,7 @@ import SideBar from './elements/SideBar'
 import FloatingBar from './elements/FloatingBar'
 import AnalogClock from './elements/AnalogClock'
 import CommonCalender from './common/CommonCalender'
+import CommonTag from './common/CommonTag'
 
 export {
   Navbar,
@@ -15,5 +16,6 @@ export {
   SideBar,
   FloatingBar,
   AnalogClock,
-  CommonCalender
+  CommonCalender,
+  CommonTag
 }
