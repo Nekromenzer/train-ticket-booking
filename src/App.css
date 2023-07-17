@@ -103,4 +103,23 @@
         color: white !important;
         box-shadow: none !important;
     }
+
+
+    .seat-checkbox .ant-checkbox span {
+        border-color: theme('colors.sky.950') !important;
+    }
+
+    .seat-checkbox .ant-checkbox span:hover {
+        border-color: theme('colors.red.500') !important;
+    }
+
+    .seat-checkbox .ant-checkbox-checked span {
+        background-color: theme('colors.green.600') !important;
+        border-color: theme('colors.green.800') !important;
+    }
+
+    .seat-checkbox .ant-checkbox-disabled span {
+        border-color: theme('colors.red.500') !important;
+        background-color: theme('colors.red.200') !important;
+    }
 }

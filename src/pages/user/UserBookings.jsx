@@ -2,6 +2,7 @@ import { CommonCalender } from '../../components'
 
 const UserBookings = () => {
   const getListData = value => {
+    
     const eventData = {
       8: [
         { type: 'warning', content: 'This is warning event.' },
