@@ -12,6 +12,8 @@ const UserHome = () => {
   const { Title } = Typography
   const [isLoading, setIsLoading] = useState(false)
   const [bookingState, setBookingState] = useState(2)
+  // selected train
+  const [selectedTrain, setSelectedTrain] = useState(null)
   // temp data
   const trainSchedule = [
     {
@@ -126,7 +128,7 @@ const UserHome = () => {
       return (
         <CommonTable
           dataSource={trainSchedule}
-          columns={data.tableColumns(setBookingState)}
+          columns={data.tableColumns(setBookingState, setSelectedTrain)}
           loading={false}
           onChange={(pagination, filters, sorter, extra) => {
             console.log('params', pagination, filters, sorter, extra)
@@ -137,7 +139,7 @@ const UserHome = () => {
     } else if (bookingState === 2) {
       return (
         <div className='h-[52vh] max-h-[52vh] overflow-y-auto '>
-          <SeatBooking />
+          <SeatBooking selectedTrain={selectedTrain} noOfPassengers={4} />
         </div>
       )
     }
