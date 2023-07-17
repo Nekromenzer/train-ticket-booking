@@ -139,7 +139,7 @@ const UserHome = () => {
     } else if (bookingState === 2) {
       return (
         <div className='h-[52vh] max-h-[52vh] overflow-y-auto '>
-          <SeatBooking selectedTrain={selectedTrain} noOfPassengers={4} />
+          <SeatBooking selectedTrain={selectedTrain} noOfPassengers={5} />
         </div>
       )
     }
