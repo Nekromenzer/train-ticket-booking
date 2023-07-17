@@ -5,11 +5,15 @@ import data from '../../data/pages/bookingForm'
 import CommonTable from '../../components/common/CommonTable'
 import LoadingAnimation from '../../components/elements/LoadingAnimation'
 import Steps from '../../components/elements/Steps'
+import UserLevel from './UserLevel'
+import SeatBooking from './SeatBooking'
 
 const UserHome = () => {
   const { Title } = Typography
   const [isLoading, setIsLoading] = useState(false)
-  const [bookingState, setBookingState] = useState(1)
+  const [bookingState, setBookingState] = useState(2)
+  // selected train
+  const [selectedTrain, setSelectedTrain] = useState(null)
   // temp data
   const trainSchedule = [
     {
@@ -124,7 +128,7 @@ const UserHome = () => {
       return (
         <CommonTable
           dataSource={trainSchedule}
-          columns={data.tableColumns}
+          columns={data.tableColumns(setBookingState, setSelectedTrain)}
           loading={false}
           onChange={(pagination, filters, sorter, extra) => {
             console.log('params', pagination, filters, sorter, extra)
@@ -134,8 +138,8 @@ const UserHome = () => {
       )
     } else if (bookingState === 2) {
       return (
-        <div className='h-[52vh] max-h-[52vh] bg-red-200 overflow-y-auto '>
-          seat booking
+        <div className='h-[52vh] max-h-[52vh] overflow-y-auto '>
+          <SeatBooking selectedTrain={selectedTrain} noOfPassengers={5} />
         </div>
       )
     }
@@ -144,7 +148,7 @@ const UserHome = () => {
   return (
     <div className='flex flex-col flex-wrap lg:flex-row items-center justify-center'>
       <div className='w-full lg:w-3/4 lg:p-4 p-2'>
-        <div className='rounded-xl p-2 lg:p-4 bg-red w-full bg-slate-50 h-screen lg:h-[60vh] backdrop-blur-lg backdrop-opacity-50 shadow drop-shadow-md overflow-auto'>
+        <div className='rounded-xl p-2 lg:p-4 bg-red w-full bg-slate-50 border border-slate-300 h-screen lg:h-[60vh] backdrop-blur-lg backdrop-opacity-50 shadow drop-shadow-md overflow-auto'>
           {bookingState === 0 ? (
             <Title level={3}>{data.formHeader}</Title>
           ) : (
@@ -154,15 +158,18 @@ const UserHome = () => {
               items={data.steps}
             />
           )}
-          <LoadingAnimation loading={isLoading}>
+          <LoadingAnimation
+            loading={isLoading}
+            tip={bookingState === 0 ? 'Searching train....' : 'Loading'}
+          >
             <RenderComponent />
           </LoadingAnimation>
         </div>
       </div>
 
       <div className='w-full lg:w-1/4 lg:p-4 p-2'>
-        <div className='rounded-xl p-2 lg:p-4 bg-red w-full bg-red-500 h-screen lg:h-auto backdrop-blur-lg backdrop-opacity-50 shadow drop-shadow-md'>
-          test
+        <div className='rounded-xl p-2 lg:p-4 bg-slate-50 border border-slate-300 w-full h-screen lg:h-[60vh] backdrop-blur-lg backdrop-opacity-50 shadow drop-shadow-md'>
+          <UserLevel level={2} />
         </div>
       </div>
 
