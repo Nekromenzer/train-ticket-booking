@@ -1,8 +1,13 @@
 import { Checkbox } from 'antd'
 import { useState } from 'react'
 import { CommonTag } from '../../components'
+import { Statistic } from 'antd'
 // images
-import { firstClassSeat, secondClassSeat, thirdClassSeat } from '../../../public/img'
+import {
+  firstClassSeat,
+  secondClassSeat,
+  thirdClassSeat
+} from '../../../public/img'
 
 const SeatBooking = ({ noOfPassengers = 5, selectedTrain }) => {
   // selected class
@@ -61,9 +66,9 @@ const SeatBooking = ({ noOfPassengers = 5, selectedTrain }) => {
               onClick={() => setSelectedClass(item?.id)}
             >
               <div
-                className={`h-32 flex flex-col justify-between bg-white w-full min-w-full rounded-lg shadow-sm  cursor-pointer p-2 hover:border hover:border-sky-400 hover:shadow-md ${
+                className={`h-32 flex flex-col justify-between bg-white w-full min-w-full rounded-lg shadow-sm border border-sky-100 cursor-pointer p-2 hover:border hover:border-sky-400 hover:shadow-md ${
                   item?.id === selectedClass &&
-                  'border-2 border-sky-500 bg-sky-50'
+                  'border-2 border-sky-500 bg-sky-100 shadow-md'
                 }`}
               >
                 <CommonTag
@@ -71,9 +76,15 @@ const SeatBooking = ({ noOfPassengers = 5, selectedTrain }) => {
                   type='class'
                   customClassnames='mr-0'
                   seatCount={selectedTrain.availableSeats[idx].seats}
+                  seatNameTag
                 />
                 <div className='flex item-center justify-between'>
                   <img src={getClassImage(item?.id)} height={64} width={64} />
+                  <Statistic
+                    title='Price per seat (LKR)'
+                    value={selectedTrain.price[idx].price}
+                    precision={2}
+                  />
                 </div>
               </div>
             </div>
@@ -85,7 +96,7 @@ const SeatBooking = ({ noOfPassengers = 5, selectedTrain }) => {
 
   return (
     <div className='flex flex-wrap'>
-      <div className='flex gap-4 items-start w-full bg-slate-200 flex-wrap p-2'>
+      <div className='flex gap-4 items-start w-full  flex-wrap p-2'>
         <div className='px-2 py-4 flex flex-wrap w-[10.2rem] gap-3 gap-y-8 bg-white shadow-sm border border-blue-950 rounded-lg'>
           {seats.map((seat, idx) => (
             <Checkbox

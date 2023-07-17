@@ -1,6 +1,12 @@
 import { Tag } from 'antd'
 
-const CommonTag = ({ item, type, customClassnames, seatCount }) => {
+const CommonTag = ({
+  item,
+  type,
+  customClassnames,
+  seatCount,
+  seatNameTag
+}) => {
   const getTrainClassStyleProps = (type, id) => {
     if (type === 'color') {
       if (id === 1) {
@@ -16,13 +22,19 @@ const CommonTag = ({ item, type, customClassnames, seatCount }) => {
 
     if (type === 'name') {
       if (id === 1) {
-        return 'Air conditioned saloon'
+        return seatNameTag
+          ? 'Air conditioned saloon available seats'
+          : 'Air conditioned saloon'
       }
       if (id === 2) {
-        return '2nd Class reserved seats'
+        return seatNameTag
+          ? ' 2nd Class available seats'
+          : '2nd Class reserved seats'
       }
       if (id === 3) {
-        return '3rd Class reserved seats'
+        return seatNameTag
+          ? ' 3rd Class available seats'
+          : '3rd Class reserved seats'
       }
     }
   }
