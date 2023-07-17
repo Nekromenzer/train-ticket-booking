@@ -1,13 +1,15 @@
 import { Checkbox } from 'antd'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { CommonTag } from '../../components'
 import { Statistic } from 'antd'
+import { GiPriceTag } from 'react-icons/gi'
 // images
 import {
   firstClassSeat,
   secondClassSeat,
   thirdClassSeat
 } from '../../../public/img'
+import { BsArrowRight } from 'react-icons/bs'
 
 const SeatBooking = ({ noOfPassengers, selectedTrain }) => {
   // selected class
@@ -15,7 +17,7 @@ const SeatBooking = ({ noOfPassengers, selectedTrain }) => {
   // selected seats
   const [seatCheckedList, setSeatCheckedList] = useState([])
   // selected price
-  const [selectedPrice, setSelectedPrice] = useState(null)
+  const [selectedPrice, setSelectedPrice] = useState(0)
 
   const seats = [
     { id: 1, name: '', available: true },
@@ -39,8 +41,36 @@ const SeatBooking = ({ noOfPassengers, selectedTrain }) => {
     { id: 19, name: '', available: false },
     { id: 20, name: '', available: true }
   ]
-
+  console.log(selectedTrain)
   const windowSeats = [1, 4, 5, 8, 9, 12, 13, 16, 17, 20]
+
+  const summaryObj = [
+    { name: 'Train Name & No', val: selectedTrain?.trainName },
+    { name: 'Start Station', val: 'Colombo' },
+    { name: 'End Station', val: 'Kandy' },
+    { name: 'Departure Date', val: '2012/07/22' },
+    {
+      name: 'Time Start -> End',
+      val: `${selectedTrain?.departs} - ${selectedTrain?.arrives}`
+    },
+    { name: 'No of Passengers', val: `${noOfPassengers} Passengers` },
+    {
+      name: 'Train Class Selected',
+      val: `${selectedClass}${
+        selectedClass === 1
+          ? 'st'
+          : selectedClass === 2
+          ? 'nd'
+          : selectedClass === 2
+          ? 'rd'
+          : 'th'
+      } Class`
+    },
+    {
+      name: 'Price One Person',
+      val: selectedTrain?.price[selectedClass - 1]?.price
+    }
+  ]
 
   const onChange = e => {
     if (seatCheckedList.length <= noOfPassengers) {
@@ -52,10 +82,16 @@ const SeatBooking = ({ noOfPassengers, selectedTrain }) => {
     }
   }
 
-  const CompTitle = ({ children }) => {
+  const CompTitle = ({ children, summary }) => {
     return (
       <div className='px-1'>
-        <p className='text-base mb-4 antialiased '>{children}</p>
+        <p
+          className={`${
+            summary && 'font-bold text-sky-700'
+          } text-base mb-4 antialiased`}
+        >
+          {children}
+        </p>
       </div>
     )
   }
@@ -170,6 +206,52 @@ const SeatBooking = ({ noOfPassengers, selectedTrain }) => {
     )
   }
 
+  const renderSummaryStats = () => {
+    return (
+      <div className='flex flex-col items-center'>
+        <CompTitle summary>Summary</CompTitle>
+        <div className='w-full bg-sky-100 h-fit rounded-md p-2 py-4 shadow-md flex flex-col gap-2 border-2 border-sky-800'>
+          {summaryObj.map((item, idx) => (
+            <div className='flex items-center gap-3' key={idx}>
+              <div className='font-semibold antialiased min-w-[8rem]'>
+                {item.name}
+              </div>
+              <BsArrowRight className='w-6 ' />
+              <div className='font-normal antialiased text-left'>
+                {item.val}
+              </div>
+            </div>
+          ))}
+          <div className='flex items-center justify-between gap-3 bg-gray-900 p-2 text-white tracking-wide rounded-md'>
+            <GiPriceTag className='text-white' />
+            <div className='flex items-center justify-end gap-3'>
+              <div className='tracking-wide font-mono text-base'>Total Price = </div>
+              <div className='tracking-wide font-mono w-[5rem] text-base'>
+                {selectedPrice} LKR
+              </div>
+            </div>
+          </div>
+          <div className='bg-sky-500 mt-3 tracking-wide group rounded-md p-1 text-base text-white font-semi-bold font-monts subpixel-antialiased flex items-center justify-center gap-4 cursor-pointer hover:bg-sky-800 hover:ease-linear hover:duration-200'>
+            Proceed to Payment
+            <img
+              width='25'
+              height='25'
+              src='https://img.icons8.com/color/25/card-in-use.png'
+              alt='card-in-use'
+              className='group-hover:animate-pulse group-hover:ml-10 group-hover:ease-in-out group-hover:duration-500'
+            />
+          </div>
+        </div>
+      </div>
+    )
+  }
+
+  useEffect(() => {
+    setSelectedPrice(
+      selectedTrain?.price[selectedClass - 1]?.price * noOfPassengers
+    )
+  }, [selectedClass, noOfPassengers, selectedTrain?.price])
+
   return (
     <div className='flex gap-2 p-2'>
       <div className='w-full lg:w-1/3'>
@@ -180,7 +262,10 @@ const SeatBooking = ({ noOfPassengers, selectedTrain }) => {
         {/* note - render as func instead of comp to prevent rerender when data flow */}
         {renderSelectedSeats()}
       </div>
-      <div className='w-full lg:w-1/3'></div>
+      <div className='w-full lg:w-1/3'>
+        {/* note - render as func instead of comp to prevent rerender when data flow */}
+        {renderSummaryStats()}
+      </div>
     </div>
   )
 }
