@@ -78,7 +78,7 @@ const SeatBooking = ({ noOfPassengers, selectedTrain }) => {
                 onClick={() => setSelectedClass(item?.id)}
               >
                 <div
-                  className={`h-32 flex flex-col justify-between bg-white w-full min-w-full rounded-lg shadow-sm border-2 border-sky-200 cursor-pointer p-2  hover:border-sky-400 hover:shadow-md ${
+                  className={`h-32 flex flex-col justify-between  w-full min-w-full rounded-lg shadow-sm border-2 border-sky-200 cursor-pointer p-2  hover:border-sky-400 hover:shadow-md ${
                     item?.id === selectedClass &&
                     'border-2 border-sky-700 bg-blue-100'
                   }`}
