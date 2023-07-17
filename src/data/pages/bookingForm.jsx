@@ -217,7 +217,7 @@ const data = {
       }
     }
   ],
-  tableColumns: setBookingState => [
+  tableColumns: (setBookingState, setSelectedTrain) => [
     {
       title: 'Train name',
       dataIndex: 'trainName',
@@ -321,7 +321,7 @@ const data = {
           className='flex items-center justify-start gap-4'
           onClick={() => {
             setBookingState(2)
-            console.log(row, 'table row ')
+            setSelectedTrain(row)
           }}
         >
           <span className='text-sky-500'>Select</span>
