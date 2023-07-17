@@ -1,6 +1,8 @@
 import { Checkbox } from 'antd'
 import { useState } from 'react'
 import { CommonTag } from '../../components'
+// images
+import { firstClassSeat, secondClassSeat, thirdClassSeat } from '../../../public/img'
 
 const SeatBooking = ({ noOfPassengers = 5, selectedTrain }) => {
   // selected class
@@ -44,6 +46,11 @@ const SeatBooking = ({ noOfPassengers = 5, selectedTrain }) => {
 
   console.log(selectedTrain)
   const RenderTrainClasses = () => {
+    const getClassImage = id => {
+      if (id === 1) return firstClassSeat
+      if (id === 2) return secondClassSeat
+      if (id === 3) return thirdClassSeat
+    }
     return (
       <>
         {selectedTrain?.trainClass?.map((item, idx) => {
@@ -54,8 +61,9 @@ const SeatBooking = ({ noOfPassengers = 5, selectedTrain }) => {
               onClick={() => setSelectedClass(item?.id)}
             >
               <div
-                className={`h-32 bg-white w-full min-w-full rounded-lg shadow-sm  cursor-pointer p-2 hover:border hover:border-sky-400 hover:shadow-md ${
-                  item?.id === selectedClass && 'border-2 border-sky-500'
+                className={`h-32 flex flex-col justify-between bg-white w-full min-w-full rounded-lg shadow-sm  cursor-pointer p-2 hover:border hover:border-sky-400 hover:shadow-md ${
+                  item?.id === selectedClass &&
+                  'border-2 border-sky-500 bg-sky-50'
                 }`}
               >
                 <CommonTag
@@ -64,6 +72,9 @@ const SeatBooking = ({ noOfPassengers = 5, selectedTrain }) => {
                   customClassnames='mr-0'
                   seatCount={selectedTrain.availableSeats[idx].seats}
                 />
+                <div className='flex item-center justify-between'>
+                  <img src={getClassImage(item?.id)} height={64} width={64} />
+                </div>
               </div>
             </div>
           )
