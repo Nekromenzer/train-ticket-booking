@@ -128,14 +128,14 @@ const data = {
       format: 'HH:mm',
       minuteStep: 30
     },
-    {
-      label: 'Return',
-      name: 'return',
-      type: 'switch',
-      checkedChildren: 'Return train',
-      unCheckedChildren: 'One way train',
-      valuePropName: 'checked'
-    },
+    // {
+    //   label: 'Return',
+    //   name: 'return',
+    //   type: 'switch',
+    //   checkedChildren: 'Return train',
+    //   unCheckedChildren: 'One way train',
+    //   valuePropName: 'checked'
+    // },
     {
       label: 'No of Passengers',
       name: 'passengers',
