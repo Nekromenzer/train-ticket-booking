@@ -146,7 +146,6 @@ const data = {
       placeholder: '1',
       allowClear: true,
       autoFocus: false,
-      showToday: true,
       min: 1,
       max: 5,
       tooltip: true,
