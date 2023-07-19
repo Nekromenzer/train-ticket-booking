@@ -99,7 +99,7 @@ const SeatBooking = ({
         <p
           className={`${
             summary && 'font-bold text-sky-700'
-          } text-base mb-2 antialiased`}
+          } text-base mb-4 antialiased`}
         >
           {children}
         </p>
@@ -116,7 +116,7 @@ const SeatBooking = ({
     return (
       <>
         <CompTitle>Select train class</CompTitle>
-        <div className='w-fit flex flex-col justify-between gap-2 flex-grow'>
+        <div className='w-fit flex flex-col justify-between gap-3 flex-grow'>
           {selectedTrain?.trainClass?.map((item, idx) => {
             return (
               <div

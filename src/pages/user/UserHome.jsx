@@ -140,7 +140,7 @@ const UserHome = () => {
       )
     } else if (bookingState === 2) {
       return (
-        <div className='h-[52vh] max-h-[52vh] overflow-y-auto '>
+        <div className='h-[54vh] max-h-[54vh] overflow-y-auto '>
           <SeatBooking
             selectedTrain={selectedTrain}
             noOfPassengers={5}
@@ -161,7 +161,7 @@ const UserHome = () => {
   return (
     <div className='flex flex-col flex-wrap lg:flex-row items-center justify-center'>
       <div className='w-full lg:w-3/4 lg:p-4 p-2'>
-        <div className='rounded-xl p-2 lg:p-4 bg-red w-full bg-slate-50 border border-slate-300 h-screen lg:h-[60vh] backdrop-blur-lg backdrop-opacity-50 shadow drop-shadow-md overflow-auto'>
+        <div className='rounded-xl p-2 lg:p-4 bg-red w-full bg-slate-50 border border-slate-300 h-screen lg:h-[64vh] backdrop-blur-lg backdrop-opacity-50 shadow drop-shadow-md overflow-auto'>
           {bookingState === 0 ? (
             <Title level={3}>{data.formHeader}</Title>
           ) : (
