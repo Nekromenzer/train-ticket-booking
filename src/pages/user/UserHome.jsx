@@ -12,7 +12,7 @@ import Payment from './Payment'
 const UserHome = () => {
   const { Title } = Typography
   const [isLoading, setIsLoading] = useState(false)
-  const [bookingState, setBookingState] = useState(3)
+  const [bookingState, setBookingState] = useState(0)
   // selected train
   const [selectedTrain, setSelectedTrain] = useState(null)
   const [userLevel, setUserLevel] = useState(2)
