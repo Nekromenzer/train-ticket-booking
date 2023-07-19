@@ -56,15 +56,18 @@ const SeatBooking = ({ noOfPassengers, selectedTrain }) => {
     { name: 'No of Passengers', val: `${noOfPassengers} Passengers` },
     {
       name: 'Train Class Selected',
-      val: `${selectedClass}${
-        selectedClass === 1
-          ? 'st'
-          : selectedClass === 2
-          ? 'nd'
-          : selectedClass === 2
-          ? 'rd'
-          : 'th'
-      } Class`
+      val:
+        selectedClass !== null
+          ? `${selectedClass}${
+              selectedClass === 1
+                ? 'st'
+                : selectedClass === 2
+                ? 'nd'
+                : selectedClass === 2
+                ? 'rd'
+                : 'th'
+            } Class`
+          : ''
     },
     {
       name: 'Price One Person',
@@ -225,8 +228,10 @@ const SeatBooking = ({ noOfPassengers, selectedTrain }) => {
           <div className='flex items-center justify-between gap-3 bg-gray-900 p-2 text-white tracking-wide rounded-md'>
             <GiPriceTag className='text-white' />
             <div className='flex items-center justify-end gap-3'>
-              <div className='tracking-wide font-mono text-base'>Total Price = </div>
-              <div className='tracking-wide font-mono w-[5rem] text-base'>
+              <div className='tracking-wide font-mono text-base'>
+                Total Price ={' '}
+              </div>
+              <div className='tracking-wide font-mono w-[6rem] text-base'>
                 {selectedPrice} LKR
               </div>
             </div>
@@ -247,9 +252,13 @@ const SeatBooking = ({ noOfPassengers, selectedTrain }) => {
   }
 
   useEffect(() => {
-    setSelectedPrice(
-      selectedTrain?.price[selectedClass - 1]?.price * noOfPassengers
-    )
+    if (selectedClass === null) {
+      setSelectedPrice(0)
+    } else {
+      setSelectedPrice(
+        selectedTrain?.price[selectedClass - 1]?.price * noOfPassengers
+      )
+    }
   }, [selectedClass, noOfPassengers, selectedTrain?.price])
 
   return (
