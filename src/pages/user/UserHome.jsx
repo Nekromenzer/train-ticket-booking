@@ -7,11 +7,12 @@ import LoadingAnimation from '../../components/elements/LoadingAnimation'
 import Steps from '../../components/elements/Steps'
 import UserLevel from './UserLevel'
 import SeatBooking from './SeatBooking'
+import Payment from './Payment'
 
 const UserHome = () => {
   const { Title } = Typography
   const [isLoading, setIsLoading] = useState(false)
-  const [bookingState, setBookingState] = useState(2)
+  const [bookingState, setBookingState] = useState(3)
   // selected train
   const [selectedTrain, setSelectedTrain] = useState(null)
   const [userLevel, setUserLevel] = useState(2)
@@ -145,6 +146,12 @@ const UserHome = () => {
             noOfPassengers={5}
             level={userLevel}
           />
+        </div>
+      )
+    } else if (bookingState === 3) {
+      return (
+        <div className='h-[52vh] max-h-[52vh] overflow-y-auto '>
+          <Payment />
         </div>
       )
     }
