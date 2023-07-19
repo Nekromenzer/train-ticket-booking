@@ -1,6 +1,6 @@
 import dayjs from 'dayjs'
 import { BiSolidSelectMultiple } from 'react-icons/bi'
-import { Tag, Space } from 'antd'
+import { Space } from 'antd'
 import { MdEventSeat, MdPayment, MdSearch, MdRule } from 'react-icons/md'
 import { CommonTag } from '../../components'
 
@@ -128,14 +128,14 @@ const data = {
       format: 'HH:mm',
       minuteStep: 30
     },
-    {
-      label: 'Return',
-      name: 'return',
-      type: 'switch',
-      checkedChildren: 'Return train',
-      unCheckedChildren: 'One way train',
-      valuePropName: 'checked'
-    },
+    // {
+    //   label: 'Return',
+    //   name: 'return',
+    //   type: 'switch',
+    //   checkedChildren: 'Return train',
+    //   unCheckedChildren: 'One way train',
+    //   valuePropName: 'checked'
+    // },
     {
       label: 'No of Passengers',
       name: 'passengers',
@@ -146,7 +146,6 @@ const data = {
       placeholder: '1',
       allowClear: true,
       autoFocus: false,
-      showToday: true,
       min: 1,
       max: 5,
       tooltip: true,
