@@ -14,6 +14,7 @@ const UserHome = () => {
   const [bookingState, setBookingState] = useState(2)
   // selected train
   const [selectedTrain, setSelectedTrain] = useState(null)
+  const [userLevel, setUserLevel] = useState(2)
   // temp data
   const trainSchedule = [
     {
@@ -139,7 +140,11 @@ const UserHome = () => {
     } else if (bookingState === 2) {
       return (
         <div className='h-[52vh] max-h-[52vh] overflow-y-auto '>
-          <SeatBooking selectedTrain={selectedTrain} noOfPassengers={5} />
+          <SeatBooking
+            selectedTrain={selectedTrain}
+            noOfPassengers={5}
+            level={userLevel}
+          />
         </div>
       )
     }
@@ -169,7 +174,7 @@ const UserHome = () => {
 
       <div className='w-full lg:w-1/4 lg:p-4 p-2'>
         <div className='rounded-xl p-2 lg:p-4 bg-slate-50 border border-slate-300 w-full h-screen lg:h-[60vh] backdrop-blur-lg backdrop-opacity-50 shadow drop-shadow-md'>
-          <UserLevel level={2} />
+          <UserLevel level={userLevel} />
         </div>
       </div>
 

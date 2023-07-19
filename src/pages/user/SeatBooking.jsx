@@ -1,4 +1,4 @@
-import { Checkbox } from 'antd'
+import { Checkbox, Badge } from 'antd'
 import { useEffect, useState } from 'react'
 import { CommonTag } from '../../components'
 import { Statistic } from 'antd'
@@ -10,14 +10,17 @@ import {
   thirdClassSeat
 } from '../../../public/img'
 import { BsArrowRight } from 'react-icons/bs'
+import data from '../../data/pages/userLevel'
 
-const SeatBooking = ({ noOfPassengers, selectedTrain }) => {
+const SeatBooking = ({ noOfPassengers, selectedTrain, level }) => {
   // selected class
   const [selectedClass, setSelectedClass] = useState(null)
   // selected seats
   const [seatCheckedList, setSeatCheckedList] = useState([])
   // selected price
   const [selectedPrice, setSelectedPrice] = useState(0)
+  
+  const getUserLevelData = data?.levels[level - 1]
 
   const seats = [
     { id: 1, name: '', available: true },
@@ -213,7 +216,7 @@ const SeatBooking = ({ noOfPassengers, selectedTrain }) => {
     return (
       <div className='flex flex-col items-center'>
         <CompTitle summary>Summary</CompTitle>
-        <div className='w-full bg-sky-100 h-fit rounded-md p-2 py-4 shadow-md flex flex-col gap-2 border-2 border-sky-800'>
+        <div className='w-full bg-sky-100 h-fit rounded-md px-3 py-4 shadow-md flex flex-col gap-2 border-2 border-sky-800'>
           {summaryObj.map((item, idx) => (
             <div className='flex items-center gap-3' key={idx}>
               <div className='font-semibold antialiased min-w-[8rem]'>
@@ -225,17 +228,24 @@ const SeatBooking = ({ noOfPassengers, selectedTrain }) => {
               </div>
             </div>
           ))}
-          <div className='flex items-center justify-between gap-3 bg-gray-900 p-2 text-white tracking-wide rounded-md'>
-            <GiPriceTag className='text-white' />
-            <div className='flex items-center justify-end gap-3'>
-              <div className='tracking-wide font-mono text-base'>
-                Total Price ={' '}
-              </div>
-              <div className='tracking-wide font-mono w-[6rem] text-base'>
-                {selectedPrice} LKR
+          <Badge.Ribbon
+            text={`${getUserLevelData?.discount}%`}
+            placement='end'
+            className='mt-[-1rem]'
+            color='#de263b'
+          >
+            <div className='flex items-center justify-between gap-3 bg-gray-900 p-2 text-white tracking-wide rounded-md'>
+              <GiPriceTag className='text-white' />
+              <div className='flex items-center justify-end gap-3'>
+                <div className='tracking-wide font-mono text-base'>
+                  Total Price ={' '}
+                </div>
+                <div className='tracking-wide font-mono w-[6rem] text-base'>
+                  {selectedPrice} LKR
+                </div>
               </div>
             </div>
-          </div>
+          </Badge.Ribbon>
           <div className='bg-sky-500 mt-3 tracking-wide group rounded-md p-1 text-base text-white font-semi-bold font-monts subpixel-antialiased flex items-center justify-center gap-4 cursor-pointer hover:bg-sky-800 hover:ease-linear hover:duration-200'>
             Proceed to Payment
             <img
@@ -252,14 +262,16 @@ const SeatBooking = ({ noOfPassengers, selectedTrain }) => {
   }
 
   useEffect(() => {
+    const totalPrice =
+      selectedTrain?.price[selectedClass - 1]?.price * noOfPassengers
+    const getDiscount = totalPrice * (getUserLevelData?.discount / 100)
+    
     if (selectedClass === null) {
       setSelectedPrice(0)
     } else {
-      setSelectedPrice(
-        selectedTrain?.price[selectedClass - 1]?.price * noOfPassengers
-      )
+      setSelectedPrice(totalPrice - getDiscount)
     }
-  }, [selectedClass, noOfPassengers, selectedTrain?.price])
+  }, [selectedClass, noOfPassengers, selectedTrain?.price, getUserLevelData?.discount])
 
   return (
     <div className='flex gap-2 p-2'>
