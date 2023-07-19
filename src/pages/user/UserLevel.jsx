@@ -13,7 +13,7 @@ const UserLevel = ({ level }) => {
       </div>
       <div className='mt-6 lg:mt-12 flex flex-col gap-6'>
         <Badge.Ribbon
-          text={getUserLevelData?.discount}
+          text={`${getUserLevelData?.discount}%`}
           placement='end'
           className='mt-[-1rem] animate-bounce'
           color='red'
@@ -24,7 +24,7 @@ const UserLevel = ({ level }) => {
         </Badge.Ribbon>
         {level !== 4 && (
           <Badge.Ribbon
-            text={data?.levels[level]?.discount}
+            text={`${data?.levels[level]?.discount}%`}
             placement='end'
             className='mt-[-1rem] '
           >
