@@ -29,7 +29,8 @@ const CommonForm = forwardRef((props, ref) => {
     formItemClassName = 'my-4',
     inputClassName = 'w-full',
     btnClassName,
-    btnWrapperClassName
+    btnWrapperClassName,
+    itemClassName
   } = props
 
   const [form] = Form.useForm()
@@ -166,7 +167,7 @@ const CommonForm = forwardRef((props, ref) => {
               rules={item.rules}
               hasFeedback={item.hasFeedback}
               valuePropName={item.valuePropName}
-              className='w-full'
+              className={`w-full ${itemClassName}`}
             >
               {renderInput(item, inputClassName)}
             </Form.Item>
