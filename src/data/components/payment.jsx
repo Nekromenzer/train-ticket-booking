@@ -1,4 +1,4 @@
-function formatCreditCardNumber (creditCardNumber) {
+export function formatCreditCardNumber (creditCardNumber) {
   const cleanedNumber = creditCardNumber.replace(/\D/g, '')
   const formatGroups = [4, 4, 4, 4]
   let currentPosition = 0
@@ -14,11 +14,14 @@ function formatCreditCardNumber (creditCardNumber) {
   return formattedNumber.trim()
 }
 
-function addSlashAfterTwoDigits (inputString) {
-  const firstTwoDigits = inputString.slice(0, 2)
-  const restOfString = inputString.slice(2)
-  const formattedString = firstTwoDigits + '/' + restOfString
-  return formattedString
+export function addSlashAfterTwoDigits (inputString) {
+  if (inputString.length >= 2) {
+    const firstTwoDigits = String(inputString).substring(0, 2)
+    const restOfString = String(inputString).substring(2)
+    return firstTwoDigits + '/' + restOfString
+  } else {
+    return inputString
+  }
 }
 
 const data = {
@@ -26,13 +29,15 @@ const data = {
   fields: [
     {
       label: '',
+      name: 'cardType',
       type: 'radioGroup',
       hasFeedback: true,
       options: [
         { label: 'Visa', value: 1 },
         { label: 'MasterCard', value: 2 }
       ],
-      optionType: 'button'
+      optionType: 'button',
+      defaultValue: 1
     },
     {
       label: 'Name in card',
@@ -60,6 +65,7 @@ const data = {
         })
       ],
       formatter: value => {
+        if (!value) return value
         return formatCreditCardNumber(value)
       },
       type: 'number',
@@ -84,6 +90,7 @@ const data = {
         })
       ],
       formatter: value => {
+        if (!value) return value
         return addSlashAfterTwoDigits(value)
       },
       type: 'number',

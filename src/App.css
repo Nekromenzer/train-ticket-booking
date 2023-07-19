@@ -127,6 +127,14 @@
         border-color: theme('colors.gray.500');
         background-color: theme('colors.gray.200');
     }
+
+    .payment-loader div div .ant-spin-text {
+        color: theme('colors.sky.700') !important;
+        font-weight: 600;
+        font-size: 1.2rem !important;
+        border: none !important;
+
+    }
 }
 
 #card:hover {
@@ -142,6 +150,6 @@
     z-index: -1;
 }
 
-.custom-payment-input-width{
+.custom-payment-input-width {
     width: 50% !important;
 }
