@@ -151,7 +151,7 @@ const CommonForm = forwardRef((props, ref) => {
           options={options}
           value={radioGroupValue}
           optionType={optionType}
-          initialValues={defaultValue}
+          defaultValue={defaultValue}
           onChange={({ target: { value } }) => setRadioGroupValue(value)}
         />
       )

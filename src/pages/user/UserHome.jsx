@@ -151,7 +151,7 @@ const UserHome = () => {
     } else if (bookingState === 3) {
       return (
         <div className='h-[52vh] max-h-[52vh] overflow-y-auto '>
-          <Payment />
+          <Payment setBookingState={setBookingState}/>
         </div>
       )
     }

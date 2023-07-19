@@ -6,7 +6,7 @@ import { BsFillArrowLeftCircleFill } from 'react-icons/bs'
 import LoadingAnimation from '../../components/elements/LoadingAnimation'
 import { Result, Button, Statistic } from 'antd'
 
-const Payment = () => {
+const Payment = ({ setBookingState }) => {
   const [enteredCardNumber, setEnteredCardNumber] = useState({
     cardType: 1,
     fullName: '',
@@ -34,8 +34,8 @@ const Payment = () => {
               You will redirect to search within{' '}
               <Countdown
                 format='ss'
-                value={Date.now() + 10 * 1000}
-                onFinish={() => console.log('redirect')}
+                value={Date.now() + 11 * 1000}
+                onFinish={() => setBookingState(0)}
               />
             </div>
           </div>
