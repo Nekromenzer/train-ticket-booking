@@ -1,6 +1,12 @@
 import { FcGoogle } from 'react-icons/fc'
 import { BsFacebook } from 'react-icons/bs'
 
+const nicRegex = /^(?:\d{9}(?:V|v)|\d{12})$/
+
+function validateNIC (nicNumber) {
+  return nicRegex.test(nicNumber)
+}
+
 const data = {
   title: 'TrackTicket',
   signInText: 'Sign In',
@@ -14,9 +20,7 @@ const data = {
     {
       label: 'Full name',
       name: 'fullName',
-      rules: [
-        { required: true, message: 'Please enter your full name' },
-      ],
+      rules: [{ required: true, message: 'Please enter your full name' }],
       type: 'text',
       autoComplete: 'on',
       hasFeedback: true,
@@ -27,6 +31,16 @@ const data = {
       name: 'nic',
       rules: [
         { required: true, message: 'Please enter your NIC number' },
+        () => ({
+          validator (_, value) {
+            if (!value || validateNIC(value)) {
+              return Promise.resolve()
+            }
+            return Promise.reject(
+              new Error('Enter valied NIC number')
+            )
+          }
+        })
       ],
       type: 'text',
       autoComplete: 'on',
