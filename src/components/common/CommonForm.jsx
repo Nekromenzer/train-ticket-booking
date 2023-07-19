@@ -7,7 +7,8 @@ import {
   TimePicker,
   InputNumber,
   Switch,
-  Tooltip
+  Tooltip,
+  Radio
 } from 'antd'
 import CommonBtn from './CommonBtn'
 
@@ -35,6 +36,7 @@ const CommonForm = forwardRef((props, ref) => {
 
   const [form] = Form.useForm()
   const [checked, setChecked] = useState(false)
+  const [radioGroupValue, setRadioGroupValue] = useState(1)
 
   const renderInput = (item, className) => {
     const {
@@ -52,7 +54,10 @@ const CommonForm = forwardRef((props, ref) => {
       disabledDate,
       defaultChecked,
       unCheckedChildren,
-      checkedChildren
+      checkedChildren,
+      defaultValue,
+      optionType,
+      formatter
     } = item
     if (type === 'password') {
       return (
@@ -70,6 +75,8 @@ const CommonForm = forwardRef((props, ref) => {
           allowClear={allowClear}
           autoFocus={autoFocus}
           className={className}
+          defaultValue={defaultValue}
+          value={defaultValue}
         />
       )
     }
@@ -121,7 +128,7 @@ const CommonForm = forwardRef((props, ref) => {
           min={min}
           max={max}
           className='w-full'
-          // defaultValue={defaultValue}
+          formatter={formatter}
         />
       )
     }
@@ -134,6 +141,16 @@ const CommonForm = forwardRef((props, ref) => {
           className='bg-sky-500'
           checked={checked}
           onClick={() => setChecked(!checked)}
+        />
+      )
+    }
+    if (type === 'radioGroup') {
+      return (
+        <Radio.Group
+          options={options}
+          value={radioGroupValue}
+          optionType={optionType}
+          onChange={({ target: { value } }) => setRadioGroupValue(value)}
         />
       )
     }
@@ -157,7 +174,7 @@ const CommonForm = forwardRef((props, ref) => {
       type === 'signIn' ? renderItemsInArray().includes(item.name) : item
     )
     .map((item, idx) => (
-      <div key={idx} className={`flex items-center gap-1 ${formItemClassName}`}>
+      <div key={idx} className={`flex items-center gap-1 ${formItemClassName} ${item.className}`}>
         {!checked && item.name === 'returnDate' ? null : (
           <>
             <Form.Item
