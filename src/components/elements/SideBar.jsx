@@ -13,7 +13,7 @@ const SideBar = ({ isCollapse, setIsCollapse }) => {
         isCollapse ? 'w-[5rem]' : 'w-[15rem]'
       } ease-in-out duration-200`}
     >
-      <div className='bg-sky-900 w-full h-screen flex lg:flex-col gap-3 shadow-lg'>
+      <div className='bg-[#001F30] w-full h-screen flex lg:flex-col gap-3 shadow-lg'>
         <div
           className={`w-full h-10 flex items-center ${
             isCollapse ? 'justify-center' : 'justify-center'
@@ -41,7 +41,7 @@ const SideBar = ({ isCollapse, setIsCollapse }) => {
               item?.type === 'logout'
                 ? 'mt-auto hover:bg-red-500'
                 : 'hover:bg-sky-600'
-            } ${activeTabIndex === idx + 1 && 'bg-sky-950'}`}
+            } ${activeTabIndex === idx + 1 && 'bg-sky-800'}`}
             key={idx}
             onClick={() =>
               item?.type !== 'logout'
@@ -64,7 +64,7 @@ const SideBar = ({ isCollapse, setIsCollapse }) => {
       </div>
       {/* expand collapse */}
       <div
-        className='bg-sky-900 h-10 flex items-center justify-center w-8 rounded-r-lg pr-1 shadow-lg'
+        className='bg-[#001F30] h-10 flex items-center justify-center w-8 rounded-r-lg pr-1 shadow-lg'
         onClick={() => setIsCollapse(s => !s)}
       >
         {isCollapse ? (

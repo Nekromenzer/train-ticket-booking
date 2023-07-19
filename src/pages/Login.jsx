@@ -63,7 +63,7 @@ const Login = () => {
   return (
     <div className='h-screen'>
       <div className='flex flex-row items-start justify-center h-full'>
-        <div className='w-full lg:w-1/3 xl:w-1/3 pt-[3rem] md:pt-[1rem] lg:pt-[5rem] bg-loginMobile lg:bg-none h-screen bg-contain bg-no-repeat bg-bottom '>
+        <div className={`w-full lg:w-1/3 xl:w-1/3 pt-[3rem] md:pt-[1rem] ${isLoginForm ? 'lg:pt-[8rem]' :'lg:pt-[4rem]'} bg-loginMobile lg:bg-none h-screen bg-contain bg-no-repeat bg-bottom  transition-all `}>
           <LoadingAnimation
             loading={loading}
             tip={isLoginForm ? data.signInLoadingText : data.signUpLoadingText}
@@ -71,7 +71,7 @@ const Login = () => {
             <Title className='text-center lg:hidden py-[2rem] md:pt-[1rem] md:pb-0 track-wider login-title-mobile decoration-sky-500 underline whitespace-nowrap'>
               {data.title}
             </Title>
-            <div className='p-5 lg:p-8 xl:p-12 2xl:p-20 mx-2'>
+            <div className='p-5 lg:p-8 xl:p-12  2xl:p-20 2xl:py-8 mx-2'>
               <Title level={1} className='text-center'>
                 {isLoginForm ? data.signInText : data.signUpText}
               </Title>

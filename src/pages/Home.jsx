@@ -18,6 +18,9 @@ const Home = () => {
     if (activeTabIndex === 2) {
       return <UserBookings />
     }
+    if (activeTabIndex === 3) {
+      return <div>FAQ</div>
+    }
     return null
   }
 

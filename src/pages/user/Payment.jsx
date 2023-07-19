@@ -27,6 +27,7 @@ const Payment = ({ setBookingState }) => {
           <div>
             <Button
               icon={<BsFillArrowLeftCircleFill className='text-sky-600 mt-1' />}
+              onClick={() => setBookingState(0)}
             >
               Go to search
             </Button>

@@ -1,7 +1,7 @@
 import { FiLogOut } from 'react-icons/fi'
 import { BsFillClipboard2CheckFill, BsFillHouseFill } from 'react-icons/bs'
+import { FaQuestionCircle } from 'react-icons/fa'
 import { Modal } from 'antd'
-import { Navigate } from 'react-router'
 
 const { confirm } = Modal
 
@@ -23,6 +23,17 @@ const data = {
       title: 'My bookings',
       icon: active => (
         <BsFillClipboard2CheckFill
+          className={`text-[1.2rem] ${
+            active ? 'text-yellow-400' : ' text-white'
+          }`}
+        />
+      )
+    },
+    {
+      type: '',
+      title: 'Faq',
+      icon: active => (
+        <FaQuestionCircle
           className={`text-[1.2rem] ${
             active ? 'text-yellow-400' : ' text-white'
           }`}
