@@ -135,6 +135,13 @@
         border: none !important;
 
     }
+
+    .seat-booking-disable-btn {
+        background-color: theme('colors.gray.400') !important;
+        border-color: theme('colors.gray.900') !important;
+        color: theme('colors.gray.100') !important;
+        pointer-events: none;
+    }
 }
 
 #card:hover {

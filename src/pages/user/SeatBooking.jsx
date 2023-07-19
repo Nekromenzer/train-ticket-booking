@@ -12,14 +12,19 @@ import {
 import { BsArrowRight } from 'react-icons/bs'
 import data from '../../data/pages/userLevel'
 
-const SeatBooking = ({ noOfPassengers, selectedTrain, level }) => {
+const SeatBooking = ({
+  noOfPassengers,
+  selectedTrain,
+  level,
+  setBookingState
+}) => {
   // selected class
   const [selectedClass, setSelectedClass] = useState(null)
   // selected seats
   const [seatCheckedList, setSeatCheckedList] = useState([])
   // selected price
   const [selectedPrice, setSelectedPrice] = useState(0)
-  
+
   const getUserLevelData = data?.levels[level - 1]
 
   const seats = [
@@ -246,7 +251,14 @@ const SeatBooking = ({ noOfPassengers, selectedTrain, level }) => {
               </div>
             </div>
           </Badge.Ribbon>
-          <div className='bg-sky-500 mt-3 tracking-wide group rounded-md p-1 text-base text-white font-semi-bold font-monts subpixel-antialiased flex items-center justify-center gap-4 cursor-pointer hover:bg-sky-800 hover:ease-linear hover:duration-200'>
+          <div
+            className={`${
+              (seatCheckedList.length !== noOfPassengers ||
+                selectedClass === null) &&
+              'seat-booking-disable-btn'
+            } bg-sky-500 mt-3 tracking-wide group rounded-md p-1 text-base text-white font-semi-bold font-monts subpixel-antialiased flex items-center justify-center gap-4 cursor-pointer hover:bg-sky-800 hover:ease-linear hover:duration-200`}
+            onClick={() => setBookingState(3)}
+          >
             Proceed to Payment
             <img
               width='25'
@@ -265,13 +277,18 @@ const SeatBooking = ({ noOfPassengers, selectedTrain, level }) => {
     const totalPrice =
       selectedTrain?.price[selectedClass - 1]?.price * noOfPassengers
     const getDiscount = totalPrice * (getUserLevelData?.discount / 100)
-    
+
     if (selectedClass === null) {
       setSelectedPrice(0)
     } else {
       setSelectedPrice(totalPrice - getDiscount)
     }
-  }, [selectedClass, noOfPassengers, selectedTrain?.price, getUserLevelData?.discount])
+  }, [
+    selectedClass,
+    noOfPassengers,
+    selectedTrain?.price,
+    getUserLevelData?.discount
+  ])
 
   return (
     <div className='flex gap-2 p-2'>
