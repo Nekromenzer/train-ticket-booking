@@ -31,7 +31,8 @@ const CommonForm = forwardRef((props, ref) => {
     inputClassName = 'w-full',
     btnClassName,
     btnWrapperClassName,
-    itemClassName
+    itemClassName,
+    onValChangeCallback = () => {}
   } = props
 
   const [form] = Form.useForm()
@@ -150,6 +151,7 @@ const CommonForm = forwardRef((props, ref) => {
           options={options}
           value={radioGroupValue}
           optionType={optionType}
+          initialValues={defaultValue}
           onChange={({ target: { value } }) => setRadioGroupValue(value)}
         />
       )
@@ -174,7 +176,10 @@ const CommonForm = forwardRef((props, ref) => {
       type === 'signIn' ? renderItemsInArray().includes(item.name) : item
     )
     .map((item, idx) => (
-      <div key={idx} className={`flex items-center gap-1 ${formItemClassName} ${item.className}`}>
+      <div
+        key={idx}
+        className={`flex items-center gap-1 ${formItemClassName} ${item.className}`}
+      >
         {!checked && item.name === 'returnDate' ? null : (
           <>
             <Form.Item
@@ -217,6 +222,9 @@ const CommonForm = forwardRef((props, ref) => {
       onFinish={onFinish}
       preserve={preserve}
       requiredMark={requiredMark}
+      onValuesChange={(changedValues, allValues) => {
+        onValChangeCallback(changedValues, allValues)
+      }}
     >
       {formItems}
       <Form.Item className={btnWrapperClassName}>
