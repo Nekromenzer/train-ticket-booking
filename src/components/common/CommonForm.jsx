@@ -51,7 +51,7 @@ const CommonForm = forwardRef((props, ref) => {
       disabledDate,
       defaultChecked,
       unCheckedChildren,
-      checkedChildren,
+      checkedChildren
     } = item
     if (type === 'password') {
       return (
@@ -148,31 +148,35 @@ const CommonForm = forwardRef((props, ref) => {
   }
 
   const renderItemsInArray = () => {
-    return type === 'signIn' ? 2 : fields.length
+    return type === 'signIn' ? ['email', 'password'] : []
   }
 
-  const formItems = fields?.slice(0, renderItemsInArray()).map((item, idx) => (
-    <div key={idx} className={`flex items-center gap-1 ${formItemClassName}`}>
-      {!checked && item.name === 'returnDate' ? null : (
-        <>
-          <Form.Item
-            key={`form_${name}_${idx}`}
-            label={item.label}
-            name={item.name}
-            rules={item.rules}
-            hasFeedback={item.hasFeedback}
-            valuePropName={item.valuePropName}
-            className='w-full'
-          >
-            {renderInput(item, inputClassName)}
-          </Form.Item>
-          {item.tooltip && (
-            <Tooltip title={item.tooltipTitle}>{item.tooltipText}</Tooltip>
-          )}
-        </>
-      )}
-    </div>
-  ))
+  const formItems = fields
+    ?.filter(item =>
+      type === 'signIn' ? renderItemsInArray().includes(item.name) : item
+    )
+    .map((item, idx) => (
+      <div key={idx} className={`flex items-center gap-1 ${formItemClassName}`}>
+        {!checked && item.name === 'returnDate' ? null : (
+          <>
+            <Form.Item
+              key={`form_${name}_${idx}`}
+              label={item.label}
+              name={item.name}
+              rules={item.rules}
+              hasFeedback={item.hasFeedback}
+              valuePropName={item.valuePropName}
+              className='w-full'
+            >
+              {renderInput(item, inputClassName)}
+            </Form.Item>
+            {item.tooltip && (
+              <Tooltip title={item.tooltipTitle}>{item.tooltipText}</Tooltip>
+            )}
+          </>
+        )}
+      </div>
+    ))
 
   const onFinish = values => {
     onSubmit(values)
