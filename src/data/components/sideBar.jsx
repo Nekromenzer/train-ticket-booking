@@ -2,7 +2,6 @@ import { FiLogOut } from 'react-icons/fi'
 import { BsFillClipboard2CheckFill, BsFillHouseFill } from 'react-icons/bs'
 import { FaQuestionCircle } from 'react-icons/fa'
 import { Modal } from 'antd'
-import { Navigate } from 'react-router'
 
 const { confirm } = Modal
 
