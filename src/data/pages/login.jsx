@@ -12,6 +12,28 @@ const data = {
   signUpLoadingText: 'Signing user...',
   fields: [
     {
+      label: 'Full name',
+      name: 'fullName',
+      rules: [
+        { required: true, message: 'Please enter your full name' },
+      ],
+      type: 'text',
+      autoComplete: 'on',
+      hasFeedback: true,
+      placeholder: 'Jane doe'
+    },
+    {
+      label: 'NIC',
+      name: 'nic',
+      rules: [
+        { required: true, message: 'Please enter your NIC number' },
+      ],
+      type: 'text',
+      autoComplete: 'on',
+      hasFeedback: true,
+      placeholder: '000000000V'
+    },
+    {
       label: 'Email',
       name: 'email',
       rules: [
