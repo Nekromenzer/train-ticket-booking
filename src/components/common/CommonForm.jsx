@@ -78,6 +78,7 @@ const CommonForm = forwardRef((props, ref) => {
           className={className}
           defaultValue={defaultValue}
           value={defaultValue}
+          disabled={disabled}
         />
       )
     }
