@@ -1,4 +1,4 @@
-import { useState, useContext } from 'react'
+import { useState } from 'react'
 import { Typography } from 'antd'
 import { CommonForm } from '../../components'
 import data from '../../data/pages/bookingForm'
@@ -8,6 +8,7 @@ import Steps from '../../components/elements/Steps'
 import UserLevel from './UserLevel'
 import SeatBooking from './SeatBooking'
 import Payment from './Payment'
+import handleApiCall from '../../api/handleApiCall'
 
 const UserHome = ({ stations }) => {
   const { Title } = Typography
@@ -114,11 +115,18 @@ const UserHome = ({ stations }) => {
           onSubmit={val => {
             setSearchVal(val)
             setIsLoading(true)
-            // manipulate api call here
-            setTimeout(() => {
-              setBookingState(1)
-              setIsLoading(false)
-            }, 2000)
+            handleApiCall({
+              variant: 'userDashboard',
+              urlType: 'searchTrain',
+              data: val,
+              setLoading: setIsLoading,
+              cb: (data, state) => {
+                if (state === 200) {
+                  setBookingState(1)
+                  
+                }
+              }
+            })
           }}
           formItemClassName='w-full lg:w-1/2 p-2 booking-form-item lg:h-[5.5rem]'
           className='flex lg:flex-row flex-wrap items-center justify-between'
