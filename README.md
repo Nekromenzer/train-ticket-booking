@@ -1,7 +1,7 @@
 
 # Train Booking system
 
-A train ticket booking app which users can book the train make payments with Admin management sys
+A train ticket booking app in which users can book the train and make payments with the Admin management sys
 
 
 ## Demo
@@ -19,19 +19,25 @@ https://train-ticket-booking-phi.vercel.app
 Clone the project
 
 ```bash
-  git clone https://github.com/Nekromenzer/chat-bot-AI-project
+  git clone https://github.com/Nekromenzer/train-ticket-booking
 ```
 
 Go to the project directory
 
 ```bash
-  cd chat-bot-AI-project
+  cd train-ticket-booking
 ```
 
 Install dependencies
 
 ```bash
   npm install
+```
+
+Update ENV
+
+```bash
+  Add backend URL
 ```
 
 Start the server
@@ -43,7 +49,6 @@ Start the server
 
 ## Tech Stack
 
-**Client:** React, React router , ANTD ,ANTD charts ,React icons
+**Client:** React, React router, ANTD, ANTD charts, React icons
 
-**Server:** Node, Express
 
