@@ -9,6 +9,7 @@ import UserLevel from './UserLevel'
 import SeatBooking from './SeatBooking'
 import Payment from './Payment'
 import handleApiCall from '../../api/handleApiCall'
+import NewsSections from './NewsSections'
 
 const UserHome = ({ stations }) => {
   const { Title } = Typography
@@ -123,7 +124,6 @@ const UserHome = ({ stations }) => {
               cb: (data, state) => {
                 if (state === 200) {
                   setBookingState(1)
-
                 }
               }
             })
@@ -203,8 +203,8 @@ const UserHome = ({ stations }) => {
       </div>
 
       <div className='w-full lg:w-2/3 lg:p-4 p-2'>
-        <div className='rounded-xl p-2 lg:p-4 bg-red w-ful h-screen lg:h-full backdrop-blur-lg backdrop-opacity-50 shadow drop-shadow-md'>
-          test
+        <div className='rounded-xl p-2 lg:p-4 w-full h-screen lg:h-full backdrop-blur-lg backdrop-opacity-100 shadow drop-shadow-md'>
+          <NewsSections />
         </div>
       </div>
     </div>
