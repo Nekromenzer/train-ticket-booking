@@ -8,7 +8,7 @@ import {
   firstClassSeat,
   secondClassSeat,
   thirdClassSeat
-} from '../../../public/img'
+} from '../../img'
 import { BsArrowRight } from 'react-icons/bs'
 import data from '../../data/pages/userLevel'
 
