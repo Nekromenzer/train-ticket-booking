@@ -19,7 +19,7 @@ const data = {
   fields: [
     {
       label: 'Full name',
-      name: 'fullName',
+      name: 'name',
       rules: [{ required: true, message: 'Please enter your full name' }],
       type: 'text',
       autoComplete: 'on',
@@ -36,9 +36,7 @@ const data = {
             if (!value || validateNIC(value)) {
               return Promise.resolve()
             }
-            return Promise.reject(
-              new Error('Enter valied NIC number')
-            )
+            return Promise.reject(new Error('Enter valied NIC number'))
           }
         })
       ],
@@ -46,6 +44,21 @@ const data = {
       autoComplete: 'on',
       hasFeedback: true,
       placeholder: '000000000V'
+    },
+    {
+      label: 'Phone number',
+      name: 'phone_number',
+      rules: [
+        { required: true, message: 'Please enter your phone number!' },
+        {
+          pattern: /^0[0-9]{9}$/,
+          message: 'Please enter valid phone number!'
+        }
+      ],
+      type: 'text',
+      autoComplete: 'on',
+      hasFeedback: true,
+      placeholder: '0771234567'
     },
     {
       label: 'Email',
@@ -77,7 +90,7 @@ const data = {
     },
     {
       label: 'Confirm Password',
-      name: 'confirm-password',
+      name: 'password_confirmation',
       type: 'password',
       dependencies: ['password'],
       rules: [
