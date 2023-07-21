@@ -4,7 +4,7 @@ import { Badge } from 'antd'
 const UserLevel = ({ level }) => {
   const getUserLevelData = data?.levels[level - 1]
   return (
-    <div className='flex flex-col pt-6 px-3'>
+    <div className='flex flex-col pt-6 px-3 '>
       <div className='flex flex-col items-center justify-center gap-5'>
         <img src={getUserLevelData?.badge} alt='badge' width={80} height={80} />
         <h1 className='text-2xl font-bold text-center'>
@@ -36,7 +36,7 @@ const UserLevel = ({ level }) => {
       </div>
 
       <div className='mt-12'>
-        <div className='text-base text-justify text-sky-900'>
+        <div className='text-base text-justify text-white'>
           {getUserLevelData?.description}
         </div>
       </div>

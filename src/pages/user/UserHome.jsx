@@ -191,7 +191,7 @@ const UserHome = ({ stations }) => {
       </div>
 
       <div className='w-full lg:w-1/4 lg:p-4 p-2'>
-        <div className='rounded-xl p-2 lg:p-4 bg-slate-50 border border-slate-300 w-full h-screen lg:h-[60vh] backdrop-blur-lg backdrop-opacity-50 shadow drop-shadow-md'>
+        <div className='rounded-xl p-2 lg:p-4 bg-gradient-to-r from-blue-500 to-sky-500 w-full h-screen lg:h-[60vh] backdrop-blur-lg backdrop-opacity-50 shadow drop-shadow-md'>
           <UserLevel level={userLevel} />
         </div>
       </div>
