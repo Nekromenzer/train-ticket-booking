@@ -18,7 +18,7 @@ const UserLevel = ({ level }) => {
           className='mt-[-1rem] animate-bounce'
           color='red'
         >
-          <div className='text-base bg-red-200 p-2 rounded-md font-monts font-bold border border-red-400'>
+          <div className='text-base bg-red-200 p-2 rounded-md font-monts font-bold border border-red-600'>
             Discount on current level
           </div>
         </Badge.Ribbon>
@@ -28,7 +28,7 @@ const UserLevel = ({ level }) => {
             placement='end'
             className='mt-[-1rem] '
           >
-            <div className='text-base bg-sky-200 p-2 rounded-md font-monts font-bold border border-sky-400'>
+            <div className='text-base bg-sky-200 p-2 rounded-md font-monts font-bold border border-sky-600'>
               Discount on next level
             </div>
           </Badge.Ribbon>
