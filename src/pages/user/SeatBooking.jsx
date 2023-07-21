@@ -4,11 +4,7 @@ import { CommonTag } from '../../components'
 import { Statistic } from 'antd'
 import { GiPriceTag } from 'react-icons/gi'
 // images
-import {
-  firstClassSeat,
-  secondClassSeat,
-  thirdClassSeat
-} from '../../img'
+import { firstClassSeat, secondClassSeat, thirdClassSeat } from '../../img'
 import { BsArrowRight } from 'react-icons/bs'
 import data from '../../data/pages/userLevel'
 
@@ -28,28 +24,29 @@ const SeatBooking = ({
   const getUserLevelData = data?.levels[level - 1]
 
   const seats = [
-    { id: 1, name: '', available: true },
-    { id: 2, name: '', available: false },
-    { id: 3, name: '', available: true },
-    { id: 4, name: '', available: false },
-    { id: 5, name: '', available: true },
-    { id: 6, name: '', available: true },
-    { id: 7, name: '', available: true },
-    { id: 8, name: '', available: true },
-    { id: 9, name: '', available: true },
-    { id: 10, name: '', available: false },
-    { id: 11, name: '', available: false },
-    { id: 12, name: '', available: true },
-    { id: 13, name: '', available: false },
-    { id: 14, name: '', available: true },
-    { id: 15, name: '', available: true },
-    { id: 16, name: '', available: true },
-    { id: 17, name: '', available: true },
-    { id: 18, name: '', available: true },
-    { id: 19, name: '', available: false },
-    { id: 20, name: '', available: true }
+    { id: 1, available: true },
+    { id: 2, available: false },
+    { id: 3, available: true },
+    { id: 4, available: false },
+    { id: 5, available: true },
+    { id: 6, available: true },
+    { id: 7, available: true },
+    { id: 8, available: true },
+    { id: 9, available: true },
+    { id: 10, available: false },
+    { id: 11, available: false },
+    { id: 12, available: true },
+    { id: 13, available: false },
+    { id: 14, available: true },
+    { id: 15, available: true },
+    { id: 16, available: true },
+    { id: 17, available: true },
+    { id: 18, available: true },
+    { id: 19, available: false },
+    { id: 20, available: true }
   ]
   console.log(selectedTrain)
+  
   const windowSeats = [1, 4, 5, 8, 9, 12, 13, 16, 17, 20]
 
   const summaryObj = [
