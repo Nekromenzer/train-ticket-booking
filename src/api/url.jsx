@@ -13,7 +13,7 @@ const urlDoc = {
   },
   userDashboard: {
     stations: { url: '/v1/location/all', type: 'get' },
-    search: { url: '/dashboard/search', type: 'post' },
+    search: { url: '/v1/train-schedule/search', type: 'post' },
     info: { url: '/dashboard/info', type: 'get' }
   }
 }
