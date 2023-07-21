@@ -24,7 +24,7 @@ const Login = () => {
   const handleLogin = formVal => {
     localStorage.setItem('train_user_email', formVal.email)
     handleApiCall({
-      urlType: 'login',
+      urlType: isLoginForm ? 'login' : 'register',
       data: formVal,
       setLoading,
       cb: (res, status) => {

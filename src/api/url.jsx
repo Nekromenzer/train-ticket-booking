@@ -2,7 +2,7 @@ const urlDoc = {
   user: {
     login: { url: '/login', type: 'post' },
     logout: { url: '/logout', type: 'post' },
-    info: { url: '/user/info', type: 'get' }
+    register: { url: '/register', type: 'post' }
   },
   serDashboard: {
     search: { url: '/dashboard/search', type: 'post' },
