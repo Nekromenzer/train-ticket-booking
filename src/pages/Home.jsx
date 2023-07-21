@@ -6,6 +6,7 @@ import UserHome from './user/UserHome'
 import { Navigate } from 'react-router-dom'
 import UserBookings from './user/UserBookings'
 import handleApiCall from '../api/handleApiCall'
+import FaqSection from './user/FaqSection'
 
 const loggedUserEmail = localStorage.getItem('train_user_email')
 const adminUrl = import.meta.env.VITE_ADMIN_EMAIL
@@ -22,7 +23,7 @@ const Home = () => {
       return <UserBookings />
     }
     if (activeTabIndex === 3) {
-      return <div>FAQ</div>
+      return <FaqSection />
     }
     return null
   }
