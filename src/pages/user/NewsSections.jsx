@@ -20,7 +20,7 @@ const NewsSections = () => {
             .map((item, idx) => (
               <div
                 key={idx}
-                className='flex flex-col gap-1 bg-slate-50 py-1 px-3 mx-3 rounded-md cursor-pointer border hover:border-sky-500 hover:shadow-sm snap-start'
+                className='flex flex-col gap-1 bg-gradient-to-l from-slate-50 via-emerald-50 to-cyan-50 py-1 px-3 mx-3 rounded-md cursor-pointer border hover:border-sky-500 hover:shadow-sm snap-start'
               >
                 <span className='text-slate-700 text-base w-full'>
                   {item.title} -{' '}

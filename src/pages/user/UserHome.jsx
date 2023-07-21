@@ -203,7 +203,7 @@ const UserHome = ({ stations }) => {
       </div>
 
       <div className='w-full lg:w-2/3 lg:p-4 p-2'>
-        <div className='rounded-xl p-2 lg:p-4 w-full h-screen lg:h-full backdrop-blur-lg backdrop-opacity-100 shadow drop-shadow-md'>
+        <div className='rounded-xl p-2 lg:p-4 w-full h-screen lg:h-full shadow '>
           <NewsSections />
         </div>
       </div>
