@@ -126,7 +126,46 @@ const data = {
       icon: <FcGoogle className='text-3xl' />,
       onclick: () => console.log('google login')
     }
-  ]
+  ],
+  forgetPassword: {
+    title: 'Forget password',
+    subTitle: 'Enter your email address to reset your password',
+    stepOneLoadingText: 'Sending verification code...',
+    stepTwoLoadingText: 'Resetting password...',
+    stepOneFormBtnText: 'Send verification code',
+    stepTwoFormBtnText: 'Reset password',
+    fields: ({ emailDisabled }) => [
+      {
+        label: 'Email',
+        name: 'email',
+        rules: [
+          { required: true, message: 'Please enter your email!' },
+          {
+            type: 'email',
+            message: 'Please enter valid E-mail!'
+          }
+        ],
+        type: 'text',
+        autoComplete: 'on',
+        hasFeedback: true,
+        placeholder: 'Enter your email',
+        disabled: emailDisabled
+      },
+      {
+        label: 'Password',
+        name: 'passwordForget',
+        rules: [
+          { required: true, message: 'Please enter your password!' },
+          { min: 6, message: 'Password must be minimum 5 characters.' },
+          { max: 20, message: 'Password must be maximum 20 characters.' }
+        ],
+        type: 'password',
+        hasFeedback: true,
+        autoComplete: 'on',
+        placeholder: '********'
+      },
+    ]
+  }
 }
 
 export default data
