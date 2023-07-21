@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useContext } from 'react'
 import { Typography } from 'antd'
 import { CommonForm } from '../../components'
 import data from '../../data/pages/bookingForm'
@@ -9,7 +9,7 @@ import UserLevel from './UserLevel'
 import SeatBooking from './SeatBooking'
 import Payment from './Payment'
 
-const UserHome = () => {
+const UserHome = ({ stations }) => {
   const { Title } = Typography
   const [searchVal, setSearchVal] = useState({})
   const [isLoading, setIsLoading] = useState(false)
@@ -17,6 +17,7 @@ const UserHome = () => {
   // selected train
   const [selectedTrain, setSelectedTrain] = useState(null)
   const [userLevel, setUserLevel] = useState(2)
+
   // temp data
   const trainSchedule = [
     {
@@ -104,12 +105,12 @@ const UserHome = () => {
       ]
     }
   ]
-  console.log(searchVal)
+
   const RenderComponent = () => {
     if (bookingState === 0)
       return (
         <CommonForm
-          fields={data.fields}
+          fields={data.fields(stations)}
           onSubmit={val => {
             setSearchVal(val)
             setIsLoading(true)

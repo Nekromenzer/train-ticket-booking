@@ -11,7 +11,8 @@ const urlDoc = {
     resetPassword: { url: '/reset-password', type: 'post' },
     verifyToken: { url: '/verify-token', type: 'post' }
   },
-  serDashboard: {
+  userDashboard: {
+    stations: { url: '/v1/location/all', type: 'get' },
     search: { url: '/dashboard/search', type: 'post' },
     info: { url: '/dashboard/info', type: 'get' }
   }

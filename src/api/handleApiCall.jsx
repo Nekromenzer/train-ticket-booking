@@ -14,7 +14,7 @@ const handleApiCall = ({
   setLoading = state => {
     console.log(state, 'default setLoading')
   },
-  urlParams=''
+  urlParams = ''
 }) => {
   const url = `${baseUrl}${urlDoc[variant][urlType].url}${
     urlParams && '/'
