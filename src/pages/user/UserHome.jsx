@@ -14,7 +14,7 @@ const UserHome = ({ stations }) => {
   const { Title } = Typography
   const [searchVal, setSearchVal] = useState({})
   const [isLoading, setIsLoading] = useState(false)
-  const [bookingState, setBookingState] = useState(0)
+  const [bookingState, setBookingState] = useState(1)
   // selected train
   const [selectedTrain, setSelectedTrain] = useState(null)
   const [userLevel, setUserLevel] = useState(2)
@@ -123,7 +123,7 @@ const UserHome = ({ stations }) => {
               cb: (data, state) => {
                 if (state === 200) {
                   setBookingState(1)
-                  
+
                 }
               }
             })
@@ -171,7 +171,7 @@ const UserHome = ({ stations }) => {
   return (
     <div className='flex flex-col flex-wrap lg:flex-row items-center justify-center'>
       <div className='w-full lg:w-3/4 lg:p-4 p-2'>
-        <div className='rounded-xl p-2 lg:p-4 bg-red w-full bg-slate-50 border border-slate-300 h-screen lg:h-[64vh] backdrop-blur-lg backdrop-opacity-50 shadow drop-shadow-md overflow-auto'>
+        <div className='rounded-xl p-2 lg:p-4 bg-red w-full bg-slate-50 border border-slate-300 h-screen lg:h-[62vh] backdrop-blur-lg backdrop-opacity-50 shadow drop-shadow-md overflow-auto'>
           {bookingState === 0 ? (
             <Title level={3}>{data.formHeader}</Title>
           ) : (
