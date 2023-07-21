@@ -39,7 +39,7 @@ const ForgetPassword = () => {
   return (
     <div>
       <Modal
-        title='Enter verification code'
+        title={forgetPassword.subTitle}
         open={modalVisible}
         onCancel={() => {
           setModalVisible(false)
@@ -143,7 +143,7 @@ const ForgetPassword = () => {
         className='text-right text-[0.8rem] text-blue-700 cursor-pointer hover:text-blue-900'
         onClick={() => setModalVisible(true)}
       >
-        forget password?
+        {forgetPassword.title}
       </div>
     </div>
   )

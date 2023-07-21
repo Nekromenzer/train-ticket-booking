@@ -171,7 +171,7 @@ const CommonForm = forwardRef((props, ref) => {
 
   const renderItemsInArray = () => {
     if (type === 'signIn') {
-      return ['email','password']
+      return ['email', 'password']
     }
 
     return []
@@ -216,7 +216,8 @@ const CommonForm = forwardRef((props, ref) => {
   }
 
   useImperativeHandle(ref, () => ({
-    resetFields
+    resetFields,
+    form: form
   }))
 
   return (

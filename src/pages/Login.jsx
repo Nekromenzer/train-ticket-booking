@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useState, useRef, useContext, useEffect } from 'react'
-import { Typography, Switch } from 'antd'
+import { Typography, Switch, notification } from 'antd'
 import data from '../data/pages/login'
 import { CommonForm } from '../components'
 import handleApiCall from '../api/handleApiCall'
@@ -8,6 +8,7 @@ import LoadingAnimation from '../components/elements/LoadingAnimation'
 import { useNavigate } from 'react-router-dom'
 import authContext from '../context/AuthContext'
 import ForgetPassword from './login/ForgetPassword'
+import { SmileOutlined, MehOutlined } from '@ant-design/icons'
 
 const loggedUserEmail = localStorage.getItem('train_user_email')
 const adminEmail = import.meta.env.VITE_ADMIN_EMAIL
@@ -16,10 +17,34 @@ const isAdmin = adminEmail === loggedUserEmail
 const Login = () => {
   const [isAuthenticated, setIsAuthenticated, setIsSystemAdmin] =
     useContext(authContext)
+  const [api, contextHolder] = notification.useNotification()
   const navigate = useNavigate()
   const [isLoginForm, setIsLoginForm] = useState(true)
   const [loading, setLoading] = useState(false)
   const { Title } = Typography
+
+  const openNotification = ({ message, description, type }) => {
+    api.open({
+      message: message,
+      description: description,
+      role: 'status',
+      placement: 'topLeft',
+      icon:
+        type !== 'error' ? (
+          <SmileOutlined
+            style={{
+              color: '#108ee9'
+            }}
+          />
+        ) : (
+          <MehOutlined
+            style={{
+              color: 'red'
+            }}
+          />
+        )
+    })
+  }
 
   const formRef = useRef(null)
   const handleLogin = formVal => {
@@ -44,6 +69,13 @@ const Login = () => {
           }
           return navigate('/admin', { replace: true })
         }
+        if (status === 401) {
+          openNotification({
+            message: 'Login failed',
+            description: 'Please check your email and password',
+            type: 'error'
+          })
+        }
       }
     })
   }
@@ -61,10 +93,11 @@ const Login = () => {
 
   return (
     <div className='h-screen'>
+      {contextHolder}
       <div className='flex flex-row items-start justify-center h-full'>
         <div
           className={`w-full lg:w-1/3 xl:w-1/3 pt-[3rem] md:pt-[1rem] ${
-            isLoginForm ? 'lg:pt-[8rem]' : 'lg:pt-[1rem]'
+            isLoginForm ? 'lg:pt-[12rem]' : 'lg:pt-[6rem]'
           } bg-loginMobile lg:bg-none h-screen bg-contain bg-no-repeat bg-bottom  transition-all `}
         >
           <LoadingAnimation

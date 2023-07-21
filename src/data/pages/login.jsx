@@ -128,11 +128,11 @@ const data = {
     }
   ],
   forgetPassword: {
-    title: 'Forget password',
+    title: 'Forget password?',
     subTitle: 'Enter your email address to reset your password',
-    stepOneLoadingText: 'Sending verification code...',
+    stepOneLoadingText: 'Verifying email...',
     stepTwoLoadingText: 'Resetting password...',
-    stepOneFormBtnText: 'Send verification code',
+    stepOneFormBtnText: 'Send',
     stepTwoFormBtnText: 'Reset password',
     fields: ({ emailDisabled }) => [
       {
