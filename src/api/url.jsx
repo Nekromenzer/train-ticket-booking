@@ -1,7 +1,7 @@
 const urlDoc = {
   user: {
     login: { url: '/login', type: 'post' },
-    logout: { url: '/user/logout', type: 'post' },
+    logout: { url: '/logout', type: 'post' },
     info: { url: '/user/info', type: 'get' }
   },
   serDashboard: {

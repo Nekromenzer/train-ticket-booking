@@ -35,9 +35,7 @@ const Login = () => {
           const userData = res.user
           localStorage.setItem('userToken', userTkn)
           localStorage.setItem('userData', JSON.stringify(userData))
-        }
-        // for test
-        if (status == 'Network Error') {
+
           if (formVal.email !== adminEmail) {
             setIsSystemAdmin(true)
             console.log(formVal.email === adminEmail, 'admin')
