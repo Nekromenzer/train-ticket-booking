@@ -28,21 +28,21 @@ const Login = () => {
       data: formVal,
       setLoading,
       cb: (res, status) => {
-        if (status === 200) {
+        if (status === 201) {
           // redirection
-          console.log(res, 'success')
+          setIsAuthenticated(true)
+          const userTkn = res.token
+          const userData = res.user
+          localStorage.setItem('userToken', userTkn)
+          localStorage.setItem('userData', JSON.stringify(userData))
         }
         // for test
         if (status == 'Network Error') {
-          setIsAuthenticated(true)
-          const userTkn = 'dsabuydgbuays-213213213-123123bhisdubfibsdfbis'
-          localStorage.setItem('userToken', userTkn)
-          console.log(formVal.email === adminEmail, 'admin up')
           if (formVal.email !== adminEmail) {
             setIsSystemAdmin(true)
             console.log(formVal.email === adminEmail, 'admin')
             return navigate('/', { replace: true })
-          } 
+          }
           return navigate('/admin', { replace: true })
         }
       }
@@ -63,7 +63,11 @@ const Login = () => {
   return (
     <div className='h-screen'>
       <div className='flex flex-row items-start justify-center h-full'>
-        <div className={`w-full lg:w-1/3 xl:w-1/3 pt-[3rem] md:pt-[1rem] ${isLoginForm ? 'lg:pt-[8rem]' :'lg:pt-[4rem]'} bg-loginMobile lg:bg-none h-screen bg-contain bg-no-repeat bg-bottom  transition-all `}>
+        <div
+          className={`w-full lg:w-1/3 xl:w-1/3 pt-[3rem] md:pt-[1rem] ${
+            isLoginForm ? 'lg:pt-[8rem]' : 'lg:pt-[4rem]'
+          } bg-loginMobile lg:bg-none h-screen bg-contain bg-no-repeat bg-bottom  transition-all `}
+        >
           <LoadingAnimation
             loading={loading}
             tip={isLoginForm ? data.signInLoadingText : data.signUpLoadingText}

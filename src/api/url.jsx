@@ -1,6 +1,6 @@
 const urlDoc = {
   user: {
-    login: { url: '/user/login', type: 'post' },
+    login: { url: '/login', type: 'post' },
     logout: { url: '/user/logout', type: 'post' },
     info: { url: '/user/info', type: 'get' }
   },
