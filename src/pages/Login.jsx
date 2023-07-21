@@ -7,6 +7,7 @@ import handleApiCall from '../api/handleApiCall'
 import LoadingAnimation from '../components/elements/LoadingAnimation'
 import { useNavigate } from 'react-router-dom'
 import authContext from '../context/AuthContext'
+import ForgetPassword from './login/ForgetPassword'
 
 const loggedUserEmail = localStorage.getItem('train_user_email')
 const adminEmail = import.meta.env.VITE_ADMIN_EMAIL
@@ -63,7 +64,7 @@ const Login = () => {
       <div className='flex flex-row items-start justify-center h-full'>
         <div
           className={`w-full lg:w-1/3 xl:w-1/3 pt-[3rem] md:pt-[1rem] ${
-            isLoginForm ? 'lg:pt-[8rem]' : 'lg:pt-[4rem]'
+            isLoginForm ? 'lg:pt-[8rem]' : 'lg:pt-[1rem]'
           } bg-loginMobile lg:bg-none h-screen bg-contain bg-no-repeat bg-bottom  transition-all `}
         >
           <LoadingAnimation
@@ -73,7 +74,7 @@ const Login = () => {
             <Title className='text-center lg:hidden py-[2rem] md:pt-[1rem] md:pb-0 track-wider login-title-mobile decoration-sky-500 underline whitespace-nowrap'>
               {data.title}
             </Title>
-            <div className='p-5 lg:p-8 xl:p-12  2xl:p-20 2xl:py-8 mx-2'>
+            <div className='p-5 lg:p-8 xl:p-12  2xl:px-20 2xl:py-6 mx-2'>
               <Title level={1} className='text-center'>
                 {isLoginForm ? data.signInText : data.signUpText}
               </Title>
@@ -96,37 +97,15 @@ const Login = () => {
 
               {/* form */}
               <CommonForm
-                {...data}
+                fields={data.fields}
+                formBtnText={isLoginForm ? data.signInText : data.signUpText}
                 type={isLoginForm ? 'signIn' : 'signUp'}
                 requiredMark={false}
                 ref={formRef}
                 onSubmit={handleLogin}
                 itemClassName='mb-2'
+                customComponent={isLoginForm && <ForgetPassword />}
               />
-
-              {/* social login */}
-              {/* <Title
-              level={4}
-              className='text-center text-slate-800 font-bold mt-[3rem]'
-            >
-              or
-            </Title>
-
-            <Paragraph className='text-center text-slate-500 mt-[2rem]'>
-              {data.loginWithSocialText}
-            </Paragraph>
-
-            <div className='flex items-center justify-center gap-5'>
-              {data.socialLogins.map((item, idx) => (
-                <div
-                  key={`social_login_${idx}`}
-                  onClick={item.onclick}
-                  className='cursor-pointer'
-                >
-                  {item.icon}
-                </div>
-              ))}
-            </div> */}
             </div>
           </LoadingAnimation>
         </div>
