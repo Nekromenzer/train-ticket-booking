@@ -8,15 +8,11 @@ const handleApiCall = ({
   urlType,
   data,
   params,
-  cb = returnData => {
-    console.log(returnData, 'default cb')
-  },
-  setLoading = state => {
-    console.log(state, 'default setLoading')
-  },
+  cb = returnData => returnData,
+  setLoading = state => state,
   urlParams = ''
 }) => {
-  const url = `${baseUrl}${urlDoc[variant][urlType].url}${
+  const url = `${baseUrl}${urlDoc[variant][urlType]?.url}${
     urlParams && '/'
   }${urlParams}`
   const method = urlDoc[variant][urlType].type
