@@ -6,7 +6,7 @@ import { BsFillArrowLeftCircleFill } from 'react-icons/bs'
 import LoadingAnimation from '../../components/elements/LoadingAnimation'
 import { Result, Button, Statistic } from 'antd'
 
-const Payment = ({ setBookingState }) => {
+const Payment = ({ setBookingState, searchVal }) => {
   const [enteredCardNumber, setEnteredCardNumber] = useState({
     cardType: 1,
     fullName: '',

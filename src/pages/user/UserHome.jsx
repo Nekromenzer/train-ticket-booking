@@ -11,6 +11,7 @@ import Payment from './Payment'
 
 const UserHome = () => {
   const { Title } = Typography
+  const [searchVal, setSearchVal] = useState({})
   const [isLoading, setIsLoading] = useState(false)
   const [bookingState, setBookingState] = useState(0)
   // selected train
@@ -103,14 +104,14 @@ const UserHome = () => {
       ]
     }
   ]
-
+  console.log(searchVal)
   const RenderComponent = () => {
     if (bookingState === 0)
       return (
         <CommonForm
           fields={data.fields}
           onSubmit={val => {
-            console.log(val)
+            setSearchVal(val)
             setIsLoading(true)
             // manipulate api call here
             setTimeout(() => {
@@ -143,7 +144,7 @@ const UserHome = () => {
         <div className='h-[54vh] max-h-[54vh] overflow-y-auto '>
           <SeatBooking
             selectedTrain={selectedTrain}
-            noOfPassengers={5}
+            noOfPassengers={searchVal?.passengers}
             level={userLevel}
             setBookingState={setBookingState}
           />
@@ -152,7 +153,7 @@ const UserHome = () => {
     } else if (bookingState === 3) {
       return (
         <div className='h-[52vh] max-h-[52vh] overflow-y-auto '>
-          <Payment setBookingState={setBookingState}/>
+          <Payment setBookingState={setBookingState} searchVal={searchVal} />
         </div>
       )
     }
