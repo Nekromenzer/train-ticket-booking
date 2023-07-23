@@ -21,61 +21,8 @@ const UserHome = ({ stations }) => {
   const [selectedTrain, setSelectedTrain] = useState(null)
   // user level
   const [userLevel, setUserLevel] = useState(2)
-  // temp data
-  const trainSchedule1 = [
-    {
-      key: 1,
-      train_id: 2,
-      from: 'Kandy',
-      to: 'Badulla',
-      routes_id: 1,
-      departure_time: '2023-07-30 19:36:47',
-      arrival_time: '2023-07-30 20:53:15',
-      train_name: 'Podi Menike',
-      schedule_price: [
-        {
-          id: 1,
-          schedule_id: 1,
-          class_id: 1,
-          price: 1384
-        },
-        {
-          id: 2,
-          schedule_id: 1,
-          class_id: 2,
-          price: 544
-        },
-        {
-          id: 3,
-          schedule_id: 1,
-          class_id: 3,
-          price: 144
-        }
-      ],
-      schedule_seats: [
-        {
-          id: 1,
-          schedule_id: 1,
-          class_id: 1,
-          available_count: 15
-        },
-        {
-          id: 2,
-          schedule_id: 1,
-          class_id: 2,
-          available_count: 20
-        },
-        {
-          id: 3,
-          schedule_id: 1,
-          class_id: 3,
-          available_count: 20
-        }
-      ]
-    }
-  ]
-  // train schedule table
-  const [trainSchedule, setTrainSchedule] = useState(trainSchedule1)
+  //
+  const [trainSchedule, setTrainSchedule] = useState([])
 
   const RenderComponent = () => {
     if (bookingState === 0)

@@ -11,7 +11,7 @@ import data from '../../data/pages/userLevel'
 import handleApiCall from '../../api/handleApiCall'
 import LoadingAnimation from '../../components/elements/LoadingAnimation'
 const SeatBooking = ({
-  noOfPassengers = 4,
+  noOfPassengers,
   selectedTrain,
   level,
   setBookingState
