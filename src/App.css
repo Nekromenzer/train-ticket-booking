@@ -160,3 +160,25 @@
 .custom-payment-input-width {
     width: 50% !important;
 }
+
+.ant-picker-date-panel .ant-picker-cell:not(.ant-picker-cell-in-view) .ant-picker-cell-inner {
+    display: none !important;
+}
+
+.ant-picker-date-panel .ant-picker-cell:not(.ant-picker-cell-in-view) {
+    pointer-events: none !important;
+}
+
+.ant-picker-calendar-date {
+    background-color: theme('colors.sky.50') !important;
+    margin: 4px !important;
+}
+
+.ant-picker-calendar-date:hover {
+    background-color: theme('colors.sky.100') !important;
+}
+
+.ant-picker-calendar-date .ant-picker-calendar-date-value {
+    color: theme('colors.sky.800') !important;
+    font-size: theme('fontSize.base') !important;
+}

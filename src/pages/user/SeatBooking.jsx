@@ -3,16 +3,19 @@ import { useEffect, useState } from 'react'
 import { CommonTag } from '../../components'
 import { Statistic } from 'antd'
 import { GiPriceTag } from 'react-icons/gi'
+import dayjs from 'dayjs'
 // images
 import { firstClassSeat, secondClassSeat, thirdClassSeat } from '../../img'
 import { BsArrowRight } from 'react-icons/bs'
 import data from '../../data/pages/userLevel'
-
+import handleApiCall from '../../api/handleApiCall'
+import LoadingAnimation from '../../components/elements/LoadingAnimation'
 const SeatBooking = ({
   noOfPassengers,
   selectedTrain,
   level,
-  setBookingState
+  setBookingState,
+  setBookingValues
 }) => {
   // selected class
   const [selectedClass, setSelectedClass] = useState(null)
@@ -20,45 +23,31 @@ const SeatBooking = ({
   const [seatCheckedList, setSeatCheckedList] = useState([])
   // selected price
   const [selectedPrice, setSelectedPrice] = useState(0)
+  // reserved seats
+  const [reservedSeats, setReservedSeats] = useState([])
+  // loading
+  const [isLoading, setIsLoading] = useState(false)
 
   const getUserLevelData = data?.levels[level - 1]
 
-  const seats = [
-    { id: 1, available: true },
-    { id: 2, available: false },
-    { id: 3, available: true },
-    { id: 4, available: false },
-    { id: 5, available: true },
-    { id: 6, available: true },
-    { id: 7, available: true },
-    { id: 8, available: true },
-    { id: 9, available: true },
-    { id: 10, available: false },
-    { id: 11, available: false },
-    { id: 12, available: true },
-    { id: 13, available: false },
-    { id: 14, available: true },
-    { id: 15, available: true },
-    { id: 16, available: true },
-    { id: 17, available: true },
-    { id: 18, available: true },
-    { id: 19, available: false },
-    { id: 20, available: true }
-  ]
-  console.log(selectedTrain)
-  
-  const windowSeats = [1, 4, 5, 8, 9, 12, 13, 16, 17, 20]
-
   const summaryObj = [
-    { name: 'Train Name & No', val: selectedTrain?.trainName },
-    { name: 'Start Station', val: 'Colombo' },
-    { name: 'End Station', val: 'Kandy' },
-    { name: 'Departure Date', val: '2012/07/22' },
+    { name: 'Train Name & No', val: selectedTrain?.train_name },
+    { name: 'Start Station', val: selectedTrain?.from },
+    { name: 'End Station', val: selectedTrain?.to },
+    {
+      name: 'Departure Date',
+      val: dayjs(selectedTrain?.departure_time).format('YYYY-MM-DD')
+    },
     {
       name: 'Time Start -> End',
-      val: `${selectedTrain?.departs} - ${selectedTrain?.arrives}`
+      val: `${dayjs(selectedTrain?.departure_time).format('hh:mm A')} - ${dayjs(
+        selectedTrain?.arrival_time
+      ).format('hh:mm A')}`
     },
-    { name: 'No of Passengers', val: `${noOfPassengers} Passengers` },
+    {
+      name: 'No of Passengers',
+      val: noOfPassengers ? `${noOfPassengers} Passengers` : ''
+    },
     {
       name: 'Train Class Selected',
       val:
@@ -76,7 +65,11 @@ const SeatBooking = ({
     },
     {
       name: 'Price One Person',
-      val: selectedTrain?.price[selectedClass - 1]?.price
+      val: `${
+        selectedClass !== null
+          ? selectedTrain?.schedule_price[selectedClass - 1]?.price
+          : '00'
+      }.00 LKR`
     }
   ]
 
@@ -110,16 +103,20 @@ const SeatBooking = ({
       if (id === 2) return secondClassSeat
       if (id === 3) return thirdClassSeat
     }
+
+    const handleClassSelect = classId => {
+      setSelectedClass(classId)
+    }
     return (
       <>
         <CompTitle>Select train class</CompTitle>
         <div className='w-fit flex flex-col justify-between gap-5 flex-grow'>
-          {selectedTrain?.trainClass?.map((item, idx) => {
+          {selectedTrain?.schedule_seats?.map((item, idx) => {
             return (
               <div
                 key={idx}
                 className='w-full'
-                onClick={() => setSelectedClass(item?.id)}
+                onClick={() => handleClassSelect(item?.id)}
               >
                 <div
                   className={`h-32 flex flex-col justify-between  w-full min-w-full rounded-lg shadow-sm border-2 border-sky-200 cursor-pointer p-2  hover:border-sky-400 hover:shadow-md ${
@@ -131,14 +128,14 @@ const SeatBooking = ({
                     item={item}
                     type='class'
                     customClassnames='mr-0'
-                    seatCount={selectedTrain.availableSeats[idx].seats}
+                    seatCount={item.available_count}
                     seatNameTag
                   />
                   <div className='flex item-center justify-between'>
                     <img src={getClassImage(item?.id)} height={64} width={64} />
                     <Statistic
                       title='Price per seat (LKR)'
-                      value={selectedTrain.price[idx].price}
+                      value={selectedTrain.schedule_price[idx].price}
                       precision={2}
                     />
                   </div>
@@ -163,24 +160,29 @@ const SeatBooking = ({
           seats
         </span>
         <div className='flex gap-4'>
-          <div className='px-2 py-4 flex flex-wrap w-[10.2rem] gap-3 gap-y-8 bg-sky-50 shadow-md  border-blue-950 rounded-lg mt-4'>
-            {seats.map((seat, idx) => (
-              <Checkbox
-                checked={seatCheckedList.includes(seat.id)}
-                onChange={onChange}
-                key={idx}
-                className={`seat-checkbox ${
-                  [1, 5, 9, 13, 17].includes(idx) ? 'mr-[2rem] ' : 'mr-1'
-                } ${
-                  !seatCheckedList.includes(seat.id) &&
-                  seatCheckedList.length >= noOfPassengers &&
-                  'pointer-events-none disabled-user-check'
-                }`}
-                id={seat.id}
-                disabled={!seat.available}
-              />
-            ))}
-          </div>
+          <LoadingAnimation loading={isLoading}>
+            <div className='px-2 py-4 flex flex-wrap w-[10.2rem] gap-3 gap-y-8 bg-sky-50 shadow-md  border-blue-950 rounded-lg mt-4 '>
+              {data.seats.map((seat, idx) => (
+                <Checkbox
+                  checked={seatCheckedList.includes(seat.id)}
+                  onChange={onChange}
+                  key={idx}
+                  className={`seat-checkbox ${
+                    [1, 5, 9, 13, 17].includes(idx) ? 'mr-[2rem] ' : 'mr-1'
+                  } ${
+                    !seatCheckedList.includes(seat.id) &&
+                    seatCheckedList.length >= noOfPassengers &&
+                    'pointer-events-none disabled-user-check'
+                  }`}
+                  id={seat.id}
+                  disabled={
+                    reservedSeats?.[selectedClass]?.includes(seat.id) ||
+                    selectedClass === null
+                  }
+                />
+              ))}
+            </div>
+          </LoadingAnimation>
           <div className='mt-6'>
             <div className='flex flex-col gap-5'>
               {seatCheckedList.map((seat, idx) => (
@@ -196,7 +198,7 @@ const SeatBooking = ({
                   </span>
                   <div className='flex items-center'>
                     <div className='w-6 font-mono text-base'>{seat}</div>
-                    {windowSeats.includes(seat) && (
+                    {data.windowSeats.includes(seat) && (
                       <img
                         width='20'
                         height='20'
@@ -215,6 +217,17 @@ const SeatBooking = ({
   }
 
   const renderSummaryStats = () => {
+    const handlePaymentState = () => {
+      setBookingState(3)
+      setBookingValues({
+        schedule_id: selectedTrain?.key,
+        class_id: selectedClass,
+        // convert to json string - due to backend requirement
+        selected_seats: `[${seatCheckedList}]`,
+        discount: getUserLevelData?.discount,
+        total: Number(selectedPrice)
+      })
+    }
     return (
       <div className='flex flex-col items-center'>
         <CompTitle summary>Summary</CompTitle>
@@ -242,7 +255,7 @@ const SeatBooking = ({
                 <div className='tracking-wide font-mono text-base'>
                   Total Price ={' '}
                 </div>
-                <div className='tracking-wide font-mono w-[6rem] text-base'>
+                <div className='tracking-wide font-mono w-[8rem] text-base'>
                   {selectedPrice} LKR
                 </div>
               </div>
@@ -254,7 +267,7 @@ const SeatBooking = ({
                 selectedClass === null) &&
               'seat-booking-disable-btn'
             } bg-sky-500 mt-3 tracking-wide group rounded-md p-1 text-base text-white font-semi-bold font-monts subpixel-antialiased flex items-center justify-center gap-4 cursor-pointer hover:bg-sky-800 hover:ease-linear hover:duration-200`}
-            onClick={() => setBookingState(3)}
+            onClick={() => handlePaymentState()}
           >
             Proceed to Payment
             <img
@@ -272,20 +285,40 @@ const SeatBooking = ({
 
   useEffect(() => {
     const totalPrice =
-      selectedTrain?.price[selectedClass - 1]?.price * noOfPassengers
+      selectedTrain?.schedule_price[selectedClass - 1]?.price * noOfPassengers
+    // selectedTrain?.price[selectedClass - 1]?.price * noOfPassengers
     const getDiscount = totalPrice * (getUserLevelData?.discount / 100)
+    const getFinalPrice = totalPrice - getDiscount
 
     if (selectedClass === null) {
       setSelectedPrice(0)
     } else {
-      setSelectedPrice(totalPrice - getDiscount)
+      setSelectedPrice(getFinalPrice.toFixed(2))
     }
   }, [
     selectedClass,
     noOfPassengers,
-    selectedTrain?.price,
-    getUserLevelData?.discount
+    getUserLevelData?.discount,
+    selectedTrain?.schedule_price
   ])
+
+  useEffect(() => {
+    setIsLoading(true)
+
+    handleApiCall({
+      variant: 'userDashboard',
+      urlType: 'seats',
+      data: { schedule_id: selectedTrain?.key },
+      setLoading: () => {},
+      cb: (data, state) => {
+        if (state === 200) {
+          const mappedSeats = data[0]
+          setReservedSeats(mappedSeats)
+        }
+        setIsLoading(false)
+      }
+    })
+  }, [selectedTrain?.key])
 
   return (
     <div className='flex gap-2 p-2'>

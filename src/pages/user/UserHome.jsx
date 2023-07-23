@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { Typography } from 'antd'
 import { CommonForm } from '../../components'
 import data from '../../data/pages/bookingForm'
+import dayjs from 'dayjs'
 import CommonTable from '../../components/common/CommonTable'
 import LoadingAnimation from '../../components/elements/LoadingAnimation'
 import Steps from '../../components/elements/Steps'
@@ -15,99 +16,22 @@ const UserHome = ({ stations }) => {
   const { Title } = Typography
   const [searchVal, setSearchVal] = useState({})
   const [isLoading, setIsLoading] = useState(false)
-  const [bookingState, setBookingState] = useState(1)
+  const [bookingState, setBookingState] = useState(0)
   // selected train
   const [selectedTrain, setSelectedTrain] = useState(null)
+  // user level
   const [userLevel, setUserLevel] = useState(2)
-
-  // temp data
-  const trainSchedule = [
-    {
-      key: '1',
-      trainName: '1030 Intercity Express - Kandy to Colombo',
-      departs: '6.16 AM',
-      arrives: '9.30 AM',
-      trainClass: [
-        { id: 1, seats: 18 }, // first class
-        { id: 2, seats: 24 }, // second class
-        { id: 3, seats: 36 } // third class
-      ],
-      availableSeats: [
-        { id: 1, seats: 2 },
-        { id: 2, seats: 20 },
-        { id: 3, seats: 6 }
-      ],
-      price: [
-        { id: 1, price: 3000 },
-        { id: 2, price: 2000 },
-        { id: 3, price: 1000 }
-      ]
-    },
-    {
-      key: '2',
-      trainName: 'John',
-      departs: 'Kandy',
-      arrives: 'Badulla',
-      trainClass: [
-        { id: 1, seats: 12 }, // first class
-        { id: 2, seats: 120 }, // second class
-        { id: 3, seats: 50 } // third class
-      ],
-      availableSeats: [
-        { id: 1, seats: 12 },
-        { id: 2, seats: 70 },
-        { id: 3, seats: 20 }
-      ],
-      price: [
-        { id: 1, price: 3000 },
-        { id: 2, price: 2000 },
-        { id: 3, price: 1000 }
-      ]
-    },
-    {
-      key: '3',
-      trainName: 'Sarah',
-      departs: 'Colombo',
-      arrives: 'Galle',
-      trainClass: [
-        { id: 1, seats: 30 }, // first class
-        { id: 2, seats: 80 }, // second class
-        { id: 3, seats: 130 } // third class
-      ],
-      availableSeats: [
-        { id: 1, seats: 2 },
-        { id: 2, seats: 70 },
-        { id: 3, seats: 60 }
-      ],
-      price: [
-        { id: 1, price: 5000 },
-        { id: 2, price: 2500 },
-        { id: 3, price: 800 }
-      ]
-    },
-    {
-      key: '4',
-      trainName: 'David',
-      departs: 'Jaffna',
-      arrives: 'Colombo',
-      trainClass: [
-        { id: 1, seats: 18 }, // first class
-        { id: 2, seats: 24 }, // second class
-        { id: 3, seats: 36 } // third class
-      ],
-      availableSeats: [
-        { id: 1, seats: 2 },
-        { id: 2, seats: 20 },
-        { id: 3, seats: 6 }
-      ],
-      price: [
-        { id: 1, price: 3000 },
-        { id: 2, price: 2000 },
-        { id: 3, price: 1000 }
-      ]
-    }
-  ]
-
+  // train schedule
+  const [trainSchedule, setTrainSchedule] = useState([])
+  // booking values
+  const [bookingValues, setBookingValues] = useState({
+    schedule_id: null,
+    class_id: null,
+    selected_seats: [],
+    discount: 0,
+    total: 0
+  })
+  console.log(bookingValues, 'bookingValues')
   const RenderComponent = () => {
     if (bookingState === 0)
       return (
@@ -118,11 +42,21 @@ const UserHome = ({ stations }) => {
             setIsLoading(true)
             handleApiCall({
               variant: 'userDashboard',
-              urlType: 'searchTrain',
-              data: val,
+              urlType: 'search',
+              data: {
+                from: val.from,
+                to: val.to,
+                date: dayjs(val.departureDate).format('YYYY-MM-DD')
+              },
               setLoading: setIsLoading,
               cb: (data, state) => {
                 if (state === 200) {
+                  const mappedTableData = data?.map(item => ({
+                    key: item.id,
+                    ...item
+                  }))
+
+                  setTrainSchedule(mappedTableData)
                   setBookingState(1)
                 }
               }
@@ -156,13 +90,17 @@ const UserHome = ({ stations }) => {
             noOfPassengers={searchVal?.passengers}
             level={userLevel}
             setBookingState={setBookingState}
+            setBookingValues={setBookingValues}
           />
         </div>
       )
     } else if (bookingState === 3) {
       return (
         <div className='h-[52vh] max-h-[52vh] overflow-y-auto '>
-          <Payment setBookingState={setBookingState} searchVal={searchVal} />
+          <Payment
+            setBookingState={setBookingState}
+            bookingValues={bookingValues}
+          />
         </div>
       )
     }
