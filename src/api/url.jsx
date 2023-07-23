@@ -1,3 +1,5 @@
+const version = 'v1'
+
 const urlDoc = {
   auth: {
     login: { url: '/login', type: 'post' },
@@ -12,8 +14,8 @@ const urlDoc = {
     verifyToken: { url: '/verify-token', type: 'post' }
   },
   userDashboard: {
-    stations: { url: '/v1/location/all', type: 'get' },
-    search: { url: '/v1/train-schedule/search', type: 'post' },
+    stations: { url: `/${version}/location/all`, type: 'get' },
+    search: { url: `/${version}/train-schedule/search`, type: 'post' },
     info: { url: '/dashboard/info', type: 'get' }
   }
 }
