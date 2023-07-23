@@ -13,9 +13,7 @@ const handleApiCall = ({
   urlParams = '',
   auth
 }) => {
-  const url = `${baseUrl}${urlDoc[variant][urlType]?.url}${
-    urlParams && '/'
-  }${urlParams}`
+  const url = `${baseUrl}${urlDoc[variant][urlType]?.url}${urlParams}`
   const method = urlDoc[variant][urlType]?.type
 
   async function handelCall () {

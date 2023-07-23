@@ -160,3 +160,11 @@
 .custom-payment-input-width {
     width: 50% !important;
 }
+
+.ant-picker-date-panel .ant-picker-cell:not(.ant-picker-cell-in-view) .ant-picker-cell-inner {
+    display: none !important;
+  }
+  
+  .ant-picker-date-panel .ant-picker-cell:not(.ant-picker-cell-in-view) {
+    pointer-events: none !important;
+  }

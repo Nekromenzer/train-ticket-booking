@@ -17,7 +17,8 @@ const urlDoc = {
     stations: { url: `/${version}/location/all`, type: 'get' },
     search: { url: `/${version}/train-schedule/search`, type: 'post' },
     seats: { url: `/${version}/train-schedule/seats`, type: 'post' },
-    reserve: { url: `/${version}/user/reservation`, type: 'post' }
+    reserve: { url: `/${version}/user/reservation`, type: 'post' },
+    getReservations: { url: `/${version}/user/reservations`, type: 'get' }
   }
 }
 

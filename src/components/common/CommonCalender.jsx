@@ -5,13 +5,13 @@ const CommonCalender = ({ getListData, headerText }) => {
     const listData = getListData(value)
     return (
       <ul className='events'>
-        {listData.map(item => (
-          <li key={item.content}>
+        {listData.map((item, idx) => (
+          <li key={idx}>
             <Badge
-              status={item.type}
+              status='success'
               text={
                 <span className='text-[0.8rem] subpixel-antialiased '>
-                  {item.content}
+                  {item.train}
                 </span>
               }
               size='small'
@@ -23,6 +23,7 @@ const CommonCalender = ({ getListData, headerText }) => {
   }
 
   const cellRender = (current, info) => {
+    console.log(current, 'monthFullCellRender')
     if (info.type === 'date') return dateCellRender(current)
     return info.originNode
   }
@@ -31,7 +32,9 @@ const CommonCalender = ({ getListData, headerText }) => {
     <Calendar
       cellRender={cellRender}
       mode='month'
-      headerRender={() => <h3 className='text-xl mb-16 mt-4 font-bold '>{headerText}</h3>}
+      headerRender={() => (
+        <h3 className='text-xl mb-16 mt-4 font-bold '>{headerText}</h3>
+      )}
     />
   )
 }
