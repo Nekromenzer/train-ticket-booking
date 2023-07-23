@@ -16,7 +16,7 @@ const urlDoc = {
   userDashboard: {
     stations: { url: `/${version}/location/all`, type: 'get' },
     search: { url: `/${version}/train-schedule/search`, type: 'post' },
-    info: { url: '/dashboard/info', type: 'get' }
+    seats: { url: `/${version}/train-schedule/seats`, type: 'post' }
   }
 }
 
