@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { Typography } from 'antd'
 import { CommonForm } from '../../components'
 import data from '../../data/pages/bookingForm'
+import dayjs from 'dayjs'
 import CommonTable from '../../components/common/CommonTable'
 import LoadingAnimation from '../../components/elements/LoadingAnimation'
 import Steps from '../../components/elements/Steps'
@@ -18,95 +19,63 @@ const UserHome = ({ stations }) => {
   const [bookingState, setBookingState] = useState(1)
   // selected train
   const [selectedTrain, setSelectedTrain] = useState(null)
+  // user level
   const [userLevel, setUserLevel] = useState(2)
-
   // temp data
-  const trainSchedule = [
+  const trainSchedule1 = [
     {
-      key: '1',
-      trainName: '1030 Intercity Express - Kandy to Colombo',
-      departs: '6.16 AM',
-      arrives: '9.30 AM',
-      trainClass: [
-        { id: 1, seats: 18 }, // first class
-        { id: 2, seats: 24 }, // second class
-        { id: 3, seats: 36 } // third class
+      key: 1,
+      train_id: 2,
+      from: 'Kandy',
+      to: 'Badulla',
+      routes_id: 1,
+      departure_time: '2023-07-30 19:36:47',
+      arrival_time: '2023-07-30 20:53:15',
+      train_name: 'Podi Menike',
+      schedule_price: [
+        {
+          id: 1,
+          schedule_id: 1,
+          class_id: 1,
+          price: 1384
+        },
+        {
+          id: 2,
+          schedule_id: 1,
+          class_id: 2,
+          price: 544
+        },
+        {
+          id: 3,
+          schedule_id: 1,
+          class_id: 3,
+          price: 144
+        }
       ],
-      availableSeats: [
-        { id: 1, seats: 2 },
-        { id: 2, seats: 20 },
-        { id: 3, seats: 6 }
-      ],
-      price: [
-        { id: 1, price: 3000 },
-        { id: 2, price: 2000 },
-        { id: 3, price: 1000 }
-      ]
-    },
-    {
-      key: '2',
-      trainName: 'John',
-      departs: 'Kandy',
-      arrives: 'Badulla',
-      trainClass: [
-        { id: 1, seats: 12 }, // first class
-        { id: 2, seats: 120 }, // second class
-        { id: 3, seats: 50 } // third class
-      ],
-      availableSeats: [
-        { id: 1, seats: 12 },
-        { id: 2, seats: 70 },
-        { id: 3, seats: 20 }
-      ],
-      price: [
-        { id: 1, price: 3000 },
-        { id: 2, price: 2000 },
-        { id: 3, price: 1000 }
-      ]
-    },
-    {
-      key: '3',
-      trainName: 'Sarah',
-      departs: 'Colombo',
-      arrives: 'Galle',
-      trainClass: [
-        { id: 1, seats: 30 }, // first class
-        { id: 2, seats: 80 }, // second class
-        { id: 3, seats: 130 } // third class
-      ],
-      availableSeats: [
-        { id: 1, seats: 2 },
-        { id: 2, seats: 70 },
-        { id: 3, seats: 60 }
-      ],
-      price: [
-        { id: 1, price: 5000 },
-        { id: 2, price: 2500 },
-        { id: 3, price: 800 }
-      ]
-    },
-    {
-      key: '4',
-      trainName: 'David',
-      departs: 'Jaffna',
-      arrives: 'Colombo',
-      trainClass: [
-        { id: 1, seats: 18 }, // first class
-        { id: 2, seats: 24 }, // second class
-        { id: 3, seats: 36 } // third class
-      ],
-      availableSeats: [
-        { id: 1, seats: 2 },
-        { id: 2, seats: 20 },
-        { id: 3, seats: 6 }
-      ],
-      price: [
-        { id: 1, price: 3000 },
-        { id: 2, price: 2000 },
-        { id: 3, price: 1000 }
+      schedule_seats: [
+        {
+          id: 1,
+          schedule_id: 1,
+          class_id: 1,
+          available_count: 15
+        },
+        {
+          id: 2,
+          schedule_id: 1,
+          class_id: 2,
+          available_count: 20
+        },
+        {
+          id: 3,
+          schedule_id: 1,
+          class_id: 3,
+          available_count: 20
+        }
       ]
     }
   ]
+  // train schedule table
+  const [trainSchedule, setTrainSchedule] = useState(trainSchedule1)
 
   const RenderComponent = () => {
     if (bookingState === 0)
@@ -118,11 +87,21 @@ const UserHome = ({ stations }) => {
             setIsLoading(true)
             handleApiCall({
               variant: 'userDashboard',
-              urlType: 'searchTrain',
-              data: val,
+              urlType: 'search',
+              data: {
+                from: val.from,
+                to: val.to,
+                date: dayjs(val.departureDate).format('YYYY-MM-DD')
+              },
               setLoading: setIsLoading,
               cb: (data, state) => {
                 if (state === 200) {
+                  const mappedTableData = data?.map(item => ({
+                    key: item.id,
+                    ...item
+                  }))
+
+                  setTrainSchedule(mappedTableData)
                   setBookingState(1)
                 }
               }
