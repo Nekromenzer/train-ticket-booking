@@ -24,7 +24,7 @@ const NewsSections = () => {
               >
                 <span className='text-slate-700 text-base w-full'>
                   {item.title} -{' '}
-                  <spn className='text-[0.8rem] text-left'>{item.date}</spn>
+                  <span className='text-[0.8rem] text-left'>{item.date}</span>
                 </span>
                 <span className='text-sm text-gray-400 font-[400]my-1'>
                   {item.content}
