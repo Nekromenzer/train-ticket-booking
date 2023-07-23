@@ -11,16 +11,16 @@ const CommonNotification = forwardRef(({ children }, ref) => {
       role: 'status',
       placement: 'topRight',
       icon:
-        type !== 'error' ? (
-          <SmileOutlined
-            style={{
-              color: '#108ee9'
-            }}
-          />
-        ) : (
+        type === 'error' ? (
           <MehOutlined
             style={{
               color: 'red'
+            }}
+          />
+        ) : (
+          <SmileOutlined
+            style={{
+              color: '#108ee9'
             }}
           />
         )
