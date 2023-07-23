@@ -9,7 +9,7 @@ const CommonNotification = forwardRef(({ children }, ref) => {
       message: message,
       description: description,
       role: 'status',
-      placement: 'topRight',
+      placement: 'top',
       icon:
         type === 'error' ? (
           <MehOutlined
