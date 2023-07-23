@@ -222,7 +222,8 @@ const SeatBooking = ({
       setBookingValues({
         schedule_id: selectedTrain?.key,
         class_id: selectedClass,
-        selected_seats: seatCheckedList,
+        // convert to json string - due to backend requirement
+        selected_seats: `[${seatCheckedList}]`,
         discount: getUserLevelData?.discount,
         total: Number(selectedPrice)
       })

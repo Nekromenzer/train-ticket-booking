@@ -10,12 +10,13 @@ const handleApiCall = ({
   params,
   cb = returnData => returnData,
   setLoading = state => state,
-  urlParams = ''
+  urlParams = '',
+  auth
 }) => {
   const url = `${baseUrl}${urlDoc[variant][urlType]?.url}${
     urlParams && '/'
   }${urlParams}`
-  const method = urlDoc[variant][urlType].type
+  const method = urlDoc[variant][urlType]?.type
 
   async function handelCall () {
     setLoading(true)
@@ -26,7 +27,10 @@ const handleApiCall = ({
         data,
         params,
         headers: {
-          'Content-Type': 'application/json'
+          'Content-Type': 'application/json',
+          Authorization: auth
+            ? `Bearer ${localStorage.getItem('userToken')}`
+            : ''
         }
       })
       setLoading(false)

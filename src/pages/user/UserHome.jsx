@@ -97,7 +97,10 @@ const UserHome = ({ stations }) => {
     } else if (bookingState === 3) {
       return (
         <div className='h-[52vh] max-h-[52vh] overflow-y-auto '>
-          <Payment setBookingState={setBookingState} searchVal={searchVal} />
+          <Payment
+            setBookingState={setBookingState}
+            bookingValues={bookingValues}
+          />
         </div>
       )
     }

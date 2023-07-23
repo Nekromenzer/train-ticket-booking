@@ -5,8 +5,9 @@ import { FaCcVisa, FaCcMastercard } from 'react-icons/fa'
 import { BsFillArrowLeftCircleFill } from 'react-icons/bs'
 import LoadingAnimation from '../../components/elements/LoadingAnimation'
 import { Result, Button, Statistic } from 'antd'
+import handleApiCall from '../../api/handleApiCall'
 
-const Payment = ({ setBookingState, searchVal }) => {
+const Payment = ({ setBookingState, bookingValues }) => {
   const [enteredCardNumber, setEnteredCardNumber] = useState({
     cardType: 1,
     fullName: '',
@@ -60,9 +61,21 @@ const Payment = ({ setBookingState, searchVal }) => {
               setIsLoading(true)
               // manipulate api call here
               setTimeout(() => {
-                setIsLoading(false)
-                setIsFinalStep(true)
-              }, 6000)
+                handleApiCall({
+                  variant: 'userDashboard',
+                  urlType: 'reserve',
+                  data: bookingValues,
+                  setLoading: setIsLoading,
+                  auth: true,
+                  cb: (data, state) => {
+                    if (state === 200) {
+                      setIsFinalStep(true)
+                    }else{
+                      // handle error
+                    }
+                  }
+                })
+              }, 2000)
             }}
             formItemClassName='w-full p-2 booking-form-item lg:h-[5.5rem]'
             className='flex lg:flex-row flex-wrap items-center justify-between'
