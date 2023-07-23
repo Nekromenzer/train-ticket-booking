@@ -14,7 +14,8 @@ const SeatBooking = ({
   noOfPassengers,
   selectedTrain,
   level,
-  setBookingState
+  setBookingState,
+  setBookingValues
 }) => {
   // selected class
   const [selectedClass, setSelectedClass] = useState(null)
@@ -28,8 +29,6 @@ const SeatBooking = ({
   const [isLoading, setIsLoading] = useState(false)
 
   const getUserLevelData = data?.levels[level - 1]
-
-  console.log(selectedTrain)
 
   const summaryObj = [
     { name: 'Train Name & No', val: selectedTrain?.train_name },
@@ -218,6 +217,16 @@ const SeatBooking = ({
   }
 
   const renderSummaryStats = () => {
+    const handlePaymentState = () => {
+      setBookingState(3)
+      setBookingValues({
+        schedule_id: selectedTrain?.key,
+        class_id: selectedClass,
+        selected_seats: seatCheckedList,
+        discount: getUserLevelData?.discount,
+        total: Number(selectedPrice)
+      })
+    }
     return (
       <div className='flex flex-col items-center'>
         <CompTitle summary>Summary</CompTitle>
@@ -257,7 +266,7 @@ const SeatBooking = ({
                 selectedClass === null) &&
               'seat-booking-disable-btn'
             } bg-sky-500 mt-3 tracking-wide group rounded-md p-1 text-base text-white font-semi-bold font-monts subpixel-antialiased flex items-center justify-center gap-4 cursor-pointer hover:bg-sky-800 hover:ease-linear hover:duration-200`}
-            onClick={() => setBookingState(3)}
+            onClick={() => handlePaymentState()}
           >
             Proceed to Payment
             <img
@@ -288,7 +297,6 @@ const SeatBooking = ({
   }, [
     selectedClass,
     noOfPassengers,
-    selectedTrain.price,
     getUserLevelData?.discount,
     selectedTrain?.schedule_price
   ])
@@ -299,7 +307,7 @@ const SeatBooking = ({
     handleApiCall({
       variant: 'userDashboard',
       urlType: 'seats',
-      data: { schedule_id: selectedTrain.key },
+      data: { schedule_id: selectedTrain?.key },
       setLoading: () => {},
       cb: (data, state) => {
         if (state === 200) {
@@ -309,7 +317,7 @@ const SeatBooking = ({
         setIsLoading(false)
       }
     })
-  }, [selectedTrain.key])
+  }, [selectedTrain?.key])
 
   return (
     <div className='flex gap-2 p-2'>

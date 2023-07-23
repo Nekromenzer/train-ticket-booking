@@ -16,14 +16,22 @@ const UserHome = ({ stations }) => {
   const { Title } = Typography
   const [searchVal, setSearchVal] = useState({})
   const [isLoading, setIsLoading] = useState(false)
-  const [bookingState, setBookingState] = useState(1)
+  const [bookingState, setBookingState] = useState(0)
   // selected train
   const [selectedTrain, setSelectedTrain] = useState(null)
   // user level
   const [userLevel, setUserLevel] = useState(2)
-  //
+  // train schedule
   const [trainSchedule, setTrainSchedule] = useState([])
-
+  // booking values
+  const [bookingValues, setBookingValues] = useState({
+    schedule_id: null,
+    class_id: null,
+    selected_seats: [],
+    discount: 0,
+    total: 0
+  })
+  console.log(bookingValues, 'bookingValues')
   const RenderComponent = () => {
     if (bookingState === 0)
       return (
@@ -82,6 +90,7 @@ const UserHome = ({ stations }) => {
             noOfPassengers={searchVal?.passengers}
             level={userLevel}
             setBookingState={setBookingState}
+            setBookingValues={setBookingValues}
           />
         </div>
       )
