@@ -17,8 +17,6 @@ const UserBookings = () => {
   const from = dayjs().startOf('M').format('YYYY-MM-DD')
   const to = dayjs().endOf('M').format('YYYY-MM-DD')
 
-  console.log(reservations)
-
   useEffect(() => {
     setLoading(true)
     handleApiCall({
@@ -43,10 +41,11 @@ const UserBookings = () => {
 
   return (
     <div className='h-full flex'>
-      <LoadingAnimation loading={loading}>
+      <LoadingAnimation loading={loading} tip='getting your reservations...'>
         <CommonCalender
           getListData={getListData}
           headerText='My bookings in this month'
+          originalData={reservations}
         />
       </LoadingAnimation>
     </div>
