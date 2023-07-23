@@ -2,6 +2,7 @@ import { FiLogOut } from 'react-icons/fi'
 import { BsFillClipboard2CheckFill, BsFillHouseFill } from 'react-icons/bs'
 import { FaQuestionCircle } from 'react-icons/fa'
 import { Modal } from 'antd'
+import handleApiCall from '../../api/handleApiCall'
 
 const { confirm } = Modal
 
@@ -65,7 +66,14 @@ const data = {
           },
           onOk () {
             localStorage.removeItem('userToken')
-            return window.location.reload()
+            window.location.reload()
+            return handleApiCall({
+              urlType: 'logout',
+              setLoading: () => {},
+              cb: (res, status) => {
+                console.log(res, status, 'logout')
+              }
+            })
           },
           onCancel () {
             console.log('Cancel')

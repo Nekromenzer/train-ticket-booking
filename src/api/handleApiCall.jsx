@@ -4,18 +4,17 @@ import urlDoc from './url'
 const baseUrl = import.meta.env.VITE_API_URL
 
 const handleApiCall = ({
-  variant = 'user',
+  variant = 'auth',
   urlType,
   data,
   params,
-  cb = returnData => {
-    console.log(returnData, 'default cb')
-  },
-  setLoading = state => {
-    console.log(state, 'default setLoading')
-  }
+  cb = returnData => returnData,
+  setLoading = state => state,
+  urlParams = ''
 }) => {
-  const url = `${baseUrl}${urlDoc[variant][urlType].url}`
+  const url = `${baseUrl}${urlDoc[variant][urlType]?.url}${
+    urlParams && '/'
+  }${urlParams}`
   const method = urlDoc[variant][urlType].type
 
   async function handelCall () {
@@ -34,7 +33,7 @@ const handleApiCall = ({
       return cb(response.data, response.status)
     } catch (error) {
       setLoading(false)
-      cb(error, error.message)
+      cb(error, error.response.status)
       throw error
     }
   }

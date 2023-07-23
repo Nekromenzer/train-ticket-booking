@@ -8,15 +8,18 @@ import Steps from '../../components/elements/Steps'
 import UserLevel from './UserLevel'
 import SeatBooking from './SeatBooking'
 import Payment from './Payment'
+import handleApiCall from '../../api/handleApiCall'
+import NewsSections from './NewsSections'
 
-const UserHome = () => {
+const UserHome = ({ stations }) => {
   const { Title } = Typography
   const [searchVal, setSearchVal] = useState({})
   const [isLoading, setIsLoading] = useState(false)
-  const [bookingState, setBookingState] = useState(0)
+  const [bookingState, setBookingState] = useState(1)
   // selected train
   const [selectedTrain, setSelectedTrain] = useState(null)
   const [userLevel, setUserLevel] = useState(2)
+
   // temp data
   const trainSchedule = [
     {
@@ -104,20 +107,26 @@ const UserHome = () => {
       ]
     }
   ]
-  console.log(searchVal)
+
   const RenderComponent = () => {
     if (bookingState === 0)
       return (
         <CommonForm
-          fields={data.fields}
+          fields={data.fields(stations)}
           onSubmit={val => {
             setSearchVal(val)
             setIsLoading(true)
-            // manipulate api call here
-            setTimeout(() => {
-              setBookingState(1)
-              setIsLoading(false)
-            }, 2000)
+            handleApiCall({
+              variant: 'userDashboard',
+              urlType: 'searchTrain',
+              data: val,
+              setLoading: setIsLoading,
+              cb: (data, state) => {
+                if (state === 200) {
+                  setBookingState(1)
+                }
+              }
+            })
           }}
           formItemClassName='w-full lg:w-1/2 p-2 booking-form-item lg:h-[5.5rem]'
           className='flex lg:flex-row flex-wrap items-center justify-between'
@@ -162,7 +171,7 @@ const UserHome = () => {
   return (
     <div className='flex flex-col flex-wrap lg:flex-row items-center justify-center'>
       <div className='w-full lg:w-3/4 lg:p-4 p-2'>
-        <div className='rounded-xl p-2 lg:p-4 bg-red w-full bg-slate-50 border border-slate-300 h-screen lg:h-[64vh] backdrop-blur-lg backdrop-opacity-50 shadow drop-shadow-md overflow-auto'>
+        <div className='rounded-xl p-2 lg:p-4 bg-red w-full bg-slate-50 border border-slate-300 h-screen lg:h-[62vh] backdrop-blur-lg backdrop-opacity-50 shadow drop-shadow-md overflow-auto'>
           {bookingState === 0 ? (
             <Title level={3}>{data.formHeader}</Title>
           ) : (
@@ -182,7 +191,7 @@ const UserHome = () => {
       </div>
 
       <div className='w-full lg:w-1/4 lg:p-4 p-2'>
-        <div className='rounded-xl p-2 lg:p-4 bg-slate-50 border border-slate-300 w-full h-screen lg:h-[60vh] backdrop-blur-lg backdrop-opacity-50 shadow drop-shadow-md'>
+        <div className='rounded-xl p-2 lg:p-4 bg-gradient-to-r from-blue-500 to-sky-500 w-full h-screen lg:h-[60vh] backdrop-blur-lg backdrop-opacity-50 shadow drop-shadow-md'>
           <UserLevel level={userLevel} />
         </div>
       </div>
@@ -194,8 +203,8 @@ const UserHome = () => {
       </div>
 
       <div className='w-full lg:w-2/3 lg:p-4 p-2'>
-        <div className='rounded-xl p-2 lg:p-4 bg-red w-ful h-screen lg:h-full backdrop-blur-lg backdrop-opacity-50 shadow drop-shadow-md'>
-          test
+        <div className='rounded-xl p-2 lg:p-4 w-full h-screen lg:h-full shadow '>
+          <NewsSections />
         </div>
       </div>
     </div>

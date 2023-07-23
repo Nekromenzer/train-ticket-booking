@@ -113,7 +113,7 @@ const SeatBooking = ({
     return (
       <>
         <CompTitle>Select train class</CompTitle>
-        <div className='w-fit flex flex-col justify-between gap-3 flex-grow'>
+        <div className='w-fit flex flex-col justify-between gap-5 flex-grow'>
           {selectedTrain?.trainClass?.map((item, idx) => {
             return (
               <div

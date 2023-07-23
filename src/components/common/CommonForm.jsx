@@ -19,8 +19,6 @@ const CommonForm = forwardRef((props, ref) => {
     layout = 'vertical',
     className,
     type = 'other',
-    signInText,
-    signUpText,
     formBtnText,
     onSubmit = val => {
       console.log(val)
@@ -32,7 +30,8 @@ const CommonForm = forwardRef((props, ref) => {
     btnClassName,
     btnWrapperClassName,
     itemClassName,
-    onValChangeCallback = () => {}
+    onValChangeCallback = () => {},
+    customComponent
   } = props
 
   const [form] = Form.useForm()
@@ -58,7 +57,8 @@ const CommonForm = forwardRef((props, ref) => {
       checkedChildren,
       defaultValue,
       optionType,
-      formatter
+      formatter,
+      disabled
     } = item
     if (type === 'password') {
       return (
@@ -78,6 +78,7 @@ const CommonForm = forwardRef((props, ref) => {
           className={className}
           defaultValue={defaultValue}
           value={defaultValue}
+          disabled={disabled}
         />
       )
     }
@@ -163,12 +164,18 @@ const CommonForm = forwardRef((props, ref) => {
         autoFocus={autoFocus}
         min={min}
         max={max}
+        autoComplete={autoComplete}
+        disabled={disabled}
       />
     )
   }
 
   const renderItemsInArray = () => {
-    return type === 'signIn' ? ['email', 'password'] : []
+    if (type === 'signIn') {
+      return ['email', 'password']
+    }
+
+    return []
   }
 
   const formItems = fields
@@ -210,7 +217,8 @@ const CommonForm = forwardRef((props, ref) => {
   }
 
   useImperativeHandle(ref, () => ({
-    resetFields
+    resetFields,
+    form: form
   }))
 
   return (
@@ -228,16 +236,13 @@ const CommonForm = forwardRef((props, ref) => {
     >
       {formItems}
       <Form.Item className={btnWrapperClassName}>
+        {customComponent}
         <CommonBtn
           type='primary'
           htmlType='submit'
           classNames={`w-full mt-4 bg-blue-400 font-bold ${btnClassName}`}
         >
-          {name === 'login'
-            ? type === 'signIn'
-              ? signInText
-              : signUpText
-            : formBtnText}
+          {formBtnText}
         </CommonBtn>
       </Form.Item>
     </Form>
