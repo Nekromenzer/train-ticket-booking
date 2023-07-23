@@ -9,7 +9,7 @@ import { firstClassSeat, secondClassSeat, thirdClassSeat } from '../../img'
 import { BsArrowRight } from 'react-icons/bs'
 import data from '../../data/pages/userLevel'
 import handleApiCall from '../../api/handleApiCall'
-
+import LoadingAnimation from '../../components/elements/LoadingAnimation'
 const SeatBooking = ({
   noOfPassengers = 4,
   selectedTrain,
@@ -24,6 +24,8 @@ const SeatBooking = ({
   const [selectedPrice, setSelectedPrice] = useState(0)
   // reserved seats
   const [reservedSeats, setReservedSeats] = useState([])
+  // loading
+  const [isLoading, setIsLoading] = useState(false)
 
   const getUserLevelData = data?.levels[level - 1]
 
@@ -105,20 +107,6 @@ const SeatBooking = ({
 
     const handleClassSelect = classId => {
       setSelectedClass(classId)
-      if (selectedClass !== null) {
-        handleApiCall({
-          variant: 'userDashboard',
-          urlType: 'seats',
-          data: { schedule_id: selectedTrain.key },
-          setLoading: () => {},
-          cb: (data, state) => {
-            if (state === 200) {
-              const mappedSeats = data[0][selectedClass]
-              setReservedSeats(mappedSeats)
-            }
-          }
-        })
-      }
     }
     return (
       <>
@@ -173,24 +161,29 @@ const SeatBooking = ({
           seats
         </span>
         <div className='flex gap-4'>
-          <div className='px-2 py-4 flex flex-wrap w-[10.2rem] gap-3 gap-y-8 bg-sky-50 shadow-md  border-blue-950 rounded-lg mt-4'>
-            {data.seats.map((seat, idx) => (
-              <Checkbox
-                checked={seatCheckedList.includes(seat.id)}
-                onChange={onChange}
-                key={idx}
-                className={`seat-checkbox ${
-                  [1, 5, 9, 13, 17].includes(idx) ? 'mr-[2rem] ' : 'mr-1'
-                } ${
-                  !seatCheckedList.includes(seat.id) &&
-                  seatCheckedList.length >= noOfPassengers &&
-                  'pointer-events-none disabled-user-check'
-                }`}
-                id={seat.id}
-                disabled={reservedSeats.includes(seat.id)}
-              />
-            ))}
-          </div>
+          <LoadingAnimation loading={isLoading}>
+            <div className='px-2 py-4 flex flex-wrap w-[10.2rem] gap-3 gap-y-8 bg-sky-50 shadow-md  border-blue-950 rounded-lg mt-4 '>
+              {data.seats.map((seat, idx) => (
+                <Checkbox
+                  checked={seatCheckedList.includes(seat.id)}
+                  onChange={onChange}
+                  key={idx}
+                  className={`seat-checkbox ${
+                    [1, 5, 9, 13, 17].includes(idx) ? 'mr-[2rem] ' : 'mr-1'
+                  } ${
+                    !seatCheckedList.includes(seat.id) &&
+                    seatCheckedList.length >= noOfPassengers &&
+                    'pointer-events-none disabled-user-check'
+                  }`}
+                  id={seat.id}
+                  disabled={
+                    reservedSeats?.[selectedClass]?.includes(seat.id) ||
+                    selectedClass === null
+                  }
+                />
+              ))}
+            </div>
+          </LoadingAnimation>
           <div className='mt-6'>
             <div className='flex flex-col gap-5'>
               {seatCheckedList.map((seat, idx) => (
@@ -299,6 +292,24 @@ const SeatBooking = ({
     getUserLevelData?.discount,
     selectedTrain?.schedule_price
   ])
+
+  useEffect(() => {
+    setIsLoading(true)
+
+    handleApiCall({
+      variant: 'userDashboard',
+      urlType: 'seats',
+      data: { schedule_id: selectedTrain.key },
+      setLoading: () => {},
+      cb: (data, state) => {
+        if (state === 200) {
+          const mappedSeats = data[0]
+          setReservedSeats(mappedSeats)
+        }
+        setIsLoading(false)
+      }
+    })
+  }, [selectedTrain.key])
 
   return (
     <div className='flex gap-2 p-2'>
