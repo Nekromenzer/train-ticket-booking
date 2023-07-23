@@ -42,14 +42,15 @@ const data = {
       rules: [
         { required: true, message: 'Please enter your departure station!' }
       ],
-      type: 'autocomplete',
+      type: 'select',
       autoComplete: 'on',
       hasFeedback: true,
       placeholder: 'Colombo Fort',
       options: stations,
       allowClear: true,
       autoFocus: true,
-      disabled: !stations.length
+      disabled: !stations.length,
+      showArrow: false
     },
     {
       label: 'To',
@@ -67,14 +68,15 @@ const data = {
           }
         })
       ],
-      type: 'autocomplete',
+      type: 'select',
       autoComplete: 'on',
       hasFeedback: true,
       placeholder: 'Colombo Fort',
       options: stations,
       allowClear: true,
       autoFocus: false,
-      disabled: !stations.length
+      disabled: !stations.length,
+      showArrow: false
     },
     {
       label: 'Date',
