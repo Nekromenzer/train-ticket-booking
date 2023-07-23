@@ -175,28 +175,51 @@ const data = {
   tableColumns: (setBookingState, setSelectedTrain) => [
     {
       title: 'Train name',
-      dataIndex: 'trainName',
-      key: 'trainName'
+      dataIndex: 'train_name',
+      key: 'train_name'
     },
     {
       title: 'Departs',
-      dataIndex: 'departs',
-      key: 'departs'
+      dataIndex: 'departure_time',
+      key: 'departure_time',
+      render: (_, { departure_time }) => {
+        return (
+          <Space direction='vertical'>
+            <div>{dayjs(departure_time).format('YYYY-MM-DD')}</div>
+            <div>{dayjs(departure_time).format('hh:mm A')}</div>
+          </Space>
+        )
+      }
     },
     {
       title: 'Arrives',
-      dataIndex: 'arrives',
-      key: 'arrives'
+      dataIndex: 'arrival_time',
+      key: 'arrival_time',
+      render: (_, { arrival_time }) => {
+        return (
+          <Space direction='vertical'>
+            <div>{dayjs(arrival_time).format('YYYY-MM-DD')}</div>
+            <div>{dayjs(arrival_time).format('hh:mm A')}</div>
+          </Space>
+        )
+      }
     },
     {
       title: 'Class',
-      dataIndex: 'trainClass',
-      key: 'class',
-      render: (_, { trainClass }) => {
+      dataIndex: 'schedule_seats',
+      key: 'schedule_seats',
+      render: (_, { schedule_seats }) => {
         return (
           <Space direction='vertical'>
-            {trainClass?.map((item, idx) => {
-              return <CommonTag item={item} key={idx} type='class' />
+            {schedule_seats?.map((item, idx) => {
+              return (
+                <CommonTag
+                  item={item}
+                  key={idx}
+                  type='class'
+                  seatCount={20 - item.available_count}
+                />
+              )
             })}
           </Space>
         )
@@ -204,12 +227,12 @@ const data = {
     },
     {
       title: 'Available',
-      dataIndex: 'availableSeats',
-      key: 'available',
-      render: (_, { availableSeats }) => {
+      dataIndex: 'schedule_seats',
+      key: 'schedule_seats',
+      render: (_, { schedule_seats }) => {
         return (
           <Space direction='vertical'>
-            {availableSeats?.map((item, idx) => {
+            {schedule_seats?.map((item, idx) => {
               return <CommonTag item={item} key={idx} type='seats' />
             })}
           </Space>
@@ -218,12 +241,12 @@ const data = {
     },
     {
       title: 'Price',
-      dataIndex: 'price',
-      key: 'price',
-      render: (_, { price }) => {
+      dataIndex: 'schedule_price',
+      key: 'schedule_price',
+      render: (_, { schedule_price }) => {
         return (
           <Space direction='vertical'>
-            {price?.map((item, idx) => {
+            {schedule_price?.map((item, idx) => {
               return <CommonTag item={item} key={idx} type='price' />
             })}
           </Space>
