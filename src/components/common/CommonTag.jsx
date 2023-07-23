@@ -52,7 +52,7 @@ const CommonTag = ({
           type === 'class' && 'bg-white text-black'
         } ${type === 'price' ? 'w-[5rem]' : 'w-6'}`}
       >
-        {type === 'price' ? ` Rs.${item.price}.00` : seatCount || item.seats}
+        {type === 'price' ? ` Rs.${item.price}.00` : seatCount || item.available_count}
       </div>
     </Tag>
   )
