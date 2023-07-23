@@ -182,3 +182,7 @@
     color: theme('colors.sky.800') !important;
     font-size: theme('fontSize.base') !important;
 }
+
+.bg-login-custom {
+    background-image: url(./img/login-bg-effect.png) !important;
+}

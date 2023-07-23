@@ -122,7 +122,7 @@ const Login = () => {
               </div>
             </LoadingAnimation>
           </div>
-          <div className='w-full lg:w-2/3 xl:w-2/3 hidden lg:block bg-login h-screen'>
+          <div className='w-full lg:w-2/3 xl:w-2/3 hidden lg:block bg-login-custom h-screen'>
             <Title className='text-center xl:pt-[10rem] 2xl:pt-[12rem] lg:pt-[18rem] lg:lg-login-title xl:xl-login-title 2xl:login-title'>
               {data.title}
             </Title>
