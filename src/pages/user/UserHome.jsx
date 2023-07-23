@@ -16,7 +16,7 @@ const UserHome = ({ stations }) => {
   const { Title } = Typography
   const [searchVal, setSearchVal] = useState({})
   const [isLoading, setIsLoading] = useState(false)
-  const [bookingState, setBookingState] = useState(2)
+  const [bookingState, setBookingState] = useState(0)
   // selected train
   const [selectedTrain, setSelectedTrain] = useState(null)
   // user level
