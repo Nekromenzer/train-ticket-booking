@@ -3,13 +3,15 @@ import { useEffect, useState } from 'react'
 import { CommonTag } from '../../components'
 import { Statistic } from 'antd'
 import { GiPriceTag } from 'react-icons/gi'
+import dayjs from 'dayjs'
 // images
 import { firstClassSeat, secondClassSeat, thirdClassSeat } from '../../img'
 import { BsArrowRight } from 'react-icons/bs'
 import data from '../../data/pages/userLevel'
+import handleApiCall from '../../api/handleApiCall'
 
 const SeatBooking = ({
-  noOfPassengers,
+  noOfPassengers = 4,
   selectedTrain,
   level,
   setBookingState
@@ -20,45 +22,31 @@ const SeatBooking = ({
   const [seatCheckedList, setSeatCheckedList] = useState([])
   // selected price
   const [selectedPrice, setSelectedPrice] = useState(0)
+  // reserved seats
+  const [reservedSeats, setReservedSeats] = useState([])
 
   const getUserLevelData = data?.levels[level - 1]
 
-  const seats = [
-    { id: 1, available: true },
-    { id: 2, available: false },
-    { id: 3, available: true },
-    { id: 4, available: false },
-    { id: 5, available: true },
-    { id: 6, available: true },
-    { id: 7, available: true },
-    { id: 8, available: true },
-    { id: 9, available: true },
-    { id: 10, available: false },
-    { id: 11, available: false },
-    { id: 12, available: true },
-    { id: 13, available: false },
-    { id: 14, available: true },
-    { id: 15, available: true },
-    { id: 16, available: true },
-    { id: 17, available: true },
-    { id: 18, available: true },
-    { id: 19, available: false },
-    { id: 20, available: true }
-  ]
   console.log(selectedTrain)
-  
-  const windowSeats = [1, 4, 5, 8, 9, 12, 13, 16, 17, 20]
 
   const summaryObj = [
-    { name: 'Train Name & No', val: selectedTrain?.trainName },
-    { name: 'Start Station', val: 'Colombo' },
-    { name: 'End Station', val: 'Kandy' },
-    { name: 'Departure Date', val: '2012/07/22' },
+    { name: 'Train Name & No', val: selectedTrain?.train_name },
+    { name: 'Start Station', val: selectedTrain?.from },
+    { name: 'End Station', val: selectedTrain?.to },
+    {
+      name: 'Departure Date',
+      val: dayjs(selectedTrain?.departure_time).format('YYYY-MM-DD')
+    },
     {
       name: 'Time Start -> End',
-      val: `${selectedTrain?.departs} - ${selectedTrain?.arrives}`
+      val: `${dayjs(selectedTrain?.departure_time).format('hh:mm A')} - ${dayjs(
+        selectedTrain?.arrival_time
+      ).format('hh:mm A')}`
     },
-    { name: 'No of Passengers', val: `${noOfPassengers} Passengers` },
+    {
+      name: 'No of Passengers',
+      val: noOfPassengers ? `${noOfPassengers} Passengers` : ''
+    },
     {
       name: 'Train Class Selected',
       val:
@@ -76,7 +64,11 @@ const SeatBooking = ({
     },
     {
       name: 'Price One Person',
-      val: selectedTrain?.price[selectedClass - 1]?.price
+      val: `${
+        selectedClass !== null
+          ? selectedTrain?.schedule_price[selectedClass - 1]?.price
+          : '00'
+      }.00 LKR`
     }
   ]
 
@@ -110,16 +102,34 @@ const SeatBooking = ({
       if (id === 2) return secondClassSeat
       if (id === 3) return thirdClassSeat
     }
+
+    const handleClassSelect = classId => {
+      setSelectedClass(classId)
+      if (selectedClass !== null) {
+        handleApiCall({
+          variant: 'userDashboard',
+          urlType: 'seats',
+          data: { schedule_id: selectedTrain.key },
+          setLoading: () => {},
+          cb: (data, state) => {
+            if (state === 200) {
+              const mappedSeats = data[0][selectedClass]
+              setReservedSeats(mappedSeats)
+            }
+          }
+        })
+      }
+    }
     return (
       <>
         <CompTitle>Select train class</CompTitle>
         <div className='w-fit flex flex-col justify-between gap-5 flex-grow'>
-          {selectedTrain?.trainClass?.map((item, idx) => {
+          {selectedTrain?.schedule_seats?.map((item, idx) => {
             return (
               <div
                 key={idx}
                 className='w-full'
-                onClick={() => setSelectedClass(item?.id)}
+                onClick={() => handleClassSelect(item?.id)}
               >
                 <div
                   className={`h-32 flex flex-col justify-between  w-full min-w-full rounded-lg shadow-sm border-2 border-sky-200 cursor-pointer p-2  hover:border-sky-400 hover:shadow-md ${
@@ -131,14 +141,14 @@ const SeatBooking = ({
                     item={item}
                     type='class'
                     customClassnames='mr-0'
-                    seatCount={selectedTrain.availableSeats[idx].seats}
+                    seatCount={item.available_count}
                     seatNameTag
                   />
                   <div className='flex item-center justify-between'>
                     <img src={getClassImage(item?.id)} height={64} width={64} />
                     <Statistic
                       title='Price per seat (LKR)'
-                      value={selectedTrain.price[idx].price}
+                      value={selectedTrain.schedule_price[idx].price}
                       precision={2}
                     />
                   </div>
@@ -164,7 +174,7 @@ const SeatBooking = ({
         </span>
         <div className='flex gap-4'>
           <div className='px-2 py-4 flex flex-wrap w-[10.2rem] gap-3 gap-y-8 bg-sky-50 shadow-md  border-blue-950 rounded-lg mt-4'>
-            {seats.map((seat, idx) => (
+            {data.seats.map((seat, idx) => (
               <Checkbox
                 checked={seatCheckedList.includes(seat.id)}
                 onChange={onChange}
@@ -177,7 +187,7 @@ const SeatBooking = ({
                   'pointer-events-none disabled-user-check'
                 }`}
                 id={seat.id}
-                disabled={!seat.available}
+                disabled={reservedSeats.includes(seat.id)}
               />
             ))}
           </div>
@@ -196,7 +206,7 @@ const SeatBooking = ({
                   </span>
                   <div className='flex items-center'>
                     <div className='w-6 font-mono text-base'>{seat}</div>
-                    {windowSeats.includes(seat) && (
+                    {data.windowSeats.includes(seat) && (
                       <img
                         width='20'
                         height='20'
@@ -242,7 +252,7 @@ const SeatBooking = ({
                 <div className='tracking-wide font-mono text-base'>
                   Total Price ={' '}
                 </div>
-                <div className='tracking-wide font-mono w-[6rem] text-base'>
+                <div className='tracking-wide font-mono w-[8rem] text-base'>
                   {selectedPrice} LKR
                 </div>
               </div>
@@ -272,19 +282,22 @@ const SeatBooking = ({
 
   useEffect(() => {
     const totalPrice =
-      selectedTrain?.price[selectedClass - 1]?.price * noOfPassengers
+      selectedTrain?.schedule_price[selectedClass - 1]?.price * noOfPassengers
+    // selectedTrain?.price[selectedClass - 1]?.price * noOfPassengers
     const getDiscount = totalPrice * (getUserLevelData?.discount / 100)
+    const getFinalPrice = totalPrice - getDiscount
 
     if (selectedClass === null) {
       setSelectedPrice(0)
     } else {
-      setSelectedPrice(totalPrice - getDiscount)
+      setSelectedPrice(getFinalPrice.toFixed(2))
     }
   }, [
     selectedClass,
     noOfPassengers,
-    selectedTrain?.price,
-    getUserLevelData?.discount
+    selectedTrain.price,
+    getUserLevelData?.discount,
+    selectedTrain?.schedule_price
   ])
 
   return (
