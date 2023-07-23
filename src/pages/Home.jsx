@@ -44,8 +44,9 @@ const Home = () => {
       urlType: 'stations',
       setLoading: () => {},
       cb: (data, status) => {
-        const mappedStations = data?.map(({ name }) => ({
-          value: name
+        const mappedStations = data?.map(({ name, id }) => ({
+          label: name,
+          value: id
         }))
         if (status === 200) {
           setStations(mappedStations)
