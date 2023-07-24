@@ -1,6 +1,11 @@
 import { FiLogOut } from 'react-icons/fi'
-import { BsFillClipboard2CheckFill, BsFillHouseFill } from 'react-icons/bs'
-import { FaQuestionCircle } from 'react-icons/fa'
+import {
+  BsFillClipboard2CheckFill,
+  BsFillHouseFill,
+  BsFileEarmarkBarGraphFill,
+  BsTrainFrontFill
+} from 'react-icons/bs'
+import { FaQuestionCircle, FaUsers } from 'react-icons/fa'
 import { Modal } from 'antd'
 import handleApiCall from '../../api/handleApiCall'
 
@@ -88,7 +93,7 @@ const data = {
       type: '',
       title: 'Statistics',
       icon: active => (
-        <BsFillHouseFill
+        <BsFileEarmarkBarGraphFill
           className={`text-[1.2rem] ${
             active ? 'text-yellow-400' : ' text-white'
           }`}
@@ -97,9 +102,9 @@ const data = {
     },
     {
       type: '',
-      title: 'My bookings',
+      title: 'Users',
       icon: active => (
-        <BsFillClipboard2CheckFill
+        <FaUsers
           className={`text-[1.2rem] ${
             active ? 'text-yellow-400' : ' text-white'
           }`}
@@ -108,9 +113,9 @@ const data = {
     },
     {
       type: '',
-      title: 'Faq',
+      title: 'Schedule',
       icon: active => (
-        <FaQuestionCircle
+        <BsTrainFrontFill
           className={`text-[1.2rem] ${
             active ? 'text-yellow-400' : ' text-white'
           }`}
