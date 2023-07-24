@@ -5,8 +5,10 @@ import data from '../../data/components/sideBar'
 import appDataContext from '../../context/AppDataContext'
 import AnalogClock from './AnalogClock'
 
-const SideBar = ({ isCollapse, setIsCollapse }) => {
+const SideBar = ({ isCollapse, setIsCollapse, isAdmin }) => {
   const [activeTabIndex, setActiveTabIndex] = useContext(appDataContext)
+
+  const menuItems = isAdmin ? data.adminMenu : data.menu
   return (
     <div
       className={`flex flex-col lg:flex-row lg:items-center ${
@@ -27,13 +29,13 @@ const SideBar = ({ isCollapse, setIsCollapse }) => {
           )}
         </div>
 
-        {!isCollapse && (
+        {!isCollapse && !isAdmin && (
           <div className='flex w-full justify-center items-center h-20  mb-12 '>
             <AnalogClock />
           </div>
         )}
 
-        {data?.menu?.map((item, idx) => (
+        {menuItems?.map((item, idx) => (
           <div
             className={`w-full h-10 flex items-center ${
               isCollapse ? 'justify-center' : 'justify-start pl-6'

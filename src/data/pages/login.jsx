@@ -80,7 +80,7 @@ const data = {
       name: 'password',
       rules: [
         { required: true, message: 'Please enter your password!' },
-        { min: 6, message: 'Password must be minimum 5 characters.' },
+        { min: 4, message: 'Password must be minimum 6 characters.' },
         { max: 20, message: 'Password must be maximum 20 characters.' }
       ],
       type: 'password',

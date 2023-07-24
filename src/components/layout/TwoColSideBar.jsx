@@ -2,7 +2,7 @@ import { useState } from 'react'
 import SideBar from '../elements/SideBar'
 import FloatingBar from '../elements/FloatingBar'
 
-const TwoColSideBar = ({ sideBar, content }) => {
+const TwoColSideBar = ({ sideBar, content,isAdmin }) => {
   const [isCollapse, setIsCollapse] = useState(false)
   return (
     <div className='flex lg:flex-row flex-col'>
@@ -11,6 +11,7 @@ const TwoColSideBar = ({ sideBar, content }) => {
           <SideBar
             isCollapse={isCollapse}
             setIsCollapse={setIsCollapse}
+            isAdmin={isAdmin}
           />
         </div>
       )}
