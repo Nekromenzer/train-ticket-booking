@@ -16,6 +16,7 @@ const AdminStatistics = () => {
 
   return (
     <div className='flex flex-wrap gap-3 items-start justify-between'>
+
       <div className='w-full lg:w-1/3 group'>
         <Badge.Ribbon
           text='Total bookings per month'
@@ -28,6 +29,7 @@ const AdminStatistics = () => {
           </div>
         </Badge.Ribbon>
       </div>
+
       <div className='w-full lg:w-1/3 group'>
         <Badge.Ribbon
           text='Total revenue per month'
@@ -40,7 +42,8 @@ const AdminStatistics = () => {
           </div>
         </Badge.Ribbon>
       </div>
-      <div className='bg-white rounded-md shadow-lg w-full lg:w-1/4 h-auto lg:h-[calc(100vh-3rem)] border border-black/10 p-3 flex flex-col  gap-6'>
+
+      <div className='w-full lg:w-1/4 h-auto lg:h-[calc(100vh-3rem)] p-3 flex flex-col  gap-6'>
         <div className='w-full h-[7rem] p-2 rounded-lg bg-neutral-800 border-2 hover:border-yellow-500 hover:shadow-md duration-500 cursor-pointer '>
           <Header>Top 3 routes</Header>
           <Description>Most used routes all the time</Description>

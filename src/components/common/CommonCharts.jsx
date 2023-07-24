@@ -89,7 +89,8 @@ const CommonCharts = ({
       yField: yField,
       barWidthRatio: width,
       barStyle: barStyle,
-      meta: meta
+      meta: meta,
+      color: color
     }
     return <Bar {...barConfig} />
   }
@@ -100,7 +101,8 @@ const CommonCharts = ({
       yField: yField,
       barWidthRatio: width,
       barStyle: barStyle,
-      meta: meta
+      meta: meta,
+      color: color
     }
     return <Area {...areaConfig} />
   }
