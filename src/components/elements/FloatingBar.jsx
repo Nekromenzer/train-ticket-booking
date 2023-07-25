@@ -4,8 +4,15 @@ import { PiTrainFill } from 'react-icons/pi'
 import data from '../../data/components/sideBar'
 import appDataContext from '../../context/AppDataContext'
 
-const FloatingBar = ({ trigger = 'click', type = 'primary', className }) => {
+const FloatingBar = ({
+  trigger = 'click',
+  type = 'primary',
+  className,
+  isAdmin
+}) => {
   const [activeTabIndex, setActiveTabIndex] = useContext(appDataContext)
+  
+  const menuItems = isAdmin ? data.adminMenu : data.menu
   return (
     <div className={className}>
       <FloatButton.Group
@@ -16,7 +23,7 @@ const FloatingBar = ({ trigger = 'click', type = 'primary', className }) => {
         }}
         icon={<PiTrainFill className='fill-white' />}
       >
-        {data?.menu?.map((item, idx) => (
+        {menuItems?.map((item, idx) => (
           <FloatButton
             icon={item.icon(activeTabIndex === idx + 1)}
             key={idx}

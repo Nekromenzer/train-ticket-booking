@@ -15,7 +15,7 @@ const TwoColSideBar = ({ sideBar, content,isAdmin }) => {
           />
         </div>
       )}
-      <FloatingBar className='lg:hidden' />
+      <FloatingBar className='lg:hidden' isAdmin={isAdmin}/>
       <div
         className={`w-full h-screen p-5 ml-0 overflow-y-auto ${
           !isCollapse ? 'lg:ml-[13.5rem]' : 'lg:ml-[3.5rem]'
