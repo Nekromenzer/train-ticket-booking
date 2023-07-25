@@ -1,5 +1,6 @@
 import CommonCharts from '../../components/common/CommonCharts'
 import { Badge, Tag, Space } from 'antd'
+import data from '../../data/pages/admin'
 
 const AdminStatistics = () => {
   const Header = ({ children }) => (
@@ -16,7 +17,6 @@ const AdminStatistics = () => {
 
   return (
     <div className='flex flex-wrap gap-3 items-start justify-between'>
-
       <div className='w-full lg:w-1/3 group'>
         <Badge.Ribbon
           text='Total bookings per month'
@@ -44,31 +44,35 @@ const AdminStatistics = () => {
       </div>
 
       <div className='w-full lg:w-1/4 h-auto lg:h-[calc(100vh-3rem)] p-3 flex flex-col  gap-6'>
-        <div className='w-full h-[7rem] p-2 rounded-lg bg-neutral-800 border-2 hover:border-yellow-500 hover:shadow-md duration-500 cursor-pointer '>
-          <Header>Top 3 routes</Header>
-          <Description>Most used routes all the time</Description>
-          <div className='flex justify-start items-center gap-2'>
-            <Tag color='green'>Kandy - Badulla</Tag>
-            <Tag color='red'>Colombo - Kandy</Tag>
-            <Tag color='blue'>Badulla - Ella</Tag>
-          </div>
-        </div>
+        {data.rightPanel.map((item, idx) => (
+          <div
+            className={`w-full ${
+              item.type === 'liq-chart' ? 'h-[25rem]' : 'h-[7rem]'
+            } p-2 rounded-lg bg-neutral-800 border-2 hover:border-yellow-500 hover:shadow-md duration-500 cursor-pointer`}
+            key={idx}
+          >
+            <Header>{item.header}</Header>
+            <Description>{item.description}</Description>
 
-        <div className='w-full h-[7rem] p-2 rounded-lg bg-neutral-800 border-2 hover:border-yellow-500 hover:shadow-md duration-500 cursor-pointer '>
-          <Header>Top 3 Destinations</Header>
-          <Description>Most famous destination</Description>
-          <div className='flex justify-start items-center gap-4'>
-            <Tag color='green'>Kandy</Tag>
-            <Tag color='red'>Colombo</Tag>
-            <Tag color='blue'>Galle</Tag>
-          </div>
-        </div>
+            {item.type === 'tags' && (
+              <div className='flex justify-start items-center gap-2'>
+                {item.tags.map((tag, id) => (
+                  <Tag color={tag.color} key={id}>
+                    {tag.name}
+                  </Tag>
+                ))}
+              </div>
+            )}
 
-        <div className='w-full h-[25rem] p-2 rounded-lg bg-neutral-800 border-2 hover:border-yellow-500 hover:shadow-md duration-500 cursor-pointer '>
-          <Header>Progress</Header>
-          <Description>Revenue Increase compare to last month</Description>
-          <CommonCharts type='progress-liquid' percent={0.45} height={20} />
-        </div>
+            {item.type === 'liq-chart' && (
+              <CommonCharts
+                type='progress-liquid'
+                percent={item.props.percent}
+                height={item.props.height}
+              />
+            )}
+          </div>
+        ))}
       </div>
     </div>
   )
