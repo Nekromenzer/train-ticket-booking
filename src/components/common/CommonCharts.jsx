@@ -117,7 +117,7 @@ const CommonCharts = ({
         length: 128
       }
     }
-    return <Liquid {...config} className={`max-h-[${height}rem] text-white`}/>
+    return <Liquid {...config} className={`!h-[${height}rem] text-white`}/>
   }
   return null
 }
