@@ -1,4 +1,17 @@
 const data = {
+  mainCharts: ({ bookingData = [], revenueData = [] }) => [
+    {
+      header: 'Total bookings per month',
+      type: 'col',
+      data: bookingData
+    },
+    {
+      header: 'Total revenue per month',
+      type: 'area',
+      color: '#16a34a',
+      data: revenueData
+    }
+  ],
   rightPanel: [
     {
       header: 'Top 3 routes',
