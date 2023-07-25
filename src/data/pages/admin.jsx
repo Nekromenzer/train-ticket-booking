@@ -42,6 +42,19 @@ const data = {
         percent: 0.25,
         height: 20
       }
+    },
+    {
+      header: 'System',
+      description: 'System status',
+      //   need to be changed
+      stats: [
+        { name: 'Total Users', color: 'red', amount: 89 },
+        { name: 'Total schedules', color: 'green', amount: 30 },
+        { name: 'Total bookings', color: 'blue', amount: 439 }
+      ],
+      class: 'min-h-[13rem]',
+      type: 'stats',
+      imgUrl: 'https://img.icons8.com/color-glass/100/restart--v2.png'
     }
   ]
 }
