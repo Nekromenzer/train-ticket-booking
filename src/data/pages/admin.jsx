@@ -29,7 +29,8 @@ const data = {
       header: 'Top Classes',
       description: 'Top classes in last two months',
       tags: ({ destinations = [] }) => destinations,
-      type: 'common-tags'
+      type: 'common-tags',
+      class: 'bg-rose-900'
     },
     {
       header: 'Revenue Increment',
