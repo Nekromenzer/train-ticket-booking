@@ -9,8 +9,9 @@ const CommonTable = memo(
     size = 'small',
     bordered = false,
     onChange,
-    yScroll = 0
+    yScroll = ''
   }) => {
+
     return (
       <Table
         dataSource={dataSource}
