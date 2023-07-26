@@ -5,9 +5,11 @@ const CommonTag = ({
   type,
   customClassnames,
   seatCount,
-  seatNameTag
+  seatNameTag,
+  onlyClassName
 }) => {
-  const getTrainClassStyleProps = (type, id) => {
+  const getTrainClassStyleProps = (type, id = 0) => {
+    console.log(item)
     if (type === 'color') {
       if (id === 1) {
         return '#001F30'
@@ -24,16 +26,22 @@ const CommonTag = ({
       if (id === 1) {
         return seatNameTag
           ? 'Air conditioned saloon available seats'
+          : onlyClassName
+          ? 'Air conditioned saloon'
           : 'Air conditioned saloon'
       }
       if (id === 2) {
         return seatNameTag
           ? ' 2nd Class available seats'
+          : onlyClassName
+          ? '2nd Class'
           : '2nd Class reserved seats'
       }
       if (id === 3) {
         return seatNameTag
           ? ' 3rd Class available seats'
+          : onlyClassName
+          ? '3rd Class'
           : '3rd Class reserved seats'
       }
     }
@@ -52,7 +60,9 @@ const CommonTag = ({
           type === 'class' && 'bg-white text-black'
         } ${type === 'price' ? 'w-[5rem]' : 'w-6'}`}
       >
-        {type === 'price' ? ` Rs.${item.price}.00` : seatCount || item.available_count}
+        {type === 'price'
+          ? ` Rs.${item.price}.00`
+          : seatCount || item.available_count}
       </div>
     </Tag>
   )
