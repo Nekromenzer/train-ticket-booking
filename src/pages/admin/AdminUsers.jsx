@@ -1,4 +1,4 @@
-import { useRef, useState,useEffect } from 'react'
+import { useRef, useState, useEffect } from 'react'
 import data from '../../data/pages/adminUsers'
 import CommonTable from '../../components/common/CommonTable'
 import { Drawer } from 'antd'
@@ -17,20 +17,24 @@ const AdminUsers = ({ users, loading }) => {
 
   useEffect(() => {
     const fields = [
-        { name: ['name'], value: selectedUser.name },
-        { name: ['email'], value: selectedUser.email },
-        { name: ['phone_number'], value: selectedUser.phone_no },
-        { name: ['nic'], value: selectedUser.nic }
-]
+      { name: ['name'], value: selectedUser.name, ValidityState: true },
+      { name: ['email'], value: selectedUser.email, ValidityState: true },
+      { name: ['phone_number'], value: selectedUser.phone_no },
+      { name: ['nic'], value: selectedUser.nic }
+    ]
     formRef?.current?.form.setFields(fields)
-  }, [selectedUser]);
+    formRef?.current?.form.validateFields(fields)
+  }, [selectedUser])
 
   return (
     <>
       <Drawer
         title={`Edit ${selectedUser.name}`}
         placement='right'
-        onClose={() => setOpenEdit(false)}
+        onClose={() => {
+          setOpenEdit(false)
+          formRef.current.resetFields()
+        }}
         open={openEdit}
         headerStyle={{ backgroundColor: '#f0f2f5' }}
         maskStyle={{ backgroundColor: 'black', opacity: '0.8' }}
