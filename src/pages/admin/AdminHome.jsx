@@ -1,23 +1,53 @@
-import { useContext } from 'react'
+import { useContext, useState } from 'react'
 import { TwoColSideBar } from '../../components'
 import appDataContext from '../../context/AppDataContext'
 import AdminStatistics from './AdminStatistics'
+import { useEffect } from 'react'
+import handleApiCall from '../../api/handleApiCall'
+import AdminUsers from './AdminUsers'
 
 const AdminHome = () => {
   const [activeTabIndex] = useContext(appDataContext)
+  const [loading, setLoading] = useState(false)
+  const [statistics, setStatistics] = useState({})
+  const [users, setUsers] = useState([])
 
   const GetContentForActiveTab = () => {
     if (activeTabIndex === 1) {
-      return <AdminStatistics />
+      return <AdminStatistics loading={loading} statistics={statistics} />
     }
     if (activeTabIndex === 2) {
-      return <div>tab 2</div>
+      return <AdminUsers users={users} />
     }
     if (activeTabIndex === 3) {
       return <div>tab 3</div>
     }
     return null
   }
+
+  useEffect(() => {
+    setLoading(true)
+    handleApiCall({
+      variant: 'admin',
+      urlType: 'getStatistics',
+      setLoading: setLoading,
+      auth: true,
+      cb: res => {
+        setStatistics(res)
+      }
+    })
+
+    handleApiCall({
+      variant: 'admin',
+      urlType: 'getAllUsers',
+      setLoading: setLoading,
+      auth: true,
+      cb: res => {
+        setUsers(res)
+      }
+    })
+  }, [])
+
   return <TwoColSideBar sideBar content={<GetContentForActiveTab />} isAdmin />
 }
 

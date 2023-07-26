@@ -1,14 +1,10 @@
-import { useEffect, useState } from 'react'
 import CommonCharts from '../../components/common/CommonCharts'
 import { Badge, Tag } from 'antd'
 import data from '../../data/pages/admin'
-import handleApiCall from '../../api/handleApiCall'
 import CommonTag from '../../components/common/CommonTag'
 import LoadingAnimation from '../../components/elements/LoadingAnimation'
 
-const AdminStatistics = () => {
-  const [loading, setLoading] = useState(false)
-  const [statistics, setStatistics] = useState({})
+const AdminStatistics = ({ loading, statistics }) => {
   const Header = ({ children }) => (
     <div className='text-[1.2rem] font-monts mb-0 text-left text-white'>
       {children}
@@ -23,19 +19,6 @@ const AdminStatistics = () => {
 
   const bookingData = statistics?.monthly_bookings
   const revenueData = statistics?.monthly_income
-
-  useEffect(() => {
-    setLoading(true)
-    handleApiCall({
-      variant: 'admin',
-      urlType: 'getStatistics',
-      setLoading: setLoading,
-      auth: true,
-      cb: (res, state) => {
-        setStatistics(res)
-      }
-    })
-  }, [])
 
   const calculateRevenueIncreasePercentage = ({
     previousMonthRevenue,
@@ -69,7 +52,7 @@ const AdminStatistics = () => {
       .slice(0, 3)
 
   return (
-    <LoadingAnimation loading={loading}>
+    <LoadingAnimation loading={loading} tip='Getting statistics.....'>
       <div className='flex flex-wrap-reverse lg:flex-wrap gap-3 items-start justify-between'>
         {data.mainCharts({ bookingData, revenueData }).map((item, idx) => (
           <div className='w-full lg:w-1/3' key={idx}>
@@ -116,16 +99,7 @@ const AdminStatistics = () => {
                     ))}
                 </div>
               )}
-              {console.log(
-                statistics?.most_used_class &&
-                  Object.entries(statistics?.most_used_class)?.map(
-                    ([month, info]) => ({
-                      month,
-                      id: info.class_id,
-                      count: info.no_of_bookings
-                    })
-                  )
-              )}
+
               {item.type === 'common-tags' && (
                 <div className='flex justify-start items-center gap-2 flex-wrap'>
                   {item?.tags &&
@@ -143,7 +117,12 @@ const AdminStatistics = () => {
                           )
                       })
                       ?.map((tag, id) => (
-                        <CommonTag key={id} item={tag} type='class' onlyClassName />
+                        <CommonTag
+                          key={id}
+                          item={tag}
+                          type='class'
+                          onlyClassName
+                        />
                       ))}
                 </div>
               )}
