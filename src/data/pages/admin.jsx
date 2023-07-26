@@ -3,13 +3,17 @@ const data = {
     {
       header: 'Total bookings per month',
       type: 'col',
-      data: bookingData
+      data: bookingData,
+      xField: 'month',
+      yField: 'count'
     },
     {
       header: 'Total revenue per month',
       type: 'area',
       color: '#16a34a',
-      data: revenueData
+      data: revenueData,
+      xField: 'month',
+      yField: 'total'
     }
   ],
   rightPanel: [

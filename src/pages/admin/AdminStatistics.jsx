@@ -1,8 +1,12 @@
+import { useEffect, useState } from 'react'
 import CommonCharts from '../../components/common/CommonCharts'
 import { Badge, Tag } from 'antd'
 import data from '../../data/pages/admin'
+import handleApiCall from '../../api/handleApiCall'
 
 const AdminStatistics = () => {
+  const [loading, setLoading] = useState(false)
+  const [statistics, setStatistics] = useState(null)
   const Header = ({ children }) => (
     <div className='text-[1.2rem] font-monts mb-0 text-left text-white'>
       {children}
@@ -15,8 +19,22 @@ const AdminStatistics = () => {
     </div>
   )
 
-  const bookingData = []
-  const revenueData = []
+  const bookingData = statistics?.monthly_bookings
+  const revenueData = statistics?.monthly_income
+
+  useEffect(() => {
+    setLoading(true)
+    handleApiCall({
+      variant: 'admin',
+      urlType: 'getStatistics',
+      setLoading: setLoading,
+      auth: true,
+      cb: (res, state) => {
+        console.log(res)
+        setStatistics(res)
+      }
+    })
+  }, [])
 
   return (
     <div className='flex flex-wrap-reverse lg:flex-wrap gap-3 items-start justify-between'>
@@ -29,7 +47,13 @@ const AdminStatistics = () => {
             color='black'
           >
             <div className='w-full rounded-lg shadow-md border-2 border-sky-500 px-4 pt-12 pb-4 cursor-pointer bg-slate-50 hover:border-sky-700'>
-              <CommonCharts type={item.type} color={item.color} />
+              <CommonCharts
+                type={item.type}
+                color={item.color}
+                data={item.data}
+                xField={item.xField}
+                yField={item.yField}
+              />
             </div>
           </Badge.Ribbon>
         </div>
