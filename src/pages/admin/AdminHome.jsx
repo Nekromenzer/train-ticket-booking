@@ -22,7 +22,6 @@ const AdminHome = () => {
   const [routes, setRoutes] = useState([])
   const [trains, setTrains] = useState([])
 
-
   const [btnClicked, setBtnClicked] = useState(false)
 
   const fetchUsers = ({ loading }) => {
@@ -57,7 +56,7 @@ const AdminHome = () => {
     })
   }
 
-  const getTrainSchedules = ({loading}) => {
+  const getTrainSchedules = ({ loading }) => {
     handleApiCall({
       variant: 'admin',
       urlType: 'getSchedules',
@@ -168,7 +167,7 @@ const AdminHome = () => {
 
     getReservations({ loading: setLoading })
     fetchUsers({ loading: setLoading })
-    getTrainSchedules({loading: setLoading})
+    getTrainSchedules({ loading: setLoading })
 
     handleApiCall({
       variant: 'admin',
@@ -221,7 +220,20 @@ const AdminHome = () => {
     <TwoColSideBar
       sideBar
       content={
-        <LoadingAnimation loading={loading} tip='Getting statistics.....'>
+        <LoadingAnimation
+          loading={loading}
+          tip={`Getting ${
+            activeTabIndex === 1
+              ? 'statistics'
+              : activeTabIndex === 2
+              ? 'users'
+              : activeTabIndex === 3
+              ? 'Reservations'
+              : activeTabIndex === 4
+              ? 'schedules'
+              : 'data'
+          }.....`}
+        >
           <GetContentForActiveTab />
         </LoadingAnimation>
       }
