@@ -9,7 +9,6 @@ const CommonTag = ({
   onlyClassName
 }) => {
   const getTrainClassStyleProps = (type, id = 0) => {
-    console.log(item)
     if (type === 'color') {
       if (id === 1) {
         return '#001F30'

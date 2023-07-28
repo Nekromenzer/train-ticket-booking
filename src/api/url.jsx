@@ -19,6 +19,7 @@ const urlDoc = {
     seats: { url: `/${version}/train-schedule/seats`, type: 'post' },
     reserve: { url: `/${version}/user/reservation`, type: 'post' },
     getReservations: { url: `/${version}/user/reservations`, type: 'get' },
+    // not intergrated
     getTotalReservations: {
       url: `/${version}/user/reservations/count`,
       type: 'get'
@@ -26,16 +27,28 @@ const urlDoc = {
   },
   admin: {
     getAllUsers: { url: `/${version}/dashboard/user/all`, type: 'get' },
+    deleteUser: { url: `/${version}/dashboard/user`, type: 'delete' },
+    editUser: { url: `/${version}/dashboard/user/edit`, type: 'post' },
     getAllReservations: {
       url: `/${version}/dashboard/reservations/all`,
       type: 'get'
     },
     addSchedule: { url: `/${version}/dashboard/schedule/add`, type: 'post' },
-    getAllTrainRoutes: {
-      url: `/${version}/dashboard/train-routes/all`,
+    getAllReservation: {
+      url: `/${version}/dashboard/reservations/all`,
+      type: 'post'
+    },
+    getStatistics: { url: `/${version}/dashboard/statistics`, type: 'get' },
+    getRoutes: { url: `/${version}/dashboard/train-routes/all`, type: 'get' },
+    getSchedules: {
+      url: `/${version}/dashboard/train-schedule/all`,
       type: 'get'
     },
-    getStatistics: { url: `/${version}/dashboard/statistics`, type: 'get' }
+    getAllTrains: { url: `/${version}/dashboard/trains`, type: 'get' },
+    addNewSchedule: {
+      url: `/${version}/dashboard/train-schedule/add`,
+      type: 'post'
+    }
   }
 }
 

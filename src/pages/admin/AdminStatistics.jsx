@@ -2,9 +2,14 @@ import CommonCharts from '../../components/common/CommonCharts'
 import { Badge, Tag } from 'antd'
 import data from '../../data/pages/admin'
 import CommonTag from '../../components/common/CommonTag'
-import LoadingAnimation from '../../components/elements/LoadingAnimation'
 
-const AdminStatistics = ({ loading, statistics }) => {
+const AdminStatistics = ({
+  statistics,
+  totalUsers,
+  totalSchedules,
+  totalReservations
+}) => {
+  console.log(totalUsers)
   const Header = ({ children }) => (
     <div className='text-[1.2rem] font-monts mb-0 text-left text-white'>
       {children}
@@ -28,7 +33,7 @@ const AdminStatistics = ({ loading, statistics }) => {
       previousMonthRevenue === 0 &&
       (!revenueData || revenueData.length === 0)
     ) {
-      return 'N/A'
+      return '0'
     }
     const revenueIncrease = currentMonthRevenue - previousMonthRevenue
     const revenueIncreasePercentage =
@@ -52,101 +57,105 @@ const AdminStatistics = ({ loading, statistics }) => {
       .slice(0, 3)
 
   return (
-    <LoadingAnimation loading={loading} tip='Getting statistics.....'>
-      <div className='flex flex-wrap-reverse lg:flex-wrap gap-3 items-start justify-between'>
-        {data.mainCharts({ bookingData, revenueData }).map((item, idx) => (
-          <div className='w-full lg:w-1/3' key={idx}>
-            <Badge.Ribbon
-              text={item.header}
-              placement='start'
-              className='mt-[-0.5rem] rounded-sm'
-              color='black'
-            >
-              <div className='w-full rounded-lg shadow-md border-2 border-sky-500 px-4 pt-12 pb-4 cursor-pointer bg-slate-50 hover:border-sky-700'>
-                <CommonCharts
-                  type={item.type}
-                  color={item.color}
-                  data={item.data}
-                  xField={item.xField}
-                  yField={item.yField}
-                />
+    <div className='flex flex-wrap-reverse lg:flex-wrap gap-3 items-start justify-between'>
+      {data.mainCharts({ bookingData, revenueData }).map((item, idx) => (
+        <div className='w-full lg:w-1/3' key={idx}>
+          <Badge.Ribbon
+            text={item.header}
+            placement='start'
+            className='mt-[-0.5rem] rounded-sm'
+            color='black'
+          >
+            <div className='w-full rounded-lg shadow-md border-2 border-sky-500 px-4 pt-12 pb-4 cursor-pointer bg-slate-50 hover:border-sky-700'>
+              <CommonCharts
+                type={item.type}
+                color={item.color}
+                data={item.data}
+                xField={item.xField}
+                yField={item.yField}
+              />
+            </div>
+          </Badge.Ribbon>
+        </div>
+      ))}
+
+      <div className='w-full lg:w-1/4 h-auto lg:h-[calc(100vh-3rem)] p-3 flex flex-col gap-6'>
+        {data?.rightPanel?.map((item, idx) => (
+          <div
+            className={`w-full ${
+              item.type === 'liq-chart' ? 'h-[25rem]' : 'h-[8rem] lg:h-[7rem]'
+            } p-2 rounded-lg bg-neutral-800 border-2 hover:border-yellow-500 hover:shadow-md duration-500 cursor-pointer ${
+              item.class
+            }`}
+            key={idx}
+          >
+            <Header>{item.header}</Header>
+            <Description>{item.description}</Description>
+
+            {item.type === 'tags' && (
+              <div className='flex justify-start items-center gap-2 flex-wrap'>
+                {item
+                  ?.tags({ routes: sortedSchedules, destinations: [] })
+                  .map((tag, id) => (
+                    <Tag color={item.color} key={id}>
+                      {tag}
+                    </Tag>
+                  ))}
               </div>
-            </Badge.Ribbon>
-          </div>
-        ))}
+            )}
 
-        <div className='w-full lg:w-1/4 h-auto lg:h-[calc(100vh-3rem)] p-3 flex flex-col gap-6'>
-          {data?.rightPanel?.map((item, idx) => (
-            <div
-              className={`w-full ${
-                item.type === 'liq-chart' ? 'h-[25rem]' : 'h-[8rem] lg:h-[7rem]'
-              } p-2 rounded-lg bg-neutral-800 border-2 hover:border-yellow-500 hover:shadow-md duration-500 cursor-pointer ${
-                item.class
-              }`}
-              key={idx}
-            >
-              <Header>{item.header}</Header>
-              <Description>{item.description}</Description>
-
-              {item.type === 'tags' && (
-                <div className='flex justify-start items-center gap-2 flex-wrap'>
-                  {item
-                    ?.tags({ routes: sortedSchedules, destinations: [] })
-                    .map((tag, id) => (
-                      <Tag color={item.color} key={id}>
-                        {tag}
-                      </Tag>
+            {item.type === 'common-tags' && (
+              <div className='flex justify-start items-center gap-2 flex-wrap'>
+                {item?.tags &&
+                  item
+                    ?.tags({
+                      routes: sortedSchedules,
+                      destinations:
+                        statistics?.most_used_class &&
+                        Object.entries(statistics?.most_used_class).map(
+                          ([month, info]) => ({
+                            month,
+                            id: info.class_id,
+                            available_count: info.no_of_bookings
+                          })
+                        )
+                    })
+                    ?.map((tag, id) => (
+                      <CommonTag
+                        key={id}
+                        item={tag}
+                        type='class'
+                        onlyClassName
+                      />
                     ))}
-                </div>
-              )}
+              </div>
+            )}
 
-              {item.type === 'common-tags' && (
-                <div className='flex justify-start items-center gap-2 flex-wrap'>
-                  {item?.tags &&
-                    item
-                      ?.tags({
-                        routes: sortedSchedules,
-                        destinations:
-                          statistics?.most_used_class &&
-                          Object.entries(statistics?.most_used_class).map(
-                            ([month, info]) => ({
-                              month,
-                              id: info.class_id,
-                              available_count: info.no_of_bookings
-                            })
-                          )
-                      })
-                      ?.map((tag, id) => (
-                        <CommonTag
-                          key={id}
-                          item={tag}
-                          type='class'
-                          onlyClassName
-                        />
-                      ))}
-                </div>
-              )}
-
-              {item.type === 'liq-chart' && (
-                <CommonCharts
-                  type='progress-liquid'
-                  percent={
-                    item.props({
-                      percentage: calculateRevenueIncreasePercentage({
-                        previousMonthRevenue:
-                          revenueData && revenueData[0]?.total,
-                        currentMonthRevenue:
-                          revenueData && revenueData[1]?.total
-                      })
-                    }).percent
-                  }
-                  height={item.props({}).height}
-                />
-              )}
-              {item.type === 'stats' && (
-                <div className='flex'>
-                  <div className='flex flex-col gap-3 w-2/3'>
-                    {item?.stats?.map((stat, id) => (
+            {item.type === 'liq-chart' && (
+              <CommonCharts
+                type='progress-liquid'
+                percent={
+                  item.props({
+                    percentage: calculateRevenueIncreasePercentage({
+                      previousMonthRevenue:
+                        revenueData && revenueData[0]?.total,
+                      currentMonthRevenue: revenueData && revenueData[1]?.total
+                    })
+                  }).percent
+                }
+                height={item.props({}).height}
+              />
+            )}
+            {item.type === 'stats' && (
+              <div className='flex'>
+                <div className='flex flex-col gap-3 w-2/3'>
+                  {item
+                    ?.stats({
+                      users: totalUsers,
+                      bookings: totalReservations,
+                      schedules: totalSchedules
+                    })
+                    ?.map((stat, id) => (
                       <Badge
                         key={id}
                         count={stat.amount}
@@ -159,22 +168,21 @@ const AdminStatistics = ({ loading, statistics }) => {
                         </div>
                       </Badge>
                     ))}
-                  </div>
-                  <div className='flex items-center justify-center w-1/3'>
-                    <img
-                      src={item.imgUrl}
-                      width={100}
-                      height={100}
-                      className='animate-spin motion-reduce:animate-spin delay-700 duration-1000'
-                    />
-                  </div>
                 </div>
-              )}
-            </div>
-          ))}
-        </div>
+                <div className='flex items-center justify-center w-1/3'>
+                  <img
+                    src={item.imgUrl}
+                    width={100}
+                    height={100}
+                    className='animate-spin motion-reduce:animate-spin delay-700 duration-1000'
+                  />
+                </div>
+              </div>
+            )}
+          </div>
+        ))}
       </div>
-    </LoadingAnimation>
+    </div>
   )
 }
 
