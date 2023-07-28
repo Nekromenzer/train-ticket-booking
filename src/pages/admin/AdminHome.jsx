@@ -5,11 +5,13 @@ import AdminStatistics from './AdminStatistics'
 import { useEffect } from 'react'
 import handleApiCall from '../../api/handleApiCall'
 import AdminUsers from './AdminUsers'
+import AdminReservations from './AdminReservations'
 
 const AdminHome = () => {
   const [activeTabIndex] = useContext(appDataContext)
   const [loading, setLoading] = useState(false)
   const [statistics, setStatistics] = useState({})
+  const [reservations, setReservations] = useState([{}])
   const [users, setUsers] = useState([])
 
   const fetchUsers = ({ loading }) => {
@@ -32,7 +34,10 @@ const AdminHome = () => {
       return <AdminUsers users={users} fetchUsers={fetchUsers} />
     }
     if (activeTabIndex === 3) {
-      return <div>tab 3</div>
+      return <AdminReservations reservations={reservations} />
+    }
+    if (activeTabIndex === 4) {
+      return <div>schedule</div>
     }
     return null
   }
@@ -50,6 +55,16 @@ const AdminHome = () => {
     })
 
     fetchUsers({ loading: setLoading })
+
+    handleApiCall({
+      variant: 'admin',
+      urlType: 'getAllReservation',
+      setLoading: setLoading,
+      auth: true,
+      cb: res => {
+        setReservations(res)
+      }
+    })
   }, [])
 
   return <TwoColSideBar sideBar content={<GetContentForActiveTab />} isAdmin />

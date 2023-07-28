@@ -33,8 +33,8 @@ const urlDoc = {
       type: 'get'
     },
     addSchedule: { url: `/${version}/dashboard/schedule/add`, type: 'post' },
-    getAllTrainRoutes: {
-      url: `/${version}/dashboard/train-routes/all`,
+    getAllReservation: {
+      url: `/${version}/dashboard/reservations/all`,
       type: 'get'
     },
     getStatistics: { url: `/${version}/dashboard/statistics`, type: 'get' }

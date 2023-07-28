@@ -5,7 +5,7 @@ import {
   BsFileEarmarkBarGraphFill,
   BsTrainFrontFill
 } from 'react-icons/bs'
-import { FaQuestionCircle, FaUsers } from 'react-icons/fa'
+import { FaQuestionCircle, FaUsers, FaListAlt } from 'react-icons/fa'
 import { Modal } from 'antd'
 import handleApiCall from '../../api/handleApiCall'
 
@@ -105,6 +105,17 @@ const data = {
       title: 'Users',
       icon: active => (
         <FaUsers
+          className={`text-[1.2rem] ${
+            active ? 'text-yellow-400' : ' text-white'
+          }`}
+        />
+      )
+    },
+    {
+      type: '',
+      title: 'Reservations',
+      icon: active => (
+        <FaListAlt
           className={`text-[1.2rem] ${
             active ? 'text-yellow-400' : ' text-white'
           }`}
