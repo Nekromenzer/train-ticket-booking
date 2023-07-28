@@ -35,7 +35,7 @@ const urlDoc = {
     addSchedule: { url: `/${version}/dashboard/schedule/add`, type: 'post' },
     getAllReservation: {
       url: `/${version}/dashboard/reservations/all`,
-      type: 'get'
+      type: 'post'
     },
     getStatistics: { url: `/${version}/dashboard/statistics`, type: 'get' }
   }

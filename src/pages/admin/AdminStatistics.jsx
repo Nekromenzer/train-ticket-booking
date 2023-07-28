@@ -2,9 +2,8 @@ import CommonCharts from '../../components/common/CommonCharts'
 import { Badge, Tag } from 'antd'
 import data from '../../data/pages/admin'
 import CommonTag from '../../components/common/CommonTag'
-import LoadingAnimation from '../../components/elements/LoadingAnimation'
 
-const AdminStatistics = ({ loading, statistics }) => {
+const AdminStatistics = ({ statistics }) => {
   const Header = ({ children }) => (
     <div className='text-[1.2rem] font-monts mb-0 text-left text-white'>
       {children}
@@ -52,7 +51,6 @@ const AdminStatistics = ({ loading, statistics }) => {
       .slice(0, 3)
 
   return (
-    <LoadingAnimation loading={loading} tip='Getting statistics.....'>
       <div className='flex flex-wrap-reverse lg:flex-wrap gap-3 items-start justify-between'>
         {data.mainCharts({ bookingData, revenueData }).map((item, idx) => (
           <div className='w-full lg:w-1/3' key={idx}>
@@ -174,7 +172,6 @@ const AdminStatistics = ({ loading, statistics }) => {
           ))}
         </div>
       </div>
-    </LoadingAnimation>
   )
 }
 
