@@ -28,6 +28,7 @@ const urlDoc = {
   admin: {
     getAllUsers: { url: `/${version}/dashboard/user/all`, type: 'get' },
     deleteUser: { url: `/${version}/dashboard/user`, type: 'delete' },
+    editUser: { url: `/${version}/dashboard/user/edit`, type: 'post' },
     getAllReservations: {
       url: `/${version}/dashboard/reservations/all`,
       type: 'get'

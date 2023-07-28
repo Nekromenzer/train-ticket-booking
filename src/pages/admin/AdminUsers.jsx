@@ -4,10 +4,12 @@ import CommonTable from '../../components/common/CommonTable'
 import { Drawer } from 'antd'
 import { CommonForm } from '../../components'
 import handleApiCall from '../../api/handleApiCall'
+import LoadingAnimation from '../../components/elements/LoadingAnimation'
 
 const AdminUsers = ({ users, loading, fetchUsers }) => {
   const [selectedUser, setSelectedUser] = useState({})
   const [loadingTable, setLoadingTable] = useState(false)
+  const [loadingForm, setLoadingForm] = useState(false)
   const [openEdit, setOpenEdit] = useState(false)
   const formRef = useRef(null)
 
@@ -33,6 +35,25 @@ const AdminUsers = ({ users, loading, fetchUsers }) => {
     }
   }
 
+  const handleEditUser = values => {
+    if (values) {
+      setLoadingForm(true)
+      handleApiCall({
+        variant: 'admin',
+        urlType: 'editUser',
+        auth: true,
+        setLoading: setLoadingForm,
+        data: { ...values, user_id: String(selectedUser.id) },
+        cb: (res, state) => {
+          if (state === 200) {
+            fetchUsers({ loading: setLoadingTable })
+            setOpenEdit(false)
+          }
+        }
+      })
+    }
+  }
+
   useEffect(() => {
     const fields = [
       { name: ['name'], value: selectedUser.name, ValidityState: true },
@@ -50,20 +71,26 @@ const AdminUsers = ({ users, loading, fetchUsers }) => {
         title={`Edit ${selectedUser.name}`}
         placement='right'
         onClose={() => {
-          setOpenEdit(false)
-          formRef.current.resetFields()
+          if (!loadingForm) {
+            setOpenEdit(false)
+            formRef.current.resetFields()
+          }
         }}
         open={openEdit}
         headerStyle={{ backgroundColor: '#f0f2f5' }}
         maskStyle={{ backgroundColor: 'black', opacity: '0.8' }}
         size='large'
       >
-        <CommonForm
-          fields={data.fields}
-          formBtnText='Edit user'
-          ref={formRef}
-        />
+        <LoadingAnimation loading={loadingForm} tip='Editing user....'>
+          <CommonForm
+            fields={data.fields}
+            formBtnText='Edit user'
+            ref={formRef}
+            onSubmit={handleEditUser}
+          />
+        </LoadingAnimation>
       </Drawer>
+
       <CommonTable
         dataSource={users.data}
         loading={loading || loadingTable}
