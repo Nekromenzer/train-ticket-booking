@@ -72,7 +72,7 @@ const data = {
     {
       label: 'Train',
       name: 'train_id',
-      //   rules: [{ required: true, message: 'Please select train!' }],
+      rules: [{ required: true, message: 'Please select train!' }],
       type: 'select',
       autoComplete: 'on',
       hasFeedback: true,
@@ -81,6 +81,22 @@ const data = {
       allowClear: true,
       autoFocus: true,
       disabled: !trains?.length,
+      showArrow: false
+    },
+    {
+      label: 'Route',
+      name: 'routes_id',
+      rules: [
+        { required: true, message: 'Please enter your arrival station!' }
+      ],
+      type: 'select',
+      autoComplete: 'on',
+      hasFeedback: true,
+      placeholder: 'Colombo Fort',
+      options: routes,
+      allowClear: true,
+      autoFocus: true,
+      disabled: !routes.length,
       showArrow: false
     },
     {
@@ -136,25 +152,9 @@ const data = {
       showArrow: false
     },
     {
-      label: 'Route',
-      name: 'routes_id',
-      rules: [
-        // { required: true, message: 'Please enter your arrival station!' }
-      ],
-      type: 'select',
-      autoComplete: 'on',
-      hasFeedback: true,
-      placeholder: 'Colombo Fort',
-      options: routes,
-      allowClear: true,
-      autoFocus: true,
-      disabled: !routes.length,
-      showArrow: false
-    },
-    {
       label: 'Departure time',
       name: 'departure_time',
-      //   rules: [{ required: true, message: 'Please enter valid time!' }],
+      rules: [{ required: true, message: 'Please enter valid time!' }],
       type: 'time',
       autoComplete: 'on',
       hasFeedback: true,
@@ -167,7 +167,7 @@ const data = {
     {
       label: 'Arrival time',
       name: 'arrival_time',
-      //   rules: [{ required: true, message: 'Please enter valid time!' }],
+      rules: [{ required: true, message: 'Please enter valid time!' }],
       type: 'time',
       autoComplete: 'on',
       hasFeedback: true,
@@ -180,7 +180,21 @@ const data = {
     {
       label: '1st Class Price',
       name: 'first_class_price',
-      //   rules: [{ required: true, message: 'Please enter valid price' }],
+      rules: [
+        ({ getFieldValue }) => ({
+          validator (_, value) {
+            if (
+              (!value &&
+                (getFieldValue('second_class_price') ||
+                  getFieldValue('third_class_price'))) ||
+              value
+            ) {
+              return Promise.resolve()
+            }
+            return Promise.reject(new Error('Please add at least one price!'))
+          }
+        })
+      ],
       type: 'number',
       autoComplete: 'on',
       hasFeedback: true,
@@ -193,7 +207,21 @@ const data = {
     {
       label: '2nd Class Price',
       name: 'second_class_price',
-      // rules: [{ required: true, message: 'Please enter valid price' }],
+      rules: [
+        ({ getFieldValue }) => ({
+          validator (_, value) {
+            if (
+              (!value &&
+                (getFieldValue('first_class_price') ||
+                  getFieldValue('third_class_price'))) ||
+              value
+            ) {
+              return Promise.resolve()
+            }
+            return Promise.reject(new Error('Please add at least one price!'))
+          }
+        })
+      ],
       type: 'number',
       autoComplete: 'on',
       hasFeedback: true,
@@ -206,7 +234,21 @@ const data = {
     {
       label: '3rd Class Price',
       name: 'third_class_price',
-      // rules: [{ required: true, message: 'Please enter valid price' }],
+      rules: [
+        ({ getFieldValue }) => ({
+          validator (_, value) {
+            if (
+              (!value &&
+                (getFieldValue('first_class_price') ||
+                  getFieldValue('second_class_price'))) ||
+              value
+            ) {
+              return Promise.resolve()
+            }
+            return Promise.reject(new Error('Please add at least one price!'))
+          }
+        })
+      ],
       type: 'number',
       autoComplete: 'on',
       hasFeedback: true,
