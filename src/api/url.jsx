@@ -27,7 +27,7 @@ const urlDoc = {
   },
   admin: {
     getAllUsers: { url: `/${version}/dashboard/user/all`, type: 'get' },
-    deleteUser:{ url: `/${version}/dashboard/user`, type: 'delete' },
+    deleteUser: { url: `/${version}/dashboard/user`, type: 'delete' },
     getAllReservations: {
       url: `/${version}/dashboard/reservations/all`,
       type: 'get'
@@ -39,6 +39,11 @@ const urlDoc = {
     },
     getStatistics: { url: `/${version}/dashboard/statistics`, type: 'get' },
     getRoutes: { url: `/${version}/dashboard/train-routes/all`, type: 'get' },
+    getSchedules: {
+      url: `/${version}/dashboard/train-schedule/all`,
+      type: 'get'
+    },
+    getAllTrains: { url: `/${version}/dashboard/trains`, type: 'get' }
   }
 }
 
