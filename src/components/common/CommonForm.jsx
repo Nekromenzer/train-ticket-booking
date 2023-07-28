@@ -60,7 +60,8 @@ const CommonForm = forwardRef((props, ref) => {
       optionType,
       formatter,
       disabled,
-      showArrow
+      showArrow,
+      prefix
     } = item
 
     if (type === 'password') {
@@ -129,7 +130,6 @@ const CommonForm = forwardRef((props, ref) => {
           autoFocus={autoFocus}
           format={format}
           minuteStep={minuteStep}
-          format={format}
           use12Hours
         />
       )
@@ -157,6 +157,7 @@ const CommonForm = forwardRef((props, ref) => {
           max={max}
           className='w-full'
           formatter={formatter}
+          addonAfter={prefix}
         />
       )
     }

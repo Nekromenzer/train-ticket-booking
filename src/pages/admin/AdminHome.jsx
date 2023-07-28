@@ -141,7 +141,7 @@ const AdminHome = () => {
             btnClicked={btnClicked}
             setBtnClicked={setBtnClicked}
             schedules={schedules}
-            getTrainSchedules
+            getTrainSchedules={getTrainSchedules}
             // data
             stations={stations}
             routes={routes}

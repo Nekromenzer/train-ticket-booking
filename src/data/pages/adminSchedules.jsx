@@ -176,6 +176,45 @@ const data = {
       autoFocus: false,
       showToday: true,
       format: 'HH:mm'
+    },
+    {
+      label: '1st Class Price',
+      name: 'first_class_price',
+      //   rules: [{ required: true, message: 'Please enter valid price' }],
+      type: 'number',
+      autoComplete: 'on',
+      hasFeedback: true,
+      placeholder: '100.00',
+      allowClear: true,
+      autoFocus: false,
+      className: 'lg:!w-[31%]',
+      prefix: 'LKR'
+    },
+    {
+      label: '2nd Class Price',
+      name: 'second_class_price',
+      // rules: [{ required: true, message: 'Please enter valid price' }],
+      type: 'number',
+      autoComplete: 'on',
+      hasFeedback: true,
+      placeholder: '100.00',
+      allowClear: true,
+      autoFocus: false,
+      className: 'lg:!w-[31%]',
+      prefix: 'LKR'
+    },
+    {
+      label: '3rd Class Price',
+      name: 'third_class_price',
+      // rules: [{ required: true, message: 'Please enter valid price' }],
+      type: 'number',
+      autoComplete: 'on',
+      hasFeedback: true,
+      placeholder: '100.00',
+      allowClear: true,
+      autoFocus: false,
+      className: 'lg:!w-[31%]',
+      prefix: 'LKR'
     }
   ]
 }
