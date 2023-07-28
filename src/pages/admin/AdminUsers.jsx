@@ -1,7 +1,7 @@
 import { useRef, useState, useEffect } from 'react'
 import data from '../../data/pages/adminUsers'
 import CommonTable from '../../components/common/CommonTable'
-import { Drawer } from 'antd'
+import { Drawer, Modal } from 'antd'
 import { CommonForm } from '../../components'
 import handleApiCall from '../../api/handleApiCall'
 import LoadingAnimation from '../../components/elements/LoadingAnimation'
@@ -12,6 +12,7 @@ const AdminUsers = ({ users, loading, fetchUsers }) => {
   const [loadingForm, setLoadingForm] = useState(false)
   const [openEdit, setOpenEdit] = useState(false)
   const formRef = useRef(null)
+  const { confirm } = Modal
 
   const handleEdit = row => {
     setOpenEdit(row)
@@ -20,19 +21,43 @@ const AdminUsers = ({ users, loading, fetchUsers }) => {
   }
 
   const handleDeleteUser = id => {
-    if (id) {
-      handleApiCall({
-        variant: 'admin',
-        urlType: 'deleteUser',
-        auth: true,
-        urlParams: `/${id}`,
-        cb: (res, state) => {
-          if (state === 200) {
-            fetchUsers({ loading: setLoadingTable })
-          }
+    confirm({
+      title: (
+        <div>
+          Do you want to Delete user{' '}
+          <span className='text-red-500'>{selectedUser.name}</span>?
+        </div>
+      ),
+      // icon: <BsExclamationCircleFill className='text-yellow-400' />,
+      content: 'This action cannot be undone',
+      okText: 'Delete user',
+      okButtonProps: {
+        className: 'bg-red-500 shadow-none btn-delete'
+      },
+      mask: true,
+      maskStyle: {
+        backgroundColor: 'rgba(0, 0, 0, 0.5)'
+      },
+      onOk () {
+        if (id) {
+          handleApiCall({
+            variant: 'admin',
+            urlType: 'deleteUser',
+            auth: true,
+            urlParams: `/${id}`,
+            cb: (res, state) => {
+              if (state === 200) {
+                fetchUsers({ loading: setLoadingTable })
+              }
+            }
+          })
         }
-      })
-    }
+      },
+      onCancel () {
+        console.log('Cancel')
+      },
+      confirmLoading: false
+    })
   }
 
   const handleEditUser = values => {
