@@ -10,7 +10,9 @@ const AdminSchedules = ({
   setBtnClicked,
   schedules,
   stations,
-  routes
+  routes,
+  trains,
+  getTrainSchedules
 }) => {
   const [loadingTable, setLoadingTable] = useState(false)
 
@@ -34,7 +36,7 @@ const AdminSchedules = ({
           fields={data.fields({
             stations: stations,
             routes: routes,
-            trains: []
+            trains: trains
           })}
           formBtnText='Add schedule'
           ref={formRef}
@@ -42,9 +44,13 @@ const AdminSchedules = ({
       </Drawer>
 
       <CommonTable
-        dataSource={schedules?.data}
+        dataSource={schedules}
         loading={loading || loadingTable}
-        columns={data.tableColumns}
+        columns={data.tableColumns({
+          stations: stations,
+          routes: routes,
+          trains: trains
+        })}
         onChange={(pagination, filters, sorter, extra) => {
           console.log('params', pagination, filters, sorter, extra)
         }}
