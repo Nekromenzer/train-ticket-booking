@@ -101,7 +101,7 @@ const AdminSchedules = ({
       </Drawer>
 
       <CommonTable
-        dataSource={schedules}
+        dataSource={schedules?.reverse()}
         loading={loading || loadingTable}
         columns={data.tableColumns({
           stations: stations,

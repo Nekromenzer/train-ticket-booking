@@ -19,7 +19,7 @@ const data = {
       key: 'routes_id',
       render: (_, { routes_id }) => {
         const routeName = routes.map(({ label, value }) => {
-          return value === routes_id ? label : ''
+          return value === routes_id && label
         })
         return routeName
       }
