@@ -1,13 +1,11 @@
-import { useState } from 'react'
 import CommonTable from '../../components/common/CommonTable'
 import data from '../../data/pages/adminReservations'
 
-const AdminReservations = ({ reservations, getReservations, loading }) => {
-  const [loadingTable, setLoadingTable] = useState(false)
+const AdminReservations = ({ reservations, loading }) => {
   return (
     <CommonTable
       dataSource={reservations.data}
-      loading={loading || loadingTable}
+      loading={loading}
       columns={data.tableColumns}
       onChange={(pagination, filters, sorter, extra) => {
         console.log('params', pagination, filters, sorter, extra)

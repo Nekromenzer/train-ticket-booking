@@ -79,7 +79,6 @@ const AdminHome = () => {
           <AdminReservations
             reservations={reservations}
             getReservations={getReservations}
-            loading={loading}
           />
         </>
       )
