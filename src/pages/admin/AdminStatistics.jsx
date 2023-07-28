@@ -33,7 +33,7 @@ const AdminStatistics = ({
       previousMonthRevenue === 0 &&
       (!revenueData || revenueData.length === 0)
     ) {
-      return 'N/A'
+      return '0'
     }
     const revenueIncrease = currentMonthRevenue - previousMonthRevenue
     const revenueIncreasePercentage =

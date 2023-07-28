@@ -62,9 +62,9 @@ const AdminHome = () => {
         <AdminStatistics
           loading={loading}
           statistics={statistics}
-          totalUsers={users.data.length}
+          totalUsers={users?.data?.length}
           totalSchedules={0}
-          totalReservations={reservations.data.length}
+          totalReservations={reservations?.data?.length}
         />
       )
     }
