@@ -48,8 +48,6 @@ const AdminHome = () => {
     })
   }
 
-  console.log(reservations.data.length)
-
   const HeaderText = ({ children, description }) => {
     return (
       <div className='mb-12'>
