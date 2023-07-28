@@ -4,7 +4,6 @@ import CommonTable from '../../components/common/CommonTable'
 import { Drawer } from 'antd'
 import { CommonForm } from '../../components'
 import handleApiCall from '../../api/handleApiCall'
-import LoadingAnimation from '../../components/elements/LoadingAnimation'
 
 const AdminUsers = ({ users, loading, fetchUsers }) => {
   const [selectedUser, setSelectedUser] = useState({})
