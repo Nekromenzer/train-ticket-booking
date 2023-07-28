@@ -1,9 +1,9 @@
 import dayjs from 'dayjs'
 const todayDate = new Date()
-const formattedDate = date => dayjs(date).format('YYYY-MM-DD')
+const formattedTime = date => dayjs(date).format('HH:MM A')
 
 const data = {
-  tableColumns: [
+  tableColumns: ({ stations, routes, trains }) => [
     {
       title: 'Train',
       dataIndex: 'train_id',
@@ -11,40 +11,49 @@ const data = {
     },
     {
       title: 'Route',
-      dataIndex: 'route_id',
-      key: 'route_id'
+      dataIndex: 'routes_id',
+      key: 'routes_id'
     },
     {
       title: 'From',
-      dataIndex: 'from_id',
-      key: 'from_id'
+      dataIndex: 'from',
+      key: 'from'
     },
     {
       title: 'To',
       dataIndex: 'to',
-      key: 'to_id'
+      key: 'to',
+      render: (_, { to }) => {
+        return 'sadasd'
+      }
     },
     {
       title: 'Departure Time',
       dataIndex: 'date',
-      key: 'departure_time'
+      key: 'departure_time',
+      render: (_, { departure_time }) => {
+        return dayjs(departure_time).format('hh:mm A')
+      }
     },
     {
       title: 'Arrival Time',
-      dataIndex: 'date',
-      key: 'arrival_time'
-    },
-    {
-      title: 'Prices',
-      dataIndex: 'prices',
-      key: 'prices'
+      dataIndex: 'arrival_time',
+      key: 'arrival_time',
+      render: (_, { arrival_time }) => {
+        return dayjs(arrival_time).format('hh:mm A')
+      }
     }
+    // {
+    //   title: 'Prices',
+    //   dataIndex: 'prices',
+    //   key: 'prices'
+    // }
   ],
   fields: ({ stations, routes, trains }) => [
     {
       label: 'Train',
       name: 'train_id',
-    //   rules: [{ required: true, message: 'Please select train!' }],
+      //   rules: [{ required: true, message: 'Please select train!' }],
       type: 'select',
       autoComplete: 'on',
       hasFeedback: true,
@@ -61,15 +70,15 @@ const data = {
       rules: [
         { required: true, message: 'Please Select your departure station!' },
         ({ getFieldValue }) => ({
-            validator (_, value) {
-              if (!value || getFieldValue('to_id') !== value) {
-                return Promise.resolve()
-              }
-              return Promise.reject(
-                new Error('Please select a different station!')
-              )
+          validator (_, value) {
+            if (!value || getFieldValue('to_id') !== value) {
+              return Promise.resolve()
             }
-          })
+            return Promise.reject(
+              new Error('Please select a different station!')
+            )
+          }
+        })
       ],
       type: 'select',
       autoComplete: 'on',
@@ -87,15 +96,15 @@ const data = {
       rules: [
         { required: true, message: 'Please enter your arrival station!' },
         ({ getFieldValue }) => ({
-            validator (_, value) {
-              if (!value || getFieldValue('from_id') !== value) {
-                return Promise.resolve()
-              }
-              return Promise.reject(
-                new Error('Please select a different station!')
-              )
+          validator (_, value) {
+            if (!value || getFieldValue('from_id') !== value) {
+              return Promise.resolve()
             }
-          })
+            return Promise.reject(
+              new Error('Please select a different station!')
+            )
+          }
+        })
       ],
       type: 'select',
       autoComplete: 'on',
@@ -105,7 +114,7 @@ const data = {
       allowClear: true,
       autoFocus: true,
       disabled: !stations?.length,
-      showArrow: false,
+      showArrow: false
     },
     {
       label: 'Route',
@@ -126,34 +135,28 @@ const data = {
     {
       label: 'Departure time',
       name: 'departure_time',
-    //   rules: [{ required: true, message: 'Please enter valid time!' }],
-      type: 'date',
+      //   rules: [{ required: true, message: 'Please enter valid time!' }],
+      type: 'time',
       autoComplete: 'on',
       hasFeedback: true,
-      placeholder: formattedDate(todayDate),
+      placeholder: '02.00 PM',
       allowClear: true,
       autoFocus: false,
       showToday: true,
-      disabledDate: current => {
-        let customDate = dayjs().format('YYYY-MM-DD')
-        return current && current < dayjs(customDate, 'YYYY-MM-DD')
-      }
+      format: 'HH:mm'
     },
     {
       label: 'Arrival time',
       name: 'arrival_time',
-    //   rules: [{ required: true, message: 'Please enter valid time!' }],
-      type: 'date',
+      //   rules: [{ required: true, message: 'Please enter valid time!' }],
+      type: 'time',
       autoComplete: 'on',
       hasFeedback: true,
-      placeholder: formattedDate(todayDate),
+      placeholder: '04.30 PM',
       allowClear: true,
       autoFocus: false,
       showToday: true,
-      disabledDate: current => {
-        let customDate = dayjs().format('YYYY-MM-DD')
-        return current && current < dayjs(customDate, 'YYYY-MM-DD')
-      }
+      format: 'HH:mm'
     }
   ]
 }
