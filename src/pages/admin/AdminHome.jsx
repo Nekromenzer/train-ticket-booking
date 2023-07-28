@@ -12,12 +12,16 @@ import AdminSchedules from './AdminSchedules'
 const AdminHome = () => {
   const [activeTabIndex] = useContext(appDataContext)
   const [loading, setLoading] = useState(false)
+
   const [statistics, setStatistics] = useState({})
   const [reservations, setReservations] = useState([{}])
   const [users, setUsers] = useState([])
+  const [schedules, setSchedules] = useState([])
 
   const [stations, setStations] = useState([])
   const [routes, setRoutes] = useState([])
+  const [trains, setTrains] = useState([])
+
 
   const [btnClicked, setBtnClicked] = useState(false)
 
@@ -49,6 +53,18 @@ const AdminHome = () => {
       },
       cb: res => {
         setReservations(res)
+      }
+    })
+  }
+
+  const getTrainSchedules = ({loading}) => {
+    handleApiCall({
+      variant: 'admin',
+      urlType: 'getSchedules',
+      setLoading: loading,
+      auth: true,
+      cb: res => {
+        setSchedules(res)
       }
     })
   }
@@ -124,9 +140,12 @@ const AdminHome = () => {
             loading={loading}
             btnClicked={btnClicked}
             setBtnClicked={setBtnClicked}
-            // stations
+            schedules={schedules}
+            getTrainSchedules
+            // data
             stations={stations}
             routes={routes}
+            trains={trains}
           />
         </>
       )
@@ -146,8 +165,10 @@ const AdminHome = () => {
         setStatistics(res)
       }
     })
+
     getReservations({ loading: setLoading })
     fetchUsers({ loading: setLoading })
+    getTrainSchedules({loading: setLoading})
 
     handleApiCall({
       variant: 'admin',
@@ -160,6 +181,20 @@ const AdminHome = () => {
           value: id
         }))
         setRoutes(mappedRoutes)
+      }
+    })
+
+    handleApiCall({
+      variant: 'admin',
+      urlType: 'getAllTrains',
+      setLoading: setLoading,
+      auth: true,
+      cb: res => {
+        const mappedTrains = res?.map(({ name, id }) => ({
+          label: name,
+          value: id
+        }))
+        setTrains(mappedTrains)
       }
     })
   }, [])
