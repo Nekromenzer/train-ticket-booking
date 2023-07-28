@@ -45,10 +45,10 @@ const data = {
       header: 'System',
       description: 'System status',
       //   need to be changed
-      stats: [
-        { name: 'Total Users', color: 'red', amount: 89 },
-        { name: 'Total schedules', color: 'green', amount: 30 },
-        { name: 'Total bookings', color: 'blue', amount: 439 }
+      stats: ({ users, schedules, bookings }) => [
+        { name: 'Total Users', color: 'red', amount: users },
+        { name: 'Total schedules', color: 'green', amount: schedules },
+        { name: 'Total bookings', color: 'blue', amount: bookings }
       ],
       class: 'min-h-[13rem]',
       type: 'stats',

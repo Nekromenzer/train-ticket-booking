@@ -48,6 +48,8 @@ const AdminHome = () => {
     })
   }
 
+  console.log(reservations.data.length)
+
   const HeaderText = ({ children, description }) => {
     return (
       <div className='mb-12'>
@@ -58,7 +60,15 @@ const AdminHome = () => {
   }
   const GetContentForActiveTab = () => {
     if (activeTabIndex === 1) {
-      return <AdminStatistics loading={loading} statistics={statistics} />
+      return (
+        <AdminStatistics
+          loading={loading}
+          statistics={statistics}
+          totalUsers={users.data.length}
+          totalSchedules={0}
+          totalReservations={reservations.data.length}
+        />
+      )
     }
     if (activeTabIndex === 2) {
       return (
