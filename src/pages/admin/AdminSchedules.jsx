@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react'
+import { useState, useRef } from 'react'
 import CommonTable from '../../components/common/CommonTable'
 import data from '../../data/pages/adminSchedules'
 import { CommonForm } from '../../components'

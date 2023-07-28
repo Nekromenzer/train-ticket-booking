@@ -1,30 +1,49 @@
 import dayjs from 'dayjs'
-const todayDate = new Date()
-const formattedTime = date => dayjs(date).format('HH:MM A')
 
 const data = {
   tableColumns: ({ stations, routes, trains }) => [
     {
       title: 'Train',
       dataIndex: 'train_id',
-      key: 'train_id'
+      key: 'train_id',
+      render: (_, { id }) => {
+        const routeName = trains.map(({ label, value }) =>
+          value === id ? label : null
+        )
+        return routeName
+      }
     },
     {
       title: 'Route',
       dataIndex: 'routes_id',
-      key: 'routes_id'
+      key: 'routes_id',
+      render: (_, { id }) => {
+        const routeName = routes.map(({ label, value }) =>
+          value === id ? label : null
+        )
+        return routeName
+      }
     },
     {
       title: 'From',
       dataIndex: 'from',
-      key: 'from'
+      key: 'from',
+      render: (_, { from }) => {
+        const getStationName = stations.map(({ label, value }) =>
+          value === from ? label : null
+        )
+        return getStationName
+      }
     },
     {
       title: 'To',
       dataIndex: 'to',
       key: 'to',
       render: (_, { to }) => {
-        return 'sadasd'
+        const getStationName = stations.map(({ label, value }) =>
+          value === to ? label : null
+        )
+        return getStationName
       }
     },
     {
