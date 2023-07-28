@@ -22,6 +22,12 @@ const AdminSchedules = ({
 
   const formRef = useRef(null)
 
+  const dataWithKey = schedules?.reverse()?.map(item => {
+    return {
+      key: item.id,
+      ...item
+    }
+  })
   return (
     <>
       <Drawer
@@ -102,7 +108,7 @@ const AdminSchedules = ({
       </Drawer>
 
       <CommonTable
-        dataSource={schedules?.reverse()}
+        dataSource={dataWithKey}
         loading={loading || loadingTable}
         columns={data.tableColumns({
           stations: stations,
