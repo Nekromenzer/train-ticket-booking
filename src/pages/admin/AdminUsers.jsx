@@ -105,6 +105,7 @@ const AdminUsers = ({ users, loading, fetchUsers }) => {
         headerStyle={{ backgroundColor: '#f0f2f5' }}
         maskStyle={{ backgroundColor: 'black', opacity: '0.8' }}
         size='large'
+        maskClosable={!loadingForm}
       >
         <LoadingAnimation loading={loadingForm} tip='Editing user....'>
           <CommonForm
