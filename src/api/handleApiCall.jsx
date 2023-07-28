@@ -35,7 +35,7 @@ const handleApiCall = ({
       return cb(response.data, response.status)
     } catch (error) {
       setLoading(false)
-      cb(error, error.response.status)
+      cb(error, error.response?.status)
       throw error
     }
   }

@@ -1,5 +1,5 @@
 import { useContext, useState, useEffect } from 'react'
-import { TwoColSideBar } from '../../components'
+import { CommonBtn, TwoColSideBar } from '../../components'
 import appDataContext from '../../context/AppDataContext'
 import AdminStatistics from './AdminStatistics'
 import handleApiCall from '../../api/handleApiCall'
@@ -15,6 +15,11 @@ const AdminHome = () => {
   const [statistics, setStatistics] = useState({})
   const [reservations, setReservations] = useState([{}])
   const [users, setUsers] = useState([])
+
+  const [stations, setStations] = useState([])
+  const [routes, setRoutes] = useState([])
+
+  const [btnClicked, setBtnClicked] = useState(false)
 
   const fetchUsers = ({ loading }) => {
     handleApiCall({
@@ -48,14 +53,28 @@ const AdminHome = () => {
     })
   }
 
-  const HeaderText = ({ children, description }) => {
+  const HeaderText = ({ children, description, btnTitle, onClick }) => {
     return (
       <div className='mb-12'>
-        <h3 className='text-2xl antialiased font-bold'>{children}</h3>
-        <p className='text-sm h-[1rem] text-slate-500'>{description}</p>
+        <div className='flex items-center justify-between'>
+          <div>
+            <h3 className='text-2xl antialiased font-bold'>{children}</h3>
+            <p className='text-sm h-[1rem] text-slate-500'>{description}</p>
+          </div>
+          {btnTitle && (
+            <CommonBtn
+              type='primary'
+              className='bg-blue-600 border-none shadow-none'
+              onClick={() => onClick && onClick()}
+            >
+              {btnTitle}
+            </CommonBtn>
+          )}
+        </div>
       </div>
     )
   }
+
   const GetContentForActiveTab = () => {
     if (activeTabIndex === 1) {
       return (
@@ -94,10 +113,21 @@ const AdminHome = () => {
     if (activeTabIndex === 4) {
       return (
         <>
-          <HeaderText description='Train schedules currently on system'>
+          <HeaderText
+            description='Train schedules currently on system'
+            btnTitle='Add schedule'
+            onClick={() => setBtnClicked(true)}
+          >
             Schedules
           </HeaderText>
-          <AdminSchedules loading={loading} />
+          <AdminSchedules
+            loading={loading}
+            btnClicked={btnClicked}
+            setBtnClicked={setBtnClicked}
+            // stations
+            stations={stations}
+            routes={routes}
+          />
         </>
       )
     }
@@ -106,6 +136,7 @@ const AdminHome = () => {
 
   useEffect(() => {
     setLoading(true)
+
     handleApiCall({
       variant: 'admin',
       urlType: 'getStatistics',
@@ -117,6 +148,38 @@ const AdminHome = () => {
     })
     getReservations({ loading: setLoading })
     fetchUsers({ loading: setLoading })
+
+    handleApiCall({
+      variant: 'admin',
+      urlType: 'getRoutes',
+      setLoading: setLoading,
+      auth: true,
+      cb: res => {
+        const mappedRoutes = res?.map(({ from_to, id }) => ({
+          label: from_to,
+          value: id
+        }))
+        setRoutes(mappedRoutes)
+      }
+    })
+  }, [])
+
+  useEffect(() => {
+    handleApiCall({
+      variant: 'userDashboard',
+      urlType: 'stations',
+      setLoading: () => {},
+      cb: (data, status) => {
+        const mappedStations = data?.map(({ name, id }) => ({
+          label: name,
+          value: id
+        }))
+        if (status === 200) {
+          setStations(mappedStations)
+        }
+      }
+    })
+    return () => {}
   }, [])
 
   return (
