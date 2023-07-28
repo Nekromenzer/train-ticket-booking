@@ -3,9 +3,12 @@ import data from '../../data/pages/adminUsers'
 import CommonTable from '../../components/common/CommonTable'
 import { Drawer } from 'antd'
 import { CommonForm } from '../../components'
+import handleApiCall from '../../api/handleApiCall'
+import LoadingAnimation from '../../components/elements/LoadingAnimation'
 
-const AdminUsers = ({ users, loading }) => {
+const AdminUsers = ({ users, loading, fetchUsers }) => {
   const [selectedUser, setSelectedUser] = useState({})
+  const [loadingTable, setLoadingTable] = useState(false)
   const [openEdit, setOpenEdit] = useState(false)
   const formRef = useRef(null)
 
@@ -13,6 +16,22 @@ const AdminUsers = ({ users, loading }) => {
     setOpenEdit(row)
     const fields = [{ name: ['name'], value: row.name }]
     formRef?.current?.form.setFields(fields)
+  }
+
+  const handleDeleteUser = id => {
+    if (id) {
+      handleApiCall({
+        variant: 'admin',
+        urlType: 'deleteUser',
+        auth: true,
+        urlParams: `/${id}`,
+        cb: (res, state) => {
+          if (state === 200) {
+            fetchUsers({ loading: setLoadingTable })
+          }
+        }
+      })
+    }
   }
 
   useEffect(() => {
@@ -48,10 +67,11 @@ const AdminUsers = ({ users, loading }) => {
       </Drawer>
       <CommonTable
         dataSource={users.data}
-        loading={loading}
+        loading={loading || loadingTable}
         columns={data.tableColumns({
           setUserData: setSelectedUser,
-          setOpenEdit: handleEdit
+          setOpenEdit: handleEdit,
+          handleDeleteUser
         })}
         onChange={(pagination, filters, sorter, extra) => {
           console.log('params', pagination, filters, sorter, extra)

@@ -12,12 +12,24 @@ const AdminHome = () => {
   const [statistics, setStatistics] = useState({})
   const [users, setUsers] = useState([])
 
+  const fetchUsers = ({ loading }) => {
+    handleApiCall({
+      variant: 'admin',
+      urlType: 'getAllUsers',
+      setLoading: loading,
+      auth: true,
+      cb: res => {
+        setUsers(res)
+      }
+    })
+  }
+
   const GetContentForActiveTab = () => {
     if (activeTabIndex === 1) {
       return <AdminStatistics loading={loading} statistics={statistics} />
     }
     if (activeTabIndex === 2) {
-      return <AdminUsers users={users} />
+      return <AdminUsers users={users} fetchUsers={fetchUsers} />
     }
     if (activeTabIndex === 3) {
       return <div>tab 3</div>
@@ -37,15 +49,7 @@ const AdminHome = () => {
       }
     })
 
-    handleApiCall({
-      variant: 'admin',
-      urlType: 'getAllUsers',
-      setLoading: setLoading,
-      auth: true,
-      cb: res => {
-        setUsers(res)
-      }
-    })
+    fetchUsers({ loading: setLoading })
   }, [])
 
   return <TwoColSideBar sideBar content={<GetContentForActiveTab />} isAdmin />

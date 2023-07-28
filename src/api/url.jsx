@@ -19,6 +19,7 @@ const urlDoc = {
     seats: { url: `/${version}/train-schedule/seats`, type: 'post' },
     reserve: { url: `/${version}/user/reservation`, type: 'post' },
     getReservations: { url: `/${version}/user/reservations`, type: 'get' },
+    // not intergrated
     getTotalReservations: {
       url: `/${version}/user/reservations/count`,
       type: 'get'
@@ -26,6 +27,7 @@ const urlDoc = {
   },
   admin: {
     getAllUsers: { url: `/${version}/dashboard/user/all`, type: 'get' },
+    deleteUser:{ url: `/${version}/dashboard/user`, type: 'delete' },
     getAllReservations: {
       url: `/${version}/dashboard/reservations/all`,
       type: 'get'

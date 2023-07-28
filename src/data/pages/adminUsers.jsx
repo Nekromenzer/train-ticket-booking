@@ -8,7 +8,7 @@ function validateNIC (nicNumber) {
 }
 
 const data = {
-  tableColumns: ({ setUserData, setOpenEdit }) => [
+  tableColumns: ({ setUserData, setOpenEdit, handleDeleteUser }) => [
     {
       title: 'Name',
       dataIndex: 'name',
@@ -69,7 +69,7 @@ const data = {
         <div
           className='flex items-center justify-start gap-4'
           onClick={() => {
-            console.log(row.id, 'delete')
+            handleDeleteUser(row.id)
           }}
         >
           <MdDeleteSweep className='text-[1.5rem] fill-red-500' />
