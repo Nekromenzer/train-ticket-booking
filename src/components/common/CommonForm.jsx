@@ -86,24 +86,26 @@ const CommonForm = forwardRef((props, ref) => {
       )
     }
     if (type === 'select') {
-      return (<Select
-        showSearch
-        options={options}
-        placeholder={placeholder}
-        allowClear={allowClear}
-        autoFocus={autoFocus}
-        className={className}
-        defaultValue={defaultValue}
-        value={defaultValue}
-        disabled={disabled}
-        showArrow={showArrow}
-        filterOption={(inputValue, option) =>
-          option.label
-            .toString()
-            .toLowerCase()
-            .includes(inputValue.toLowerCase())
-        }
-      />)
+      return (
+        <Select
+          showSearch
+          options={options}
+          placeholder={placeholder}
+          allowClear={allowClear}
+          autoFocus={autoFocus}
+          className={className}
+          defaultValue={defaultValue}
+          value={defaultValue}
+          disabled={disabled}
+          showArrow={showArrow}
+          filterOption={(inputValue, option) =>
+            option.label
+              .toString()
+              .toLowerCase()
+              .includes(inputValue.toLowerCase())
+          }
+        />
+      )
     }
     if (type === 'date') {
       return (
@@ -127,6 +129,7 @@ const CommonForm = forwardRef((props, ref) => {
           autoFocus={autoFocus}
           format={format}
           minuteStep={minuteStep}
+          format={format}
           use12Hours
         />
       )
