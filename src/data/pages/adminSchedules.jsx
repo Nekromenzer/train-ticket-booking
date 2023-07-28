@@ -17,10 +17,10 @@ const data = {
       title: 'Route',
       dataIndex: 'routes_id',
       key: 'routes_id',
-      render: (_, { id }) => {
-        const routeName = routes.map(({ label, value }) =>
-          value === id ? label : null
-        )
+      render: (_, { routes_id }) => {
+        const routeName = routes.map(({ label, value }) => {
+          return value === routes_id ? label : ''
+        })
         return routeName
       }
     },
