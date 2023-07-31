@@ -1,4 +1,4 @@
-import { Bar, Column, Area, Liquid } from '@ant-design/plots'
+import { Bar, Column, Area, Liquid, Line } from '@ant-design/plots'
 
 const dataA = [
   {
@@ -117,7 +117,37 @@ const CommonCharts = ({
         length: 128
       }
     }
-    return <Liquid {...config} className={`!max-h-[${height}rem] text-white`} style={{height:`${height}rem`}}/>
+    return (
+      <Liquid
+        {...config}
+        className={`!max-h-[${height}rem] text-white`}
+        style={{ height: `${height}rem` }}
+      />
+    )
+  }
+  if (type === 'line') {
+    const config = {
+      data,
+      xField: 'year',
+      yField: 'gdp',
+      seriesField: 'name',
+      yAxis: {
+        label: {
+          formatter: v => `${(v / 10e8).toFixed(1)} B`
+        }
+      },
+      legend: {
+        position: 'top'
+      },
+      smooth: true,
+      animation: {
+        appear: {
+          animation: 'path-in',
+          duration: 5000
+        }
+      }
+    }
+    return <Line {...config} />
   }
   return null
 }
