@@ -1,3 +1,18 @@
+const months = [
+  { label: 'January', value: 1 },
+  { label: 'February', value: 2 },
+  { label: 'March', value: 3 },
+  { label: 'April', value: 4 },
+  { label: 'May', value: 5 },
+  { label: 'June', value: 6 },
+  { label: 'July', value: 7 },
+  { label: 'August', value: 8 },
+  { label: 'September', value: 9 },
+  { label: 'October', value: 10 },
+  { label: 'November', value: 11 },
+  { label: 'December', value: 12 }
+]
+
 const data = {
   mainCharts: ({ bookingData = [], revenueData = [] }) => [
     {
@@ -53,6 +68,51 @@ const data = {
       class: 'min-h-[13rem]',
       type: 'stats',
       imgUrl: 'https://img.icons8.com/color-glass/100/restart--v2.png'
+    }
+  ],
+  filterForm: [
+    {
+      label: 'Month 1',
+      name: 'firstMonth',
+      rules: [{ required: true, message: 'Select month!' }],
+      type: 'select',
+      autoComplete: 'on',
+      hasFeedback: true,
+      placeholder: 'Colombo Fort',
+      options: months,
+      allowClear: true,
+      autoFocus: false,
+      disabled: !months?.length,
+      showArrow: false,
+      defaultValue: 8,
+      className: '!w-full'
+    },
+    {
+      label: 'Month 2',
+      name: 'secondMonth',
+      rules: [{ required: true, message: 'Select month!' }],
+      type: 'select',
+      autoComplete: 'on',
+      hasFeedback: true,
+      placeholder: 'Colombo Fort',
+      options: months,
+      allowClear: true,
+      autoFocus: false,
+      disabled: !months?.length,
+      showArrow: false,
+      defaultValue: 7,
+      className: '!w-full'
+    },{
+      label: 'Revenue',
+      type: 'switch',
+      unCheckedChildren: 'Total Bookings',
+      className: '!w-[44%]'
+    },
+    {
+      label: 'Bookings',
+      type: 'switch',
+      unCheckedChildren: 'Total Bookings',
+      className: '!w-[44%]'
     }
   ]
 }
