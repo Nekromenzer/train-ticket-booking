@@ -32,7 +32,8 @@ const CommonForm = forwardRef((props, ref) => {
     btnWrapperClassName,
     itemClassName,
     onValChangeCallback = () => {},
-    customComponent
+    customComponent,
+    noSubmitBtn
   } = props
 
   const [form] = Form.useForm()
@@ -265,16 +266,18 @@ const CommonForm = forwardRef((props, ref) => {
       }}
     >
       {formItems}
-      <Form.Item className={btnWrapperClassName}>
-        {customComponent}
-        <CommonBtn
-          type='primary'
-          htmlType='submit'
-          classNames={`w-full mt-4 bg-blue-400 font-bold ${btnClassName}`}
-        >
-          {formBtnText}
-        </CommonBtn>
-      </Form.Item>
+      {!noSubmitBtn && (
+        <Form.Item className={btnWrapperClassName}>
+          {customComponent}
+          <CommonBtn
+            type='primary'
+            htmlType='submit'
+            classNames={`w-full mt-4 bg-blue-400 font-bold ${btnClassName}`}
+          >
+            {formBtnText}
+          </CommonBtn>
+        </Form.Item>
+      )}
     </Form>
   )
 })
