@@ -31,6 +31,9 @@ const urlDoc = {
     getUser: {
       url: `/${version}/user`,
       type: 'get'
+    },
+    getReservationsCount: {
+      url: `/${version}/user/reservations/count`
     }
   },
   admin: {
