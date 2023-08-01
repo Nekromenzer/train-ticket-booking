@@ -177,11 +177,11 @@ const AdminStatistics = ({
                       </Badge>
                     ))}
                 </div>
-                <div className='flex items-center justify-center w-1/3'>
+                <div className='flex items-center justify-end lg:justify-center w-1/3'>
                   <img
                     src={item.imgUrl}
-                    width={100}
-                    height={100}
+                    width={50}
+                    height={50}
                     className='animate-spin motion-reduce:animate-spin delay-700 duration-1000'
                   />
                 </div>

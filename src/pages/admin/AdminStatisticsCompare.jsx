@@ -19,7 +19,7 @@ const AdminStatisticsCompare = ({ revenueData, bookingData }) => {
     });
   
     // Filter bookings data for the specified months
-    const filteredBookings = bookingData.filter((item) => {
+    const filteredBookings = bookingData?.filter((item) => {
       const month = new Date(item.month).getMonth() + 1; // Extract the month number from the date
       return month >= formData?.firstMonth && month <= formData?.secondMonth;
     });
