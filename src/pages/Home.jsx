@@ -14,10 +14,30 @@ const adminUrl = import.meta.env.VITE_ADMIN_EMAIL
 const Home = () => {
   const [activeTabIndex] = useContext(appDataContext)
   const [stations, setStations] = useState([])
+  const [reservationsCount, setReservationsCount] = useState(0)
+
+  const handleGetReservationCount = () => {
+    handleApiCall({
+      variant: 'userDashboard',
+      urlType: 'getReservationsCount',
+      setLoading: () => {},
+      auth: true,
+      cb: data => {
+        const totalCount = data?.reduce((acc, item) => acc + item.count, 0)
+        setReservationsCount(totalCount)
+      }
+    })
+  }
 
   const GetContentForActiveTab = () => {
     if (activeTabIndex === 1) {
-      return <UserHome stations={stations} />
+      return (
+        <UserHome
+          stations={stations}
+          reservationsCount={reservationsCount}
+          handleGetReservationCount={handleGetReservationCount}
+        />
+      )
     }
     if (activeTabIndex === 2) {
       return <UserBookings />
@@ -53,6 +73,7 @@ const Home = () => {
         }
       }
     })
+    handleGetReservationCount()
     return () => {}
   }, [])
 

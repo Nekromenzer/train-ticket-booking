@@ -73,6 +73,8 @@ const AdminUsers = ({ users, loading, fetchUsers }) => {
           if (state === 200) {
             fetchUsers({ loading: setLoadingTable })
             setOpenEdit(false)
+          } else {
+            setOpenEdit(false)
           }
         }
       })

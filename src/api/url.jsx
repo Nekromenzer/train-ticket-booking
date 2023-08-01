@@ -23,6 +23,17 @@ const urlDoc = {
     getTotalReservations: {
       url: `/${version}/user/reservations/count`,
       type: 'get'
+    },
+    editUser: {
+      url: `/${version}/user/update`,
+      type: 'post'
+    },
+    getUser: {
+      url: `/${version}/user`,
+      type: 'get'
+    },
+    getReservationsCount: {
+      url: `/${version}/user/reservations/count`
     }
   },
   admin: {

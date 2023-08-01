@@ -1,7 +1,7 @@
 import data from '../../data/pages/userLevel'
 import { Badge } from 'antd'
 
-const UserLevel = ({ level }) => {
+const UserLevel = ({ level, reservationsCount }) => {
   const getUserLevelData = data?.levels[level - 1]
   return (
     <div className='flex flex-col pt-6 px-3 '>
@@ -38,6 +38,9 @@ const UserLevel = ({ level }) => {
       <div className='mt-12'>
         <div className='text-base text-justify text-white'>
           {getUserLevelData?.description}
+        </div>
+        <div className='text-base bg-sky-200 px-2 mt-4 rounded-md font-monts font-bold border border-sky-600 ml-auto'>
+          Current reservations - {reservationsCount}
         </div>
       </div>
     </div>

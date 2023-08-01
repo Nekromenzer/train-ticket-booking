@@ -8,7 +8,11 @@ import { Result, Button, Statistic } from 'antd'
 import handleApiCall from '../../api/handleApiCall'
 import CommonNotification from '../../components/common/CommonNotification'
 
-const Payment = ({ setBookingState, bookingValues }) => {
+const Payment = ({
+  setBookingState,
+  bookingValues,
+  handleGetReservationCount
+}) => {
   const [enteredCardNumber, setEnteredCardNumber] = useState({
     cardType: 1,
     fullName: '',
@@ -78,6 +82,7 @@ const Payment = ({ setBookingState, bookingValues }) => {
                           description: 'Your reservation was successful',
                           type: 'success'
                         })
+                        handleGetReservationCount()
                       } else {
                         notificationRef.current.openNotification({
                           message: 'Payment Failed',

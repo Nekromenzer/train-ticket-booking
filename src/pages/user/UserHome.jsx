@@ -11,8 +11,13 @@ import SeatBooking from './SeatBooking'
 import Payment from './Payment'
 import handleApiCall from '../../api/handleApiCall'
 import NewsSections from './NewsSections'
+import { useEffect } from 'react'
 
-const UserHome = ({ stations }) => {
+const UserHome = ({
+  stations,
+  handleGetReservationCount,
+  reservationsCount
+}) => {
   const { Title } = Typography
   const [searchVal, setSearchVal] = useState({})
   const [isLoading, setIsLoading] = useState(false)
@@ -31,7 +36,7 @@ const UserHome = ({ stations }) => {
     discount: 0,
     total: 0
   })
-  console.log(bookingValues, 'bookingValues')
+
   const RenderComponent = () => {
     if (bookingState === 0)
       return (
@@ -100,11 +105,21 @@ const UserHome = ({ stations }) => {
           <Payment
             setBookingState={setBookingState}
             bookingValues={bookingValues}
+            handleGetReservationCount={handleGetReservationCount}
           />
         </div>
       )
     }
   }
+
+  useEffect(() => {
+    if (reservationsCount >= 15) {
+      setUserLevel(4)
+    } else {
+      setUserLevel(Math.min(Math.floor((reservationsCount + 1) / 5) + 1, 4))
+    }
+    return
+  }, [reservationsCount])
 
   return (
     <div className='flex flex-col flex-wrap lg:flex-row items-center justify-center'>
@@ -130,7 +145,7 @@ const UserHome = ({ stations }) => {
 
       <div className='w-full lg:w-1/4 lg:p-4 p-2'>
         <div className='rounded-xl p-2 lg:p-4 bg-gradient-to-r from-blue-500 to-sky-500 w-full h-screen lg:h-[60vh] backdrop-blur-lg backdrop-opacity-50 shadow drop-shadow-md'>
-          <UserLevel level={userLevel} />
+          <UserLevel level={userLevel} reservationsCount={reservationsCount} />
         </div>
       </div>
 
