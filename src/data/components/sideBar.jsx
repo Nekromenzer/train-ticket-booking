@@ -92,6 +92,8 @@ const data = {
           },
           onOk () {
             localStorage.removeItem('userToken')
+            localStorage.removeItem('train_user_email')
+            localStorage.removeItem('userData')
             window.location.reload()
             return handleApiCall({
               urlType: 'logout',
