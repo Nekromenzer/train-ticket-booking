@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import  { useState } from 'react'
 import { Segmented } from 'antd'
 import data from '../../data/components/news'
 

@@ -95,7 +95,7 @@ const AdminUsers = ({ users, loading, fetchUsers }) => {
   return (
     <>
       <Drawer
-        title={`Edit ${selectedUser.name}`}
+        title={`Edit user`}
         placement='right'
         onClose={() => {
           if (!loadingForm) {
