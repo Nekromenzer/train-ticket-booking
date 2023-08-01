@@ -57,8 +57,6 @@ const SideBar = ({ isCollapse, setIsCollapse, isAdmin }) => {
     getUserData()
   }, [])
 
-  console.log(userData)
-
   return (
     <div
       className={`flex flex-col lg:flex-row lg:items-center ${
