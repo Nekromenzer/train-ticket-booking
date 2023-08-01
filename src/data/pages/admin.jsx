@@ -84,7 +84,7 @@ const data = {
       autoFocus: false,
       disabled: !months?.length,
       showArrow: false,
-      defaultValue: 8,
+      defaultValue: 1,
       className: '!w-full !my-0'
     },
     {
@@ -100,19 +100,25 @@ const data = {
       autoFocus: false,
       disabled: !months?.length,
       showArrow: false,
-      defaultValue: 7,
+      defaultValue: 8,
       className: '!w-full !my-0'
     },
     {
-      label: 'Filter',
-      type: 'checkbox',
-      name: 'filterValue',
-      // checkedChildren:'Without Revenue',
-      // unCheckedChildren: 'With Bookings',
-      options: [
-        { label: 'Revenue', value: 'revenue' },
-        { label: 'Bookings', value: 'bookings' }
-      ],
+      label: 'Revenue',
+      type: 'switchWithoutVal',
+      name: 'revenue',
+      checkedChildren: 'Without Revenue',
+      unCheckedChildren: 'With Revenue',
+      defaultChecked: true,
+      className: '!my-0'
+    },
+    {
+      label: 'Bookings',
+      type: 'switchWithoutVal',
+      name: 'bookings',
+      checkedChildren: 'Without Bookings',
+      unCheckedChildren: 'With Bookings',
+      defaultChecked: true,
       className: '!my-0'
     }
   ]

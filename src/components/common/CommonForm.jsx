@@ -175,6 +175,17 @@ const CommonForm = forwardRef((props, ref) => {
         />
       )
     }
+    if (type === 'switchWithoutVal') {
+      return (
+        <Switch
+          checkedChildren={checkedChildren}
+          unCheckedChildren={unCheckedChildren}
+          defaultChecked={defaultChecked}
+          className={`bg-sky-500 ${className}`}
+          onClick={() => setChecked(!checked)}
+        />
+      )
+    }
     if (type === 'radioGroup') {
       return (
         <Radio.Group

@@ -1,4 +1,4 @@
-import { Bar, Column, Area, Liquid, Line } from '@ant-design/plots'
+import { Bar, Column, Area, Liquid, Line, DualAxes } from '@ant-design/plots'
 
 const dataA = [
   {
@@ -148,6 +148,53 @@ const CommonCharts = ({
       }
     }
     return <Line {...config} />
+  }
+  if (type === 'duelLine') {
+    const config = {
+      data: [data, data],
+      xField: xField,
+      yField: yField,
+      geometryOptions: [
+        {
+          geometry: 'line',
+          smooth: false,
+          color: '#5B8FF9',
+          label: {
+            formatter: datum => {
+              return `${datum.value}`
+            }
+          },
+          lineStyle: {
+            lineWidth: 3,
+            lineDash: [5, 5]
+          }
+        },
+        {
+          geometry: 'line',
+          smooth: true,
+          color: '#5AD8A6',
+          lineStyle: {
+            lineWidth: 4,
+            opacity: 0.5
+          },
+          label: {
+            formatter: datum => {
+              return `${datum.count}`
+            }
+          },
+          point: {
+            shape: 'circle',
+            size: 4,
+            style: {
+              opacity: 0.5,
+              stroke: '#5AD8A6',
+              fill: '#fff'
+            }
+          }
+        }
+      ]
+    }
+    return <DualAxes {...config} />
   }
   return null
 }
