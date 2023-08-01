@@ -66,7 +66,9 @@ const CommonCharts = ({
   barStyle,
   // progressLiquidConfig
   percent = 0.25,
-  height = '10rem'
+  height = '10rem',
+  firstLineOpacity,
+  secondLineOpacity = 0.5
 }) => {
   if (type === 'col') {
     const colConfig = {
@@ -159,14 +161,15 @@ const CommonCharts = ({
           geometry: 'line',
           smooth: false,
           color: '#5B8FF9',
-          label: {
-            formatter: datum => {
-              return `${datum.value}`
-            }
-          },
+          // label: {
+          //   formatter: datum => {
+          //     return `${datum.revenue}`
+          //   }
+          // },
           lineStyle: {
             lineWidth: 3,
-            lineDash: [5, 5]
+            lineDash: [5, 5],
+            opacity: firstLineOpacity
           }
         },
         {
@@ -175,13 +178,13 @@ const CommonCharts = ({
           color: '#5AD8A6',
           lineStyle: {
             lineWidth: 4,
-            opacity: 0.5
+            opacity: secondLineOpacity
           },
-          label: {
-            formatter: datum => {
-              return `${datum.count}`
-            }
-          },
+          // label: {
+          //   formatter: datum => {
+          //     return `${datum.bookings}`
+          //   }
+          // },
           point: {
             shape: 'circle',
             size: 4,

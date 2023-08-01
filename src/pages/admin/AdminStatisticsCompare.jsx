@@ -1,58 +1,62 @@
+import { useState } from 'react'
 import { CommonForm } from '../../components'
 import CommonCharts from '../../components/common/CommonCharts'
 import data from '../../data/pages/admin'
+import dayjs from 'dayjs'
 
-const AdminStatisticsCompare = () => {
-  const sampleData = [
-    {
-      month: 'Jan',
-      value: 3,
-      count: 10
-    },
-    {
-      month: 'Feb',
-      value: 4,
-      count: 4
-    },
-    {
-      month: 'Mar',
-      value: 3.5,
-      count: 5
-    },
-    {
-      month: 'Apr',
-      value: 5,
-      count: 5
-    },
-    {
-      month: 'May',
-      value: 4.9,
-      count: 4.9
-    },
-    {
-      month: 'Jun',
-      value: 6,
-      count: 35
-    },
-    {
-      month: 'Jul',
-      value: 7,
-      count: 7
-    },
-    {
-      month: 'Aug',
-      value: 9,
-      count: 1
+const AdminStatisticsCompare = ({ revenueData, bookingData }) => {
+  const [formData, setFormData] = useState({
+    firstMonth: 1,
+    secondMonth: 8,
+    revenue: true,
+    bookings: true
+  })
+
+    // Filter revenue data for the specified months
+    const filteredRevenue = revenueData?.filter((item) => {
+      const month = new Date(item.month).getMonth() + 1; // Extract the month number from the date
+      return month >= formData?.firstMonth && month <= formData?.secondMonth;
+    });
+  
+    // Filter bookings data for the specified months
+    const filteredBookings = bookingData.filter((item) => {
+      const month = new Date(item.month).getMonth() + 1; // Extract the month number from the date
+      return month >= formData?.firstMonth && month <= formData?.secondMonth;
+    });
+
+  const mergedData = filteredRevenue?.map(revenueItem => {
+    const bookingItem = filteredBookings?.find(
+      booking => booking.month === revenueItem.month
+    )
+    if (!formData.revenue) {
+      return {
+        month: dayjs(revenueItem.month).format('MMM'),
+        bookings: bookingItem ? bookingItem.count : 0
+      }
     }
-  ]
+    if (!formData.bookings) {
+      return {
+        month: dayjs(revenueItem.month).format('MMM'),
+        revenue: revenueItem.total
+      }
+    }
+    return {
+      month: dayjs(revenueItem.month).format('MMM'),
+      revenue: revenueItem.total,
+      bookings: bookingItem ? bookingItem.count : 0
+    }
+  })
+
   return (
     <div className='w-full flex items-center flex-wrap lg:pt-4'>
       <div className='w-full lg:w-4/5 lg:py-2 lg:pr-8'>
         <CommonCharts
           type='duelLine'
-          data={sampleData}
+          data={mergedData}
           xField='month'
-          yField={['value', 'count']}
+          yField={['revenue', 'bookings']}
+          firstLineOpacity={formData.revenue ? 1 : 0}
+          secondLineOpacity={formData.bookings ? 0.5 : 0}
         />
       </div>
       <div className='w-full lg:w-1/5'>
@@ -62,6 +66,10 @@ const AdminStatisticsCompare = () => {
           requiredMark={false}
           noSubmitBtn
           className='flex flex-wrap gap-2'
+          initialValues={formData}
+          onValChangeCallback={changedValues => {
+            setFormData({ ...formData, ...changedValues })
+          }}
         />
       </div>
     </div>

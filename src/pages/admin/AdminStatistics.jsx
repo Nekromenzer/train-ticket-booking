@@ -11,7 +11,7 @@ const AdminStatistics = ({
   totalReservations
 }) => {
   const Header = ({ children }) => (
-    <div className='text-[1.2rem] font-monts mb-0 text-left text-white'>
+    <div className='text-[1.2rem] mb-0 text-left text-white font-roboto'>
       {children}
     </div>
   )
@@ -80,7 +80,10 @@ const AdminStatistics = ({
           </div>
         ))}
         <div className='w-full  h-auto '>
-          <AdminStatisticsCompare />
+          <AdminStatisticsCompare
+            bookingData={bookingData}
+            revenueData={revenueData}
+          />
         </div>
       </div>
 

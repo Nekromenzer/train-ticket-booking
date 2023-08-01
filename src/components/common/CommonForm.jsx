@@ -34,7 +34,8 @@ const CommonForm = forwardRef((props, ref) => {
     itemClassName,
     onValChangeCallback = () => {},
     customComponent,
-    noSubmitBtn
+    noSubmitBtn,
+    initialValues
   } = props
 
   const [form] = Form.useForm()
@@ -172,6 +173,7 @@ const CommonForm = forwardRef((props, ref) => {
           className={`bg-sky-500 ${className}`}
           checked={checked}
           onClick={() => setChecked(!checked)}
+          
         />
       )
     }
@@ -182,7 +184,7 @@ const CommonForm = forwardRef((props, ref) => {
           unCheckedChildren={unCheckedChildren}
           defaultChecked={defaultChecked}
           className={`bg-sky-500 ${className}`}
-          onClick={() => setChecked(!checked)}
+          // onClick={() => setChecked(!checked)}
         />
       )
     }
@@ -279,6 +281,7 @@ const CommonForm = forwardRef((props, ref) => {
       onValuesChange={(changedValues, allValues) => {
         onValChangeCallback(changedValues, allValues)
       }}
+      initialValues={initialValues}
     >
       {formItems}
       {!noSubmitBtn && (

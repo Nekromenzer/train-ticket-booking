@@ -107,8 +107,8 @@ const data = {
       label: 'Revenue',
       type: 'switchWithoutVal',
       name: 'revenue',
-      checkedChildren: 'Without Revenue',
-      unCheckedChildren: 'With Revenue',
+      checkedChildren: 'With Revenue',
+      unCheckedChildren: 'Without Revenue',
       defaultChecked: true,
       className: '!my-0'
     },
@@ -116,8 +116,8 @@ const data = {
       label: 'Bookings',
       type: 'switchWithoutVal',
       name: 'bookings',
-      checkedChildren: 'Without Bookings',
-      unCheckedChildren: 'With Bookings',
+      checkedChildren: 'With Bookings',
+      unCheckedChildren: 'Without Bookings',
       defaultChecked: true,
       className: '!my-0'
     }
