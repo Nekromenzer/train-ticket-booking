@@ -151,7 +151,9 @@ const UserHome = ({
       </div>
 
       <div className='w-full lg:w-1/3 lg:p-4 p-2'>
-        <div className='rounded-xl p-2 lg:p-4 bg-red w-full h-screen lg:h-auto backdrop-blur-lg backdrop-opacity-50 shadow drop-shadow-md'>
+        <div
+          className='rounded-xl p-2 lg:p-4 bg-red w-full h-screen lg:h-auto backdrop-blur-lg  shadow drop-shadow-md map-1'
+        >
           <UserMap />
         </div>
       </div>
