@@ -85,7 +85,7 @@ const data = {
       disabled: !months?.length,
       showArrow: false,
       defaultValue: 8,
-      className: '!w-full'
+      className: '!w-full !my-0'
     },
     {
       label: 'Month 2',
@@ -101,18 +101,19 @@ const data = {
       disabled: !months?.length,
       showArrow: false,
       defaultValue: 7,
-      className: '!w-full'
-    },{
-      label: 'Revenue',
-      type: 'switch',
-      unCheckedChildren: 'Total Bookings',
-      className: '!w-[44%]'
+      className: '!w-full !my-0'
     },
     {
-      label: 'Bookings',
-      type: 'switch',
-      unCheckedChildren: 'Total Bookings',
-      className: '!w-[44%]'
+      label: 'Filter',
+      type: 'checkbox',
+      name: 'filterValue',
+      // checkedChildren:'Without Revenue',
+      // unCheckedChildren: 'With Bookings',
+      options: [
+        { label: 'Revenue', value: 'revenue' },
+        { label: 'Bookings', value: 'bookings' }
+      ],
+      className: '!my-0'
     }
   ]
 }

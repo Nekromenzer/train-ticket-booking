@@ -2,6 +2,7 @@ import CommonCharts from '../../components/common/CommonCharts'
 import { Badge, Tag } from 'antd'
 import data from '../../data/pages/admin'
 import CommonTag from '../../components/common/CommonTag'
+import AdminStatisticsCompare from './AdminStatisticsCompare'
 
 const AdminStatistics = ({
   statistics,
@@ -9,7 +10,6 @@ const AdminStatistics = ({
   totalSchedules,
   totalReservations
 }) => {
-  console.log(totalUsers)
   const Header = ({ children }) => (
     <div className='text-[1.2rem] font-monts mb-0 text-left text-white'>
       {children}
@@ -57,27 +57,32 @@ const AdminStatistics = ({
       .slice(0, 3)
 
   return (
-    <div className='flex flex-wrap-reverse lg:flex-wrap gap-3 items-start justify-between'>
-      {data.mainCharts({ bookingData, revenueData }).map((item, idx) => (
-        <div className='w-full lg:w-1/3' key={idx}>
-          <Badge.Ribbon
-            text={item.header}
-            placement='start'
-            className='mt-[-0.5rem] rounded-sm'
-            color='black'
-          >
-            <div className='w-full rounded-lg shadow-md border-2 border-sky-500 px-4 pt-12 pb-4 cursor-pointer bg-slate-50 hover:border-sky-700'>
-              <CommonCharts
-                type={item.type}
-                color={item.color}
-                data={item.data}
-                xField={item.xField}
-                yField={item.yField}
-              />
-            </div>
-          </Badge.Ribbon>
+    <div className='flex flex-wrap-reverse lg:flex-wrap items-start justify-between'>
+      <div className='w-full lg:w-3/4 flex flex-wrap justify-between items-center gap-3'>
+        {data.mainCharts({ bookingData, revenueData }).map((item, idx) => (
+          <div className='w-full lg:w-[49%]' key={idx}>
+            <Badge.Ribbon
+              text={item.header}
+              placement='start'
+              className='mt-[-0.5rem] rounded-sm'
+              color='black'
+            >
+              <div className='w-full rounded-lg shadow-md border-2 border-sky-500 px-4 pt-12 pb-4 cursor-pointer bg-slate-50 hover:border-sky-700'>
+                <CommonCharts
+                  type={item.type}
+                  color={item.color}
+                  data={item.data}
+                  xField={item.xField}
+                  yField={item.yField}
+                />
+              </div>
+            </Badge.Ribbon>
+          </div>
+        ))}
+        <div className='w-full  h-auto '>
+          <AdminStatisticsCompare />
         </div>
-      ))}
+      </div>
 
       <div className='w-full lg:w-1/4 h-auto lg:h-[calc(100vh-3rem)] p-3 flex flex-col gap-6'>
         {data?.rightPanel?.map((item, idx) => (

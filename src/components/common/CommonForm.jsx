@@ -9,7 +9,8 @@ import {
   Switch,
   Tooltip,
   Radio,
-  Select
+  Select,
+  Checkbox 
 } from 'antd'
 import CommonBtn from './CommonBtn'
 
@@ -168,7 +169,7 @@ const CommonForm = forwardRef((props, ref) => {
           checkedChildren={checkedChildren}
           unCheckedChildren={unCheckedChildren}
           defaultChecked={defaultChecked}
-          className='bg-sky-500'
+          className={`bg-sky-500 ${className}`}
           checked={checked}
           onClick={() => setChecked(!checked)}
         />
@@ -197,6 +198,9 @@ const CommonForm = forwardRef((props, ref) => {
           disabled={disabled}
         />
       )
+    }
+    if (type === 'checkbox') {
+      return <Checkbox.Group options={options} />
     }
     return null
   }
