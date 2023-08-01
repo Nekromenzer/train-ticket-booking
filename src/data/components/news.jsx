@@ -4,14 +4,14 @@ const data = {
   newsData: [
     {
       title: 'New High-Speed Train Service Launched',
-      date: '2023-07-15',
+      date: '2023-08-01',
       category: 'Railway',
       content:
         'Sri Lanka Railways introduced a new high-speed train service between Colombo and Kandy, reducing the travel time by 30%. The new service aims to provide a faster and more comfortable commute for passengers.'
     },
     {
       title: 'Tourist Special: Explore the Hill Country',
-      date: '2023-07-12',
+      date: '2023-08-4',
       category: 'Travel',
       content:
         "A special tourist train service has been launched, offering travelers a unique opportunity to explore Sri Lanka's picturesque hill country. The train route covers popular destinations like Ella, Nuwara Eliya, and Haputale."
@@ -32,14 +32,14 @@ const data = {
     },
     {
       title: 'New Eco-Friendly Trains in Service',
-      date: '2023-07-05',
+      date: '2023-06-05',
       category: 'Railway',
       content:
         "In line with the country's commitment to sustainability, Sri Lanka Railways has introduced new eco-friendly trains powered by renewable energy sources. These trains aim to reduce carbon emissions and promote green transportation."
     },
     {
       title: 'Tourist Arrivals by Train Surpass Record Numbers',
-      date: '2023-07-03',
+      date: '2023-07-30',
       category: 'Travel',
       content:
         'Sri Lanka witnessed a significant surge in tourist arrivals by train, surpassing previous records. The scenic train journeys and comfortable travel experience have become increasingly popular among tourists visiting the country.'
