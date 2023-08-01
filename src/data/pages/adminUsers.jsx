@@ -97,7 +97,7 @@ const data = {
             if (!value || validateNIC(value)) {
               return Promise.resolve()
             }
-            return Promise.reject(new Error('Enter valied NIC number'))
+            return Promise.reject(new Error('Enter valid NIC number'))
           }
         })
       ],

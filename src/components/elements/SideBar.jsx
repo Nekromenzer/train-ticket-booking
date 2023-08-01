@@ -1,20 +1,95 @@
-import { useContext } from 'react'
+import { useContext, useRef, useState } from 'react'
 import { PiTrainFill } from 'react-icons/pi'
 import { BiRightArrow, BiLeftArrow } from 'react-icons/bi'
 import data from '../../data/components/sideBar'
 import appDataContext from '../../context/AppDataContext'
 import AnalogClock from './AnalogClock'
+import { useEffect } from 'react'
+import { Drawer } from 'antd'
+import handleApiCall from '../../api/handleApiCall'
+import CommonForm from '../common/CommonForm'
+import LoadingAnimation from './LoadingAnimation'
 
 const SideBar = ({ isCollapse, setIsCollapse, isAdmin }) => {
   const [activeTabIndex, setActiveTabIndex] = useContext(appDataContext)
-
   const menuItems = isAdmin ? data.adminMenu : data.menu
+  const [userData, setUserData] = useState({})
+  const [loadingForm, setLoadingForm] = useState(false)
+  const [openEdit, setOpenEdit] = useState(false)
+  const formRef = useRef(null)
+
+  const getUserData = () => {
+    handleApiCall({
+      variant: 'userDashboard',
+      urlType: 'getUser',
+      auth: true,
+      setLoading: setLoadingForm,
+      cb: (res, state) => {
+        if (state === 200) {
+          setUserData(res)
+        }
+      }
+    })
+  }
+
+  const handleEditUser = values => {
+    if (values) {
+      setLoadingForm(true)
+      handleApiCall({
+        variant: 'userDashboard',
+        urlType: 'editUser',
+        auth: true,
+        setLoading: setLoadingForm,
+        data: { ...values },
+        cb: (res, state) => {
+          if (state === 200) {
+            setOpenEdit(false)
+            getUserData()
+          } else {
+            setOpenEdit(false)
+          }
+        }
+      })
+    }
+  }
+
+  useEffect(() => {
+    getUserData()
+  }, [])
+
+  console.log(userData)
+
   return (
     <div
       className={`flex flex-col lg:flex-row lg:items-center ${
         isCollapse ? 'w-[5rem]' : 'w-[15rem]'
       } ease-in-out duration-200`}
     >
+      <Drawer
+        title={`Edit ${userData?.name}`}
+        placement='right'
+        onClose={() => {
+          if (!loadingForm) {
+            setOpenEdit(false)
+            formRef.current.resetFields()
+          }
+        }}
+        open={openEdit}
+        headerStyle={{ backgroundColor: '#f0f2f5' }}
+        maskStyle={{ backgroundColor: 'black', opacity: '0.8' }}
+        size='large'
+        maskClosable={!loadingForm}
+      >
+        <LoadingAnimation loading={loadingForm} tip='Editing user....'>
+          <CommonForm
+            initialValues={userData}
+            fields={data.fields}
+            formBtnText='Edit user'
+            ref={formRef}
+            onSubmit={handleEditUser}
+          />
+        </LoadingAnimation>
+      </Drawer>
       <div className='bg-[#001F30] w-full h-screen flex lg:flex-col gap-3 shadow-lg'>
         <div
           className={`w-full h-10 flex items-center ${
@@ -42,13 +117,15 @@ const SideBar = ({ isCollapse, setIsCollapse, isAdmin }) => {
             } gap-5  shadow-sm hover:shadow-md ease-in duration-200 p-2 ${
               item?.type === 'logout'
                 ? 'mt-auto hover:bg-red-500'
+                : item?.type === 'edit-profile'
+                ? 'hover:bg-green-500'
                 : 'hover:bg-sky-600'
             } ${activeTabIndex === idx + 1 && 'bg-sky-800'}`}
             key={idx}
             onClick={() =>
-              item?.type !== 'logout'
+              item?.type === ''
                 ? setActiveTabIndex(idx + 1)
-                : item.onClick()
+                : item.onClick(setOpenEdit)
             }
           >
             {item.icon(activeTabIndex === idx + 1)}
