@@ -105,6 +105,7 @@ const UserHome = ({
           <Payment
             setBookingState={setBookingState}
             bookingValues={bookingValues}
+            handleGetReservationCount={handleGetReservationCount}
           />
         </div>
       )
