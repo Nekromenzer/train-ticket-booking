@@ -186,3 +186,11 @@
 .bg-login-custom {
     background-image: url(./img/login-bg-effect.png) !important;
 }
+
+.map-1 {
+    background-image: url(./img/map.png) !important;
+    background-position: center !important;
+    background-repeat: no-repeat !important;
+    background-size: cover !important;
+    min-height: 16rem;
+}

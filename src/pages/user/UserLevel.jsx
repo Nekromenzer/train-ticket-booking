@@ -39,7 +39,8 @@ const UserLevel = ({ level, reservationsCount }) => {
         <div className='text-base text-justify text-white'>
           {getUserLevelData?.description}
         </div>
-        <div className='text-base bg-sky-200 px-2 mt-4 rounded-md font-monts font-bold border border-sky-600 ml-auto'>
+        <div className='text-base bg-sky-200 px-2 mt-4 rounded-md font-monts font-bold border border-sky-600 ml-auto w-fit'>
+
           Current reservations - {reservationsCount}
         </div>
       </div>

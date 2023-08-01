@@ -12,6 +12,8 @@ import Payment from './Payment'
 import handleApiCall from '../../api/handleApiCall'
 import NewsSections from './NewsSections'
 import { useEffect } from 'react'
+import UserMap from './UserMap'
+
 
 const UserHome = ({
   stations,
@@ -150,8 +152,10 @@ const UserHome = ({
       </div>
 
       <div className='w-full lg:w-1/3 lg:p-4 p-2'>
-        <div className='rounded-xl p-2 lg:p-4 bg-red w-full bg-red-500 h-screen lg:h-auto backdrop-blur-lg backdrop-opacity-50 shadow drop-shadow-md'>
-          test
+        <div
+          className='rounded-xl w-full h-screen lg:h-auto backdrop-blur-lg  shadow drop-shadow-md map-1'
+        >
+          <UserMap />
         </div>
       </div>
 
