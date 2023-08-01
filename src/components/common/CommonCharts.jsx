@@ -1,4 +1,4 @@
-import { Bar, Column, Area, Liquid } from '@ant-design/plots'
+import { Bar, Column, Area, Liquid, Line, DualAxes } from '@ant-design/plots'
 
 const dataA = [
   {
@@ -66,7 +66,9 @@ const CommonCharts = ({
   barStyle,
   // progressLiquidConfig
   percent = 0.25,
-  height = '10rem'
+  height = '10rem',
+  firstLineOpacity,
+  secondLineOpacity = 0.5
 }) => {
   if (type === 'col') {
     const colConfig = {
@@ -117,7 +119,85 @@ const CommonCharts = ({
         length: 128
       }
     }
-    return <Liquid {...config} className={`!max-h-[${height}rem] text-white`} style={{height:`${height}rem`}}/>
+    return (
+      <Liquid
+        {...config}
+        className={`!max-h-[${height}rem] text-white`}
+        style={{ height: `${height}rem` }}
+      />
+    )
+  }
+  if (type === 'line') {
+    const config = {
+      data,
+      xField: 'year',
+      yField: 'gdp',
+      seriesField: 'name',
+      yAxis: {
+        label: {
+          formatter: v => `${(v / 10e8).toFixed(1)} B`
+        }
+      },
+      legend: {
+        position: 'top'
+      },
+      smooth: true,
+      animation: {
+        appear: {
+          animation: 'path-in',
+          duration: 5000
+        }
+      }
+    }
+    return <Line {...config} />
+  }
+  if (type === 'duelLine') {
+    const config = {
+      data: [data, data],
+      xField: xField,
+      yField: yField,
+      geometryOptions: [
+        {
+          geometry: 'line',
+          smooth: false,
+          color: '#5B8FF9',
+          // label: {
+          //   formatter: datum => {
+          //     return `${datum.revenue}`
+          //   }
+          // },
+          lineStyle: {
+            lineWidth: 3,
+            lineDash: [5, 5],
+            opacity: firstLineOpacity
+          }
+        },
+        {
+          geometry: 'line',
+          smooth: true,
+          color: '#5AD8A6',
+          lineStyle: {
+            lineWidth: 4,
+            opacity: secondLineOpacity
+          },
+          // label: {
+          //   formatter: datum => {
+          //     return `${datum.bookings}`
+          //   }
+          // },
+          point: {
+            shape: 'circle',
+            size: 4,
+            style: {
+              opacity: 0.5,
+              stroke: '#5AD8A6',
+              fill: '#fff'
+            }
+          }
+        }
+      ]
+    }
+    return <DualAxes {...config} />
   }
   return null
 }

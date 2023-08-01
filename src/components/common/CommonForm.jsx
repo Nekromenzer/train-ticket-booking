@@ -9,7 +9,8 @@ import {
   Switch,
   Tooltip,
   Radio,
-  Select
+  Select,
+  Checkbox 
 } from 'antd'
 import CommonBtn from './CommonBtn'
 
@@ -32,7 +33,9 @@ const CommonForm = forwardRef((props, ref) => {
     btnWrapperClassName,
     itemClassName,
     onValChangeCallback = () => {},
-    customComponent
+    customComponent,
+    noSubmitBtn,
+    initialValues
   } = props
 
   const [form] = Form.useForm()
@@ -167,9 +170,21 @@ const CommonForm = forwardRef((props, ref) => {
           checkedChildren={checkedChildren}
           unCheckedChildren={unCheckedChildren}
           defaultChecked={defaultChecked}
-          className='bg-sky-500'
+          className={`bg-sky-500 ${className}`}
           checked={checked}
           onClick={() => setChecked(!checked)}
+          
+        />
+      )
+    }
+    if (type === 'switchWithoutVal') {
+      return (
+        <Switch
+          checkedChildren={checkedChildren}
+          unCheckedChildren={unCheckedChildren}
+          defaultChecked={defaultChecked}
+          className={`bg-sky-500 ${className}`}
+          // onClick={() => setChecked(!checked)}
         />
       )
     }
@@ -196,6 +211,9 @@ const CommonForm = forwardRef((props, ref) => {
           disabled={disabled}
         />
       )
+    }
+    if (type === 'checkbox') {
+      return <Checkbox.Group options={options} />
     }
     return null
   }
@@ -263,18 +281,21 @@ const CommonForm = forwardRef((props, ref) => {
       onValuesChange={(changedValues, allValues) => {
         onValChangeCallback(changedValues, allValues)
       }}
+      initialValues={initialValues}
     >
       {formItems}
-      <Form.Item className={btnWrapperClassName}>
-        {customComponent}
-        <CommonBtn
-          type='primary'
-          htmlType='submit'
-          classNames={`w-full mt-4 bg-blue-400 font-bold ${btnClassName}`}
-        >
-          {formBtnText}
-        </CommonBtn>
-      </Form.Item>
+      {!noSubmitBtn && (
+        <Form.Item className={btnWrapperClassName}>
+          {customComponent}
+          <CommonBtn
+            type='primary'
+            htmlType='submit'
+            classNames={`w-full mt-4 bg-blue-400 font-bold ${btnClassName}`}
+          >
+            {formBtnText}
+          </CommonBtn>
+        </Form.Item>
+      )}
     </Form>
   )
 })
