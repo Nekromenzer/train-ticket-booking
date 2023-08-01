@@ -64,7 +64,7 @@ const SideBar = ({ isCollapse, setIsCollapse, isAdmin }) => {
       } ease-in-out duration-200`}
     >
       <Drawer
-        title={`Edit ${userData?.name}`}
+        title={`Edit Profile details`}
         placement='right'
         onClose={() => {
           if (!loadingForm) {
@@ -82,7 +82,7 @@ const SideBar = ({ isCollapse, setIsCollapse, isAdmin }) => {
           <CommonForm
             initialValues={userData}
             fields={data.fields}
-            formBtnText='Edit user'
+            formBtnText='Update profile'
             ref={formRef}
             onSubmit={handleEditUser}
           />
