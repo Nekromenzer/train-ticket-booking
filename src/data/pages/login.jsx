@@ -8,7 +8,7 @@ function validateNIC (nicNumber) {
 }
 
 const data = {
-  title: 'TrackTicket',
+  title: 'TrackTrain',
   signInText: 'Sign In',
   signUpText: 'Sign Up',
   name: 'login',
