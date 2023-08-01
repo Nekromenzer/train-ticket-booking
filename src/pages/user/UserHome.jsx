@@ -14,6 +14,7 @@ import NewsSections from './NewsSections'
 import { useEffect } from 'react'
 import UserMap from './UserMap'
 
+
 const UserHome = ({
   stations,
   handleGetReservationCount,
