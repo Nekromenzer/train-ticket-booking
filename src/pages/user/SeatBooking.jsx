@@ -105,6 +105,7 @@ const SeatBooking = ({
     }
 
     const handleClassSelect = classId => {
+      console.log(classId)
       setSelectedClass(classId)
     }
     return (
@@ -116,7 +117,7 @@ const SeatBooking = ({
               <div
                 key={idx}
                 className='w-full'
-                onClick={() => handleClassSelect(item?.id)}
+                onClick={() => handleClassSelect(item?.class_id)}
               >
                 <div
                   className={`h-32 flex flex-col justify-between  w-full min-w-full rounded-lg shadow-sm border-2 border-sky-200 cursor-pointer p-2  hover:border-sky-400 hover:shadow-md ${
@@ -130,9 +131,10 @@ const SeatBooking = ({
                     customClassnames='mr-0'
                     seatCount={item.available_count}
                     seatNameTag
+                    ClassId
                   />
                   <div className='flex item-center justify-between'>
-                    <img src={getClassImage(item?.id)} height={64} width={64} />
+                    <img src={getClassImage(item?.class_id)} height={64} width={64} />
                     <Statistic
                       title='Price per seat (LKR)'
                       value={selectedTrain.schedule_price[idx].price}
@@ -289,7 +291,8 @@ const SeatBooking = ({
     // selectedTrain?.price[selectedClass - 1]?.price * noOfPassengers
     const getDiscount = totalPrice * (getUserLevelData?.discount / 100)
     const getFinalPrice = totalPrice - getDiscount
-
+    console.log(selectedTrain?.schedule_price)
+    console.log(selectedClass - 1)
     if (selectedClass === null) {
       setSelectedPrice(0)
     } else {

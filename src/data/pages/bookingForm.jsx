@@ -211,6 +211,7 @@ const data = {
       render: (_, { schedule_seats }) => {
         return (
           <Space direction='vertical'>
+            {console.log(schedule_seats)}
             {schedule_seats?.map((item, idx) => {
               return (
                 <CommonTag
@@ -218,6 +219,7 @@ const data = {
                   key={idx}
                   type='class'
                   seatCount={20 - item.available_count}
+                  ClassId
                 />
               )
             })}
@@ -233,7 +235,7 @@ const data = {
         return (
           <Space direction='vertical'>
             {schedule_seats?.map((item, idx) => {
-              return <CommonTag item={item} key={idx} type='seats' />
+              return <CommonTag item={item} key={idx} type='seats' ClassId />
             })}
           </Space>
         )
@@ -247,7 +249,7 @@ const data = {
         return (
           <Space direction='vertical'>
             {schedule_price?.map((item, idx) => {
-              return <CommonTag item={item} key={idx} type='price' />
+              return <CommonTag item={item} key={idx} type='price' ClassId/>
             })}
           </Space>
         )

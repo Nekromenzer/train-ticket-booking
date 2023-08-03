@@ -6,7 +6,8 @@ const CommonTag = ({
   customClassnames,
   seatCount,
   seatNameTag,
-  onlyClassName
+  onlyClassName,
+  ClassId
 }) => {
   const getTrainClassStyleProps = (type, id = 0) => {
     if (type === 'color') {
@@ -48,12 +49,22 @@ const CommonTag = ({
   return (
     <Tag
       key={item.id}
-      color={getTrainClassStyleProps('color', item.id)}
-      className={`bg-${getTrainClassStyleProps('color', item.id)} ${
+      color={
+        ClassId
+          ? getTrainClassStyleProps('color', item.class_id)
+          : getTrainClassStyleProps('color', item.id)
+      }
+      className={`bg-${
+        ClassId
+          ? getTrainClassStyleProps('color', item.class_id)
+          : getTrainClassStyleProps('color', item.id)
+      } ${
         type === 'class' && 'min-w-[7rem]'
       } text-white w-auto border-none flex items-center justify-between py-[0.8rem] px-2 gap-2 h-5 antialiased tracking-wide font-[400] ${customClassnames}`}
     >
-      {type === 'class' && getTrainClassStyleProps('name', item.id)}
+      {type === 'class' && ClassId
+        ? getTrainClassStyleProps('name', item.class_id)
+        : getTrainClassStyleProps('name', item.id)}
       <div
         className={` h-5 flex items-center justify-center rounded-md antialiased ${
           type === 'class' && 'bg-white text-black'
