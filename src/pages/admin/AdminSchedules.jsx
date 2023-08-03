@@ -2,7 +2,7 @@ import { useState, useRef } from 'react'
 import CommonTable from '../../components/common/CommonTable'
 import data from '../../data/pages/adminSchedules'
 import { CommonForm } from '../../components'
-import { Drawer } from 'antd'
+import { Drawer, Modal } from 'antd'
 import dayjs from 'dayjs'
 import handleApiCall from '../../api/handleApiCall'
 import LoadingAnimation from '../../components/elements/LoadingAnimation'
@@ -28,6 +28,52 @@ const AdminSchedules = ({
       ...item
     }
   })
+
+  const { confirm } = Modal
+
+  const handleDeleteSchedule = id => {
+    confirm({
+      title: <div>Do you want to Schedule</div>,
+      // icon: <BsExclamationCircleFill className='text-yellow-400' />,
+      content: 'This action cannot be undone',
+      okText: 'Delete Schedule',
+      okButtonProps: {
+        className: 'bg-red-500 shadow-none btn-delete'
+      },
+      mask: true,
+      maskStyle: {
+        backgroundColor: 'rgba(0, 0, 0, 0.5)'
+      },
+      onOk () {
+        if (id) {
+          handleApiCall({
+            variant: 'admin',
+            urlType: 'deleteSchedule',
+            auth: true,
+            urlParams: `/${id}`,
+            cb: (res, state) => {
+              if (state === 200) {
+                handleApiCall({
+                  variant: 'admin',
+                  urlType: 'getSchedules',
+                  auth: true,
+                  setLoading: setLoadingTable,
+                  cb: (res, state) => {
+                    console.log('ok')
+                  }
+                })
+              }
+            }
+          })
+        }
+      },
+      onCancel () {
+        console.log('Cancel')
+      },
+      confirmLoading: false
+    })
+  }
+
   return (
     <>
       <Drawer
@@ -113,7 +159,8 @@ const AdminSchedules = ({
         columns={data.tableColumns({
           stations: stations,
           routes: routes,
-          trains: trains
+          trains: trains,
+          handleDeleteSchedule
         })}
         onChange={(pagination, filters, sorter, extra) => {
           console.log('params', pagination, filters, sorter, extra)

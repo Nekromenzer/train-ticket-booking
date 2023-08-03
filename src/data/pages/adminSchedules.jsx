@@ -1,7 +1,8 @@
 import dayjs from 'dayjs'
+import { MdDeleteSweep } from 'react-icons/md'
 
 const data = {
-  tableColumns: ({ stations, routes, trains }) => [
+  tableColumns: ({ stations, routes, trains, handleDeleteSchedule }) => [
     {
       title: 'Train',
       dataIndex: 'train_id',
@@ -68,6 +69,20 @@ const data = {
       render: (_, { arrival_time }) => {
         return dayjs(arrival_time).format('YYYY-MM-DD')
       }
+    },
+    {
+      title: '',
+      key: 'delete',
+      render: row => (
+        <div
+          className='flex items-center justify-start gap-4'
+          onClick={() => {
+            handleDeleteSchedule(row.id)
+          }}
+        >
+          <MdDeleteSweep className='text-[1.5rem] fill-red-500' />
+        </div>
+      )
     }
   ],
   fields: ({ stations, routes, trains }) => [

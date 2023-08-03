@@ -24,8 +24,8 @@ const AdminUsers = ({ users, loading, fetchUsers }) => {
     confirm({
       title: (
         <div>
-          Do you want to Delete user{' '}
-          <span className='text-red-500'>{selectedUser.name}</span>?
+          Do you want to Delete user
+          {/* <span className='text-red-500'></span>? */}
         </div>
       ),
       // icon: <BsExclamationCircleFill className='text-yellow-400' />,
