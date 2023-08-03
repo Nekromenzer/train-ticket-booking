@@ -61,12 +61,14 @@ const data = {
       render: (_, { arrival_time }) => {
         return dayjs(arrival_time).format('hh:mm A')
       }
+    },
+    {
+      title: 'Date',
+      dataIndex: 'arrival_time',
+      render: (_, { arrival_time }) => {
+        return dayjs(arrival_time).format('YYYY-MM-DD')
+      }
     }
-    // {
-    //   title: 'Prices',
-    //   dataIndex: 'prices',
-    //   key: 'prices'
-    // }
   ],
   fields: ({ stations, routes, trains }) => [
     {
