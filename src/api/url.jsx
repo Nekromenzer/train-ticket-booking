@@ -34,6 +34,10 @@ const urlDoc = {
     },
     getReservationsCount: {
       url: `/${version}/user/reservations/count`
+    },
+    tracking:{
+      url: `/${version}/user/tracking`,
+      type: 'get'
     }
   },
   admin: {
