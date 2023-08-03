@@ -22,7 +22,7 @@ const AdminSchedules = ({
 
   const formRef = useRef(null)
 
-  const dataWithKey = schedules?.reverse()?.map(item => {
+  const dataWithKey = schedules?.map(item => {
     return {
       key: item.id,
       ...item
