@@ -43,7 +43,7 @@ const UserMap = () => {
             <div
               key={idx}
               className={`flex gap-3 ${
-                idx === 0 ? 'bg-green-500/90' : 'bg-white-500/90'
+                idx === 0 ? 'bg-green-500/90' : 'bg-white/90'
               } h-fit px-2 py-1 items-center rounded-md`}
             >
               <div className='text-base antialiased font-normal leading-relaxed'>
