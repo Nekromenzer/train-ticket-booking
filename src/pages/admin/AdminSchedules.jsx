@@ -50,18 +50,11 @@ const AdminSchedules = ({
             variant: 'admin',
             urlType: 'deleteSchedule',
             auth: true,
+            setLoading: setLoadingTable,
             urlParams: `/${id}`,
             cb: (res, state) => {
               if (state === 200) {
-                handleApiCall({
-                  variant: 'admin',
-                  urlType: 'getSchedules',
-                  auth: true,
-                  setLoading: setLoadingTable,
-                  cb: (res, state) => {
-                    console.log('ok')
-                  }
-                })
+                getTrainSchedules({ loading: setLoadingTable })
               }
             }
           })
@@ -143,9 +136,7 @@ const AdminSchedules = ({
                 setLoading: setLoadingForm,
                 cb: (res, state) => {
                   if (state === 200) {
-                    setTimeout(() => {
                       getTrainSchedules({ loading: setLoadingTable })
-                    }, 500)
                     setBtnClicked(false)
                   }
                 }
