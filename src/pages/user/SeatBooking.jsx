@@ -105,7 +105,6 @@ const SeatBooking = ({
     }
 
     const handleClassSelect = classId => {
-      console.log(classId)
       setSelectedClass(classId)
     }
     return (
@@ -119,9 +118,10 @@ const SeatBooking = ({
                 className='w-full'
                 onClick={() => handleClassSelect(item?.class_id)}
               >
+                {console.log(item)}
                 <div
                   className={`h-32 flex flex-col justify-between  w-full min-w-full rounded-lg shadow-sm border-2 border-sky-200 cursor-pointer p-2  hover:border-sky-400 hover:shadow-md ${
-                    item?.id === selectedClass &&
+                    item?.class_id === selectedClass &&
                     'border-2 border-sky-700 bg-blue-100'
                   }`}
                 >

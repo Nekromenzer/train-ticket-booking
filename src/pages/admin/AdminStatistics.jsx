@@ -56,6 +56,7 @@ const AdminStatistics = ({
       ?.map(entry => entry[0])
       .slice(0, 3)
 
+      
   return (
     <div className='flex flex-wrap-reverse lg:flex-wrap items-start justify-between'>
       <div className='w-full lg:w-3/4 flex flex-wrap justify-between items-center gap-3'>
@@ -91,7 +92,11 @@ const AdminStatistics = ({
         {data?.rightPanel?.map((item, idx) => (
           <div
             className={`w-full ${
-              item.type === 'liq-chart' ? 'h-[20rem]' :item.type === 'common-tags'? 'h-[14rem]': 'h-[8rem] lg:h-[7rem]'
+              item.type === 'liq-chart'
+                ? 'h-[20rem]'
+                : item.type === 'common-tags'
+                ? 'h-[14rem]'
+                : 'h-[8rem] lg:h-[7rem]'
             } p-2 rounded-lg bg-neutral-800 border-2 hover:border-yellow-500 hover:shadow-md duration-500 cursor-pointer ${
               item.class
             }`}
@@ -128,18 +133,18 @@ const AdminStatistics = ({
                           })
                         )
                     })
-                    ?.slice(-4).map(
-                      (tag, id) =>
-                          <div className='flex w-full gap-3' key={id}>
-                            <span className='text-slate-50'>{tag.month}</span>
-                            <CommonTag
-                              key={id}
-                              item={tag}
-                              type='class'
-                              onlyClassName
-                            />
-                          </div>
-                    )}
+                    ?.slice(-4)
+                    .map((tag, id) => (
+                      <div className='flex w-full gap-3' key={id}>
+                        <span className='text-slate-50'>{tag.month}</span>
+                        <CommonTag
+                          key={id}
+                          item={tag}
+                          type='class'
+                          onlyClassName
+                        />
+                      </div>
+                    ))}
               </div>
             )}
 
@@ -150,8 +155,11 @@ const AdminStatistics = ({
                   item.props({
                     percentage: calculateRevenueIncreasePercentage({
                       previousMonthRevenue:
-                        revenueData && revenueData[0]?.total,
-                      currentMonthRevenue: revenueData && revenueData[1]?.total
+                        revenueData &&
+                        revenueData[revenueData.length - 2]?.total,
+                      currentMonthRevenue:
+                        revenueData &&
+                        revenueData[revenueData.length - 1]?.total
                     })
                   }).percent
                 }
