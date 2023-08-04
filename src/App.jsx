@@ -31,7 +31,7 @@ function App () {
           />
         </Route>
         <Route path='/login' element={<Login />} />
-        <Route path='*' element={<NotFound />} />
+        {/* <Route path='*' element={<NotFound />} /> */}
       </Route>
     )
   )
