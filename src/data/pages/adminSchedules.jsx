@@ -7,9 +7,9 @@ const data = {
       title: 'Train',
       dataIndex: 'train_id',
       key: 'train_id',
-      render: (_, { id }) => {
-        const routeName = trains.map(({ label, value }) =>
-          value === id ? label : null
+      render: (_, { train_id }) => {
+        const routeName = trains?.map(({ label, value }) =>
+          value === train_id ? label : null
         )
         return routeName
       }

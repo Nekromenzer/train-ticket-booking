@@ -120,7 +120,7 @@ const AdminUsers = ({ users, loading, fetchUsers }) => {
       </Drawer>
 
       <CommonTable
-        dataSource={users.data}
+        dataSource={users?.data}
         loading={loading || loadingTable}
         columns={data.tableColumns({
           setUserData: setSelectedUser,
