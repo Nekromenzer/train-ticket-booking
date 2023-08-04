@@ -40,7 +40,7 @@ const CommonCalender = ({ getListData, headerText, originalData }) => {
 
   const handleClickDate = date => {
     setDrawerOpen(true)
-    const formatDate = [dayjs(date).format('DD')]
+    const formatDate = [dayjs(date).format('D')]
     const selectedData = originalData[formatDate]
     setSelectedDate(date)
     setSelectedData(selectedData)
