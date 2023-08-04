@@ -33,7 +33,7 @@ const AdminSchedules = ({
 
   const handleDeleteSchedule = id => {
     confirm({
-      title: <div>Do you want to Schedule</div>,
+      title: <div>Do you want to delete Schedule</div>,
       // icon: <BsExclamationCircleFill className='text-yellow-400' />,
       content: 'This action cannot be undone',
       okText: 'Delete Schedule',
@@ -108,15 +108,15 @@ const AdminSchedules = ({
                 class: [
                   {
                     id: 1,
-                    price: values.first_class_price
+                    price: values.first_class_price || 0
                   },
                   {
                     id: 2,
-                    price: values.second_class_price
+                    price: values.second_class_price || 0
                   },
                   {
                     id: 3,
-                    price: values.third_class_price
+                    price: values.third_class_price || 0
                   }
                 ]
               }
@@ -143,7 +143,9 @@ const AdminSchedules = ({
                 setLoading: setLoadingForm,
                 cb: (res, state) => {
                   if (state === 200) {
-                    getTrainSchedules({ loading: setLoadingTable })
+                    setTimeout(() => {
+                      getTrainSchedules({ loading: setLoadingTable })
+                    }, 500)
                     setBtnClicked(false)
                   }
                 }

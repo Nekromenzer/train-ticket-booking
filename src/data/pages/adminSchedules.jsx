@@ -172,27 +172,37 @@ const data = {
       label: 'Departure time',
       name: 'departure_time',
       rules: [{ required: true, message: 'Please enter valid time!' }],
-      type: 'time',
+      type: 'date',
       autoComplete: 'on',
       hasFeedback: true,
-      placeholder: '02.00 PM',
+      placeholder: '2023-Jul-22 02.00 PM',
       allowClear: true,
       autoFocus: false,
       showToday: true,
-      format: 'HH:mm'
+      format: 'YYYY-MMM-DD HH:mm',
+      showTime : true,
+      disabledDate: current => {
+        let customDate = dayjs().format('YYYY-MM-DD')
+        return current && current < dayjs(customDate, 'YYYY-MM-DD')
+      }
     },
     {
       label: 'Arrival time',
       name: 'arrival_time',
       rules: [{ required: true, message: 'Please enter valid time!' }],
-      type: 'time',
+      type: 'date',
       autoComplete: 'on',
       hasFeedback: true,
-      placeholder: '04.30 PM',
+      placeholder: '2023-Jul-22 04.30 PM',
       allowClear: true,
       autoFocus: false,
       showToday: true,
-      format: 'HH:mm'
+      format: 'YYYY-MMM-DD HH:mm',
+      showTime : true,
+      disabledDate: current => {
+        let customDate = dayjs().format('YYYY-MM-DD')
+        return current && current < dayjs(customDate, 'YYYY-MM-DD')
+      }
     },
     {
       label: '1st Class Price',

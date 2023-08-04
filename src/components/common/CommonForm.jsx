@@ -64,7 +64,8 @@ const CommonForm = forwardRef((props, ref) => {
       formatter,
       disabled,
       showArrow,
-      prefix
+      prefix,
+      showTime
     } = item
 
     if (type === 'password') {
@@ -121,6 +122,7 @@ const CommonForm = forwardRef((props, ref) => {
           format={format}
           showToday={showToday}
           disabledDate={disabledDate}
+          showTime={showTime}
         />
       )
     }
