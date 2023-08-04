@@ -29,7 +29,7 @@ const UserBookings = () => {
         if (status === 200) {
           const updatedObj = {}
           for (const key in res) {
-            const newKey = dayjs(key).format('DD')
+            const newKey = dayjs(key).format('D')
             updatedObj[newKey] = res[key]
           }
           setReservations(updatedObj)
