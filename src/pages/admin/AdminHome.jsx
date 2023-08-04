@@ -38,8 +38,9 @@ const AdminHome = () => {
 
   const getReservations = ({
     loading,
-    from = dayjs().startOf('month').format('YYYY-MM-DD'),
+    from = dayjs().subtract(8, 'month').startOf('month').format('YYYY-MM-DD'),
     to = dayjs().endOf('month').format('YYYY-MM-DD')
+    
   }) => {
     handleApiCall({
       variant: 'admin',
