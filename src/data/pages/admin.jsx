@@ -42,7 +42,7 @@ const data = {
     },
     {
       header: 'Top Classes',
-      description: 'Top classes in last two months',
+      description: 'Top classes in last months',
       tags: ({ destinations = [] }) => destinations,
       type: 'common-tags',
       class: 'bg-rose-900'
@@ -53,7 +53,7 @@ const data = {
       type: 'liq-chart',
       props: ({ percentage = 0 }) => ({
         percent: percentage,
-        height: 20
+        height: 15
       })
     },
     {

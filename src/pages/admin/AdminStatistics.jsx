@@ -87,11 +87,11 @@ const AdminStatistics = ({
         </div>
       </div>
 
-      <div className='w-full lg:w-1/4 h-auto lg:h-[calc(100vh-3rem)] p-3 flex flex-col gap-6'>
+      <div className='w-full lg:w-1/4 h-auto lg:h-[calc(100vh-3rem)] p-3 flex flex-col gap-3'>
         {data?.rightPanel?.map((item, idx) => (
           <div
             className={`w-full ${
-              item.type === 'liq-chart' ? 'h-[25rem]' : 'h-[8rem] lg:h-[7rem]'
+              item.type === 'liq-chart' ? 'h-[20rem]' :item.type === 'common-tags'? 'h-[14rem]': 'h-[8rem] lg:h-[7rem]'
             } p-2 rounded-lg bg-neutral-800 border-2 hover:border-yellow-500 hover:shadow-md duration-500 cursor-pointer ${
               item.class
             }`}
@@ -128,14 +128,18 @@ const AdminStatistics = ({
                           })
                         )
                     })
-                    ?.map((tag, id) => (
-                      <CommonTag
-                        key={id}
-                        item={tag}
-                        type='class'
-                        onlyClassName
-                      />
-                    ))}
+                    ?.slice(-4).map(
+                      (tag, id) =>
+                          <div className='flex w-full gap-3' key={id}>
+                            <span className='text-slate-50'>{tag.month}</span>
+                            <CommonTag
+                              key={id}
+                              item={tag}
+                              type='class'
+                              onlyClassName
+                            />
+                          </div>
+                    )}
               </div>
             )}
 
